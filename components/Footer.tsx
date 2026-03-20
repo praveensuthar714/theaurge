@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Links Grid */}
-          <div className="lg:w-1/2 grid grid-cols-2 md:grid-cols-3 gap-12">
+          <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 sm:gap-16">
             {footerLinks.map((group, i) => (
               <div key={i}>
                 <h4 className="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-8">{group.title}</h4>

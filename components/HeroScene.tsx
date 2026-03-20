@@ -9,6 +9,7 @@ import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 // ─── constants ────────────────────────────────────────────────────────────────
 /** Total hero scroll height — gives enough runway for the full video. */
 const HERO_HEIGHT = '380vh';
+const HERO_HEIGHT_MOBILE = '250vh';
 
 /** Where (0-1) the initial hero text fades out */
 const HERO_TEXT_FADE_END = 0.12;
@@ -103,8 +104,8 @@ export const HeroScene: React.FC = () => {
     /* ── Outer scrollable container ── */
     <div
       ref={containerRef}
-      style={{ height: HERO_HEIGHT }}
       className="relative w-full bg-black z-10"
+      style={{ height: progress === 0 ? 'auto' : (typeof window !== 'undefined' && window.innerWidth < 768 ? HERO_HEIGHT_MOBILE : HERO_HEIGHT) }}
     >
       {/* ── Sticky viewport ── */}
       <div
@@ -178,14 +179,13 @@ export const HeroScene: React.FC = () => {
               We specialize in high-end visual storytelling, crafting intentional digital
               experiences for the modern era.
             </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-4 mt-6 pointer-events-auto">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-8 md:mt-6 pointer-events-auto">
               <Link
                 href="#contact"
-                className="group/btn relative flex items-center justify-between gap-4 bg-[var(--accent)] pl-5 pr-1 py-1 rounded-[4px] text-[#333] text-[10px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
+                className="group/btn relative flex items-center justify-between gap-4 bg-[var(--accent)] pl-5 pr-1 py-1 rounded-[4px] text-[#333] text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02] w-full sm:w-auto"
               >
                 <span className="pl-1">Start a Project</span>
-                <div className="w-7 h-7 rounded-[4px] bg-white/60 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-10 group-hover/btn:bg-white text-[#333]">
+                <div className="w-8 h-8 rounded-[4px] bg-white/60 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-11 group-hover/btn:bg-white text-[#333]">
                   <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
                   <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
                 </div>
@@ -193,10 +193,10 @@ export const HeroScene: React.FC = () => {
 
               <Link
                 href="#work"
-                className="group/btn relative flex items-center justify-between gap-4 bg-white/20 backdrop-blur-xl border border-white/20 pl-5 pr-1 py-1 rounded-[4px] text-white/90 text-[10px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
+                className="group/btn relative flex items-center justify-between gap-4 bg-white/10 backdrop-blur-xl border border-white/20 pl-5 pr-1 py-1 rounded-[4px] text-white/90 text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02] w-full sm:w-auto"
               >
                 <span className="pl-1">View Work</span>
-                <div className="w-7 h-7 rounded-[4px] bg-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-10 group-hover/btn:bg-white text-white group-hover/btn:text-[#333]">
+                <div className="w-8 h-8 rounded-[4px] bg-white/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-11 group-hover/btn:bg-white text-white group-hover/btn:text-[#333]">
                   <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
                   <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
                 </div>

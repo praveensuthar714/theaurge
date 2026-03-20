@@ -141,7 +141,7 @@ export const Header: React.FC = () => {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 w-full z-[200] pt-4 px-6 lg:px-12 transition-all duration-700 pointer-events-none"
+        className="fixed top-0 left-0 w-full z-[200] pt-4 px-4 md:px-6 lg:px-12 transition-all duration-700 pointer-events-none"
       >
         <div className="max-w-[1700px] mx-auto flex items-center justify-between pointer-events-auto">
           
@@ -178,10 +178,10 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Right Section — RESTORED CTA */}
-          <div className="shrink-0 flex items-center gap-6">
+          <div className="shrink-0 flex items-center gap-3 md:gap-6">
             <Link 
               href="/contact" 
-              className="group/btn relative hidden sm:flex items-center justify-between gap-5 bg-[#E6FF00] pl-6 pr-1 py-1 rounded-[4px] text-black text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
+              className="group/btn relative flex items-center justify-between gap-3 md:gap-5 bg-[#E6FF00] pl-4 md:pl-6 pr-1 py-1 rounded-[4px] text-black text-[9px] md:text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
             >
               <span className="pl-1">Start a Project</span>
               <div className="relative w-8 h-8 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-12 group-hover/btn:bg-black text-black group-hover/btn:text-white">
@@ -209,32 +209,33 @@ export const Header: React.FC = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed inset-0 z-[150] bg-black/95 backdrop-blur-[50px] pt-32 pb-20 px-6 lg:px-12 flex items-center"
       >
-        <div className="max-w-[1700px] w-full mx-auto grid grid-cols-12 gap-0 h-[70vh] items-stretch border border-white/5 rounded-[4px] bg-black/40 overflow-hidden shadow-3xl">
+        <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-0 h-auto md:h-[70vh] items-stretch border border-white/5 rounded-[4px] bg-black/40 overflow-hidden shadow-3xl">
           
           {/* TAB SIDEBAR */}
-          <div className="col-span-4 lg:col-span-3 border-r border-white/10 flex flex-col pt-12">
-             <div className="px-10 mb-12">
+          <div className="col-span-1 md:col-span-4 lg:col-span-3 border-b md:border-b-0 md:border-r border-white/10 flex flex-col pt-8 md:pt-12">
+             <div className="px-6 md:px-10 mb-8 md:mb-12">
                 <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.5em] mb-4 block">the System</span>
-                <h3 className="text-white text-[18px] font-light leading-tight">High-Impact Ecosystem.</h3>
+                <h3 className="text-white text-[18px] md:text-[20px] font-light leading-tight">High-Impact Ecosystem.</h3>
              </div>
              
-             <div className="flex flex-col overflow-y-auto scrollbar-hide">
+             <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-y-auto scrollbar-hide">
                 {Object.values(megaMenuData).map((tab: any) => (
                   <button
                     key={tab.id}
                     onMouseEnter={() => setActiveTab(tab.id)}
-                    className={`group relative text-left py-6 px-10 transition-all duration-500 border-b border-white/5 ${activeTab === tab.id ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`group relative text-left py-4 px-6 md:py-6 md:px-10 transition-all duration-500 border-r md:border-r-0 md:border-b border-white/5 shrink-0 md:shrink ${activeTab === tab.id ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}
                   >
                      <div className="flex flex-col gap-1">
-                        <span className={`text-[9px] uppercase tracking-widest font-bold transition-all duration-500 ${activeTab === tab.id ? 'text-[#E6FF00]' : 'text-white/20'}`}>{tab.title}</span>
-                        <span className={`text-[15px] font-medium tracking-tight transition-all duration-500 ${activeTab === tab.id ? 'text-white translate-x-2' : 'text-white/40'}`}>{tab.label}</span>
+                        <span className={`text-[8px] md:text-[9px] uppercase tracking-widest font-bold transition-all duration-500 ${activeTab === tab.id ? 'text-[#E6FF00]' : 'text-white/20'}`}>{tab.title.split('.')[0]}</span>
+                        <span className={`text-[12px] md:text-[15px] font-medium tracking-tight transition-all duration-500 ${activeTab === tab.id ? 'text-white md:translate-x-2' : 'text-white/40'}`}>{tab.label}</span>
                      </div>
-                     <ChevronRight className={`absolute top-1/2 right-6 -translate-y-1/2 w-4 h-4 transition-all duration-500 ${activeTab === tab.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} />
+                     <ChevronRight className={`hidden md:block absolute top-1/2 right-6 -translate-y-1/2 w-4 h-4 transition-all duration-500 ${activeTab === tab.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} />
                   </button>
                 ))}
              </div>
              
-             <div className="mt-auto p-10 border-t border-white/5 opacity-30">
+             <div className="hidden md:block mt-auto p-10 border-t border-white/5 opacity-30">
                 <div className="flex gap-8">
                    {['IG', 'TW', 'LI'].map(s => <span key={s} className="text-[9px] font-bold tracking-widest">{s}</span>)}
                 </div>
@@ -242,31 +243,31 @@ export const Header: React.FC = () => {
           </div>
 
           {/* CONTENT AREA */}
-          <div className="col-span-8 lg:col-span-6 p-16 overflow-y-auto scrollbar-hide bg-black/20">
+          <div className="col-span-1 md:col-span-8 lg:col-span-6 p-8 md:p-16 overflow-y-auto scrollbar-hide bg-black/20">
              <motion.div
                key={activeTab}
                initial={{ opacity: 0, x: 20 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.5 }}
-               className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12"
+               className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-8 md:gap-y-12"
              >
                 {megaMenuData[activeTab].services.map((svc: any, idx: number) => (
-                   <div key={idx} className="flex flex-col gap-6">
+                   <div key={idx} className="flex flex-col gap-4 md:gap-6">
                       <Link 
                         href={`/services/${svc.slug}`}
                         onClick={() => setIsMegaMenuOpen(false)}
-                        className="text-white text-[20px] font-bold uppercase tracking-wide hover:text-[#E6FF00] transition-colors group flex items-center gap-4"
+                        className="text-white text-[16px] md:text-[20px] font-bold uppercase tracking-wide hover:text-[#E6FF00] transition-colors group flex items-center gap-4"
                       >
                          {svc.name}
                          <ArrowRight className="w-4 h-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                       </Link>
-                      <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-2 md:gap-3">
                          {svc.subs.map((sub: string, sidx: number) => (
                            <Link 
                             key={sidx}
                             href={`/services/${svc.slug}#${sub.toLowerCase().replace(/\s+/g, '-')}`}
                             onClick={() => setIsMegaMenuOpen(false)}
-                            className="text-white/30 text-[13px] hover:text-white transition-colors flex items-center gap-3 group/sub"
+                            className="text-white/30 text-[12px] md:text-[13px] hover:text-white transition-colors flex items-center gap-3 group/sub"
                            >
                               <div className="w-1.5 h-[1px] bg-white/10 group-hover/sub:w-4 group-hover/sub:bg-[#E6FF00] transition-all" />
                               {sub}

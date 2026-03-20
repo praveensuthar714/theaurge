@@ -145,7 +145,7 @@ export const InteractiveServices: React.FC = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[110vh] min-h-[850px] overflow-visible z-20"
+      className="relative w-full h-[110vh] min-h-[850px] overflow-hidden z-20"
     >
       {/* ── ATMOSPHERIC SCENE ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
@@ -158,7 +158,7 @@ export const InteractiveServices: React.FC = () => {
         <div className="absolute inset-x-0 top-0 h-[40vh] bg-gradient-to-b from-black via-black/40 to-transparent" />
       </div>
 
-      <div className="relative w-full h-full max-w-[1240px] mx-auto z-10 px-6">
+      <div className="relative w-full h-[90%] md:h-full max-w-[1240px] mx-auto z-10 px-6 scale-[0.6] sm:scale-75 md:scale-100 origin-center">
         
         {/* NETWORK TOPOLOGY SYSTEM */}
         <svg 
@@ -265,7 +265,7 @@ export const InteractiveServices: React.FC = () => {
               >
                 <service.icon className="w-5 h-5 text-[#B0B0B0] group-hover:text-white transition-colors duration-300" />
               </div>
-              <span className="text-[13px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap">
+              <span className="text-[13px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap text-center">
                 {service.name}
               </span>
             </div>

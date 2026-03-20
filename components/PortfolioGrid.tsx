@@ -88,7 +88,7 @@ export const PortfolioGrid: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-black w-full flex flex-col pt-20 md:pt-28 pb-8"
+      className="relative bg-black w-full flex flex-col pt-20 md:pt-28 pb-8 overflow-hidden"
       style={{ height: '100svh' }}
     >
       {/* ── BACKGROUND ── */}
