@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --background: #0A0A0A;
+  --secondary: #141414;
+  --surface: #1C1C20;
+  --foreground: #FFFFFF;
+  --text-secondary: #BBBBBB;
+  
+  --accent: #D9FF00;
+  --accent-soft: #C8EB00;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer base {
+  body {
+    color: var(--foreground);
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                url('/body-bg.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Inter', sans-serif;
+    overflow-x: clip; /* clip instead of hidden to allow position: sticky */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Minimal Editorial Typography */
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--foreground);
+  }
+
+  .subtitle-premium {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    color: rgba(255, 255, 255, 0.4);
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Refined Surface Panels */
+  .glass-panel {
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-premium {
+    background: var(--accent);
+    color: #000;
+    padding: 0.8rem 2.2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-premium:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(217, 255, 0, 0.3);
+  }
+}
+
+ ::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+/* Custom Scroll Handling */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Antigravity Utilities */
+.perspective-container {
+  perspective: 1200px;
+}

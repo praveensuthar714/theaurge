@@ -1,0 +1,32 @@
+.beams-ray {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--beam-color, #E6FF00) 20%,
+    var(--beam-color, #E6FF00) 80%,
+    transparent 100%
+  );
+  filter: blur(var(--beam-blur, 4px));
+  animation: beam-travel var(--beam-duration, 4s) var(--beam-delay, 0s) linear infinite;
+  transform-origin: top center;
+  opacity: 0;
+  height: var(--beam-height, 70%);
+  top: -10%;
+}
+
+@keyframes beam-travel {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(200%);
+  }
+}
