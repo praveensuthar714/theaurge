@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 
 export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
@@ -16,15 +17,21 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
       infinite: false,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Sync ScrollTrigger with Lenis
+    lenis.on('scroll', () => {
+      ScrollTrigger.update();
+    });
 
-    requestAnimationFrame(raf);
+    // Use GSAP's ticker for Lenis
+    const update = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
+      gsap.ticker.remove(update);
     };
   }, []);
 

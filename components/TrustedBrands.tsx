@@ -101,7 +101,7 @@ const ScrollingColumn = ({ brands, direction }: { brands: typeof brandsCol1, dir
 
 export const TrustedBrands: React.FC = () => {
   return (
-    <section className="relative z-30 bg-black overflow-hidden py-12">
+    <section className="relative z-10 bg-black overflow-hidden py-12">
       
       {/* ── ATMOSPHERE: PURE BLACK BLANKET ── */}
       <div className="absolute inset-0 pointer-events-none bg-black" />

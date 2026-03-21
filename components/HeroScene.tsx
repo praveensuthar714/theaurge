@@ -57,6 +57,11 @@ export const HeroScene: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
+    // Direct window escape for the fallback script
+    (window as any).setVideoReadyFallback = () => {
+      setVideoReady(true);
+    };
+
     const st = ScrollTrigger.create({
       trigger: container,
       start: 'top top',
@@ -101,11 +106,10 @@ export const HeroScene: React.FC = () => {
   const exitOpacity  = 1 - exitProgress * 0.25;
 
   return (
-    /* ── Outer scrollable container ── */
     <div
       ref={containerRef}
-      className="relative w-full bg-black z-10"
-      style={{ height: progress === 0 ? 'auto' : (typeof window !== 'undefined' && window.innerWidth < 768 ? HERO_HEIGHT_MOBILE : HERO_HEIGHT) }}
+      className="relative w-full bg-black z-40"
+      style={{ height: (typeof window !== 'undefined' && window.innerWidth < 768) ? HERO_HEIGHT_MOBILE : HERO_HEIGHT }}
     >
       {/* ── Sticky viewport ── */}
       <div
@@ -126,7 +130,7 @@ export const HeroScene: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover scale-[1.04]"
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           onLoadedMetadata={() => {
             const v = videoRef.current;
             if (v) {
@@ -141,6 +145,13 @@ export const HeroScene: React.FC = () => {
           <source src="/video/hero.webm" type="video/webm" />
           <source src="/video/scene1_scrub.mp4" type="video/mp4" />
         </video>
+
+        {/* --- VIDEO LOAD FALLBACK --- */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          setTimeout(() => {
+            if (window.setVideoReadyFallback) window.setVideoReadyFallback();
+          }, 3000);
+        `}} />
 
 
         {/* Subtle vignette */}
