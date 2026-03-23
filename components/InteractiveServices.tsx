@@ -31,20 +31,32 @@ export const InteractiveServices: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const updateDimensions = () => {
       if (containerRef.current) {
         setDimensions({
           width: containerRef.current.offsetWidth,
           height: containerRef.current.offsetHeight,
         });
+        // REFRESH SCROLLTRIGGER AFTER LAYOUT UPDATE
+        ScrollTrigger.refresh();
       }
     };
 
-    const resizeObserver = new ResizeObserver(updateDimensions);
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateDimensions, 400); // 400ms Debounce
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
     if (containerRef.current) resizeObserver.observe(containerRef.current);
     updateDimensions();
 
-    return () => resizeObserver.disconnect();
+    return () => {
+      resizeObserver.disconnect();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {
@@ -60,7 +72,7 @@ export const InteractiveServices: React.FC = () => {
       });
 
       // 1. Reveal center branding hub
-      gsap.set(centerNodeRef.current, { xPercent: -50, yPercent: 50 });
+      gsap.set(centerNodeRef.current, { xPercent: -50, yPercent: 15 });
       tl.fromTo(centerNodeRef.current,
         { opacity: 0, scale: 0.8 },
         { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.7)" }
@@ -145,7 +157,7 @@ export const InteractiveServices: React.FC = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[110vh] min-h-[850px] overflow-hidden z-20"
+      className="relative w-full h-[110vh] min-h-[850px] overflow-visible z-20"
     >
       {/* ── ATMOSPHERIC SCENE ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">

@@ -66,9 +66,9 @@ export const CapabilitiesSection: React.FC = () => {
     <section ref={sectionRef} className="relative z-20 pt-[200px] pb-40 px-6 bg-black overflow-hidden">
       <div className="container mx-auto max-w-7xl">
         <div className="mb-20 flex flex-col items-center text-center">
-           <span className="text-[10px] uppercase tracking-[0.5em] text-[#E6FF00]/60 mb-5 block font-bold">Expertise</span>
-           <h2 className="text-3xl md:text-[42px] font-light tracking-tight leading-[1.1] max-w-2xl bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
-             Engineering cinematic solutions <br /> for the <span className="italic">extraordinary</span>.
+           <span className="subtitle-premium">Expertise</span>
+           <h2 className="h-lg max-w-2xl">
+             Engineering cinematic solutions <br /> for the extraordinary.
            </h2>
         </div>
         

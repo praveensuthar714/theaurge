@@ -6,18 +6,31 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, ChevronRight, Sparkles, Monitor, Video, Layers } from 'lucide-react';
 
 const navItems = [
-  { name: 'Work', href: '/work' },
+  { name: 'Portfolio', href: '/work' },
   { name: 'Services', href: '/services' },
-  { name: 'Studio', href: '/about' },
-  { name: 'Journal', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Team', href: '/about' },
+  { name: 'Blog', href: '/blog' },
+];
+
+const serviceItems = [
+  { name: "Video Production", slug: "video-production" },
+  { name: "Brand Identity Design", slug: "brand-identity-design" },
+  { name: "Digital Marketing", slug: "digital-marketing" },
+  { name: "Photography", slug: "photography" },
+  { name: "Business Consultancy", slug: "business-consultancy" },
+  { name: "Web Development", slug: "web-development" },
+  { name: "Performance Marketing", slug: "performance-marketing" },
+  { name: "SEO", slug: "seo" },
+  { name: "AI Marketing", slug: "ai-marketing" },
+  { name: "Event Marketing", slug: "event-marketing" },
+  { name: "Offline Marketing", slug: "offline-marketing" },
+  { name: "Inbound Messaging", slug: "inbound-messaging" },
 ];
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState('creativeProduction');
 
   useEffect(() => {
     setMounted(true);
@@ -29,111 +42,6 @@ export const Header: React.FC = () => {
   }, []);
 
   if (!mounted) return null;
-
-  const megaMenuData: Record<string, any> = {
-    creativeProduction: {
-      id: 'creativeProduction',
-      title: "01. Creative Production",
-      label: "Visual Narrative",
-      services: [
-        { 
-          name: "Video Production", 
-          slug: "video-production",
-          subs: ["Ad Films", "Documentaries", "Corporate Videos"] 
-        },
-        { 
-          name: "Photography", 
-          slug: "photography",
-          subs: ["Product Shoots", "Event Shoots", "Architectural Shoots"] 
-        }
-      ]
-    },
-    brandIdentity: {
-      id: 'brandIdentity',
-      title: "02. Brand Identity",
-      label: "Visual DNA",
-      services: [
-        { 
-          name: "Brand Identity Design", 
-          slug: "brand-identity-design",
-          subs: ["Logo Design", "Stationery Design", "Brand Guidelines"] 
-        }
-      ]
-    },
-    digitalMarketing: {
-      id: 'digitalMarketing',
-      title: "03. Digital Marketing",
-      label: "Market Dominance",
-      services: [
-        { 
-          name: "Digital Marketing", 
-          slug: "digital-marketing",
-          subs: ["Social Media Marketing", "Influencer Marketing", "E-commerce Marketing"] 
-        },
-        { 
-          name: "Performance Marketing", 
-          slug: "performance-marketing",
-          subs: ["Data-driven campaigns", "Targeted audience reach", "ROI Growth"] 
-        },
-        { 
-          name: "SEO", 
-          slug: "seo",
-          subs: ["AEO & GEO", "Website & Local SEO", "Keyword Optimization"] 
-        }
-      ]
-    },
-    technology: {
-      id: 'technology',
-      title: "04. Technology",
-      label: "Digital Infrastructure",
-      services: [
-        { 
-          name: "Web Development", 
-          slug: "web-development",
-          subs: ["Modern UI/UX Design", "CRM Development", "Maintenance & Support"] 
-        }
-      ]
-    },
-    aiAutomation: {
-      id: 'aiAutomation',
-      title: "05. AI & Automation",
-      label: "Intelligent Systems",
-      services: [
-        { 
-          name: "AI Marketing", 
-          slug: "ai-marketing",
-          subs: ["AI Calling Agent", "AI Chat Bots", "Automation Systems"] 
-        }
-      ]
-    },
-    strategyExpansion: {
-      id: 'strategyExpansion',
-      title: "06. Strategy & Expansion",
-      label: "Future Proofing",
-      services: [
-        { 
-          name: "Business Consultancy", 
-          slug: "business-consultancy",
-          subs: ["Competitor & Market Analysis", "Strong Brand Positioning", "Sales Funnel & Strategy"] 
-        },
-        { 
-          name: "Event Marketing", 
-          slug: "event-marketing",
-          subs: ["Brand Event Designing", "Audience Engagement", "Offline-Online Promotions"] 
-        },
-        { 
-          name: "Inbound Messaging", 
-          slug: "inbound-messaging",
-          subs: ["WhatsApp Marketing", "Email Marketing", "Telegram Marketing"] 
-        },
-        { 
-          name: "Offline Marketing", 
-          slug: "offline-marketing",
-          subs: ["Billboards & Print Ads", "Radio & PVR Ads", "On-ground Promotions"] 
-        }
-      ]
-    }
-  };
 
   return (
     <>
@@ -154,19 +62,18 @@ export const Header: React.FC = () => {
             />
           </Link>
 
-          {/* Navigation Capsule — RESTORED */}
-          <div className="hidden xl:flex items-center px-8 py-2.5 rounded-[4px] bg-black/15 backdrop-blur-[32px] border border-white/20 shadow-xl transition-all duration-700 hover:bg-black/25">
-            <nav className="flex items-center gap-12 relative">
+          {/* Navigation Capsule — REFINED AS PER SCREENSHOT */}
+          <div className="hidden xl:flex items-center px-10 py-3 rounded-none bg-black/10 backdrop-blur-[40px] border border-white/10 shadow-2xl transition-all duration-700 hover:bg-black/20">
+            <nav className="flex items-center gap-14 relative">
               {navItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => item.name === 'Services' ? setIsMegaMenuOpen(!isMegaMenuOpen) : null}
-                  className="relative group text-white/80 hover:text-white text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-500 py-1"
+                  className={`relative group text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 py-1 ${isMegaMenuOpen && item.name === 'Services' ? 'text-[#E6FF00]' : 'text-white/80 hover:text-[#E6FF00]'}`}
                 >
                   {item.name === 'Services' ? (
-                    <div className="flex items-center gap-1.5 focus:outline-none">
+                    <div className="flex items-center gap-1 focus:outline-none">
                       {item.name}
-                      <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isMegaMenuOpen ? 'rotate-180' : ''}`} />
                     </div>
                   ) : (
                     <Link href={item.href}>{item.name}</Link>
@@ -177,14 +84,14 @@ export const Header: React.FC = () => {
             </nav>
           </div>
 
-          {/* Right Section — RESTORED CTA */}
-          <div className="shrink-0 flex items-center gap-3 md:gap-6">
+          {/* Right Section — CTA */}
+          <div className="shrink-0 flex items-center gap-3">
             <Link 
               href="/contact" 
-              className="group/btn relative flex items-center justify-between gap-3 md:gap-5 bg-[#E6FF00] pl-4 md:pl-6 pr-1 py-1 rounded-[4px] text-black text-[9px] md:text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
+              className="group/btn relative flex items-center justify-between gap-5 bg-[#E6FF00] pl-6 pr-1 py-1 rounded-none text-black text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
             >
               <span className="pl-1">Start a Project</span>
-              <div className="relative w-8 h-8 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-12 group-hover/btn:bg-black text-black group-hover/btn:text-white">
+              <div className="relative w-8 h-8 rounded-none bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-12 group-hover/btn:bg-black text-black group-hover/btn:text-white">
                 <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
                 <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
               </div>
@@ -202,116 +109,70 @@ export const Header: React.FC = () => {
         </div>
       </motion.header>
 
-      {/* ── PREMIUM TABS-BASED MEGA MENU ── */}
+      {/* ── PREMIUM FULL-SCREEN MEGA MENU (REBUILT FOR 12 SERVICES) ── */}
       <motion.div
         initial={false}
-        animate={isMegaMenuOpen ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: -20, pointerEvents: 'none' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-[150] bg-black/95 backdrop-blur-[50px] pt-32 pb-20 px-6 lg:px-12 flex items-center"
+        animate={isMegaMenuOpen ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: -40, pointerEvents: 'none' }}
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed inset-0 z-[150] bg-black/98 backdrop-blur-[60px] pt-36 pb-20 px-6 lg:px-12 overflow-y-auto overflow-x-hidden"
       >
-        <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-0 h-auto md:h-[70vh] items-stretch border border-white/5 rounded-[4px] bg-black/40 overflow-hidden shadow-3xl">
-          
-          {/* TAB SIDEBAR */}
-          <div className="col-span-1 md:col-span-4 lg:col-span-3 border-b md:border-b-0 md:border-r border-white/10 flex flex-col pt-8 md:pt-12">
-             <div className="px-6 md:px-10 mb-8 md:mb-12">
-                <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.5em] mb-4 block">the System</span>
-                <h3 className="text-white text-[18px] md:text-[20px] font-light leading-tight">High-Impact Ecosystem.</h3>
-             </div>
-             
-             <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-y-auto scrollbar-hide">
-                {Object.values(megaMenuData).map((tab: any) => (
-                  <button
-                    key={tab.id}
-                    onMouseEnter={() => setActiveTab(tab.id)}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`group relative text-left py-4 px-6 md:py-6 md:px-10 transition-all duration-500 border-r md:border-r-0 md:border-b border-white/5 shrink-0 md:shrink ${activeTab === tab.id ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}
-                  >
-                     <div className="flex flex-col gap-1">
-                        <span className={`text-[8px] md:text-[9px] uppercase tracking-widest font-bold transition-all duration-500 ${activeTab === tab.id ? 'text-[#E6FF00]' : 'text-white/20'}`}>{tab.title.split('.')[0]}</span>
-                        <span className={`text-[12px] md:text-[15px] font-medium tracking-tight transition-all duration-500 ${activeTab === tab.id ? 'text-white md:translate-x-2' : 'text-white/40'}`}>{tab.label}</span>
-                     </div>
-                     <ChevronRight className={`hidden md:block absolute top-1/2 right-6 -translate-y-1/2 w-4 h-4 transition-all duration-500 ${activeTab === tab.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} />
-                  </button>
-                ))}
-             </div>
-             
-             <div className="hidden md:block mt-auto p-10 border-t border-white/5 opacity-30">
-                <div className="flex gap-8">
-                   {['IG', 'TW', 'LI'].map(s => <span key={s} className="text-[9px] font-bold tracking-widest">{s}</span>)}
-                </div>
-             </div>
+        <div className="max-w-[1400px] w-full mx-auto">
+          <div className="mb-14 text-center">
+            <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.6em] mb-4 block opacity-50">Ecosystem</span>
+            <h3 className="text-white text-[24px] md:text-[32px] font-light tracking-tight">Our High-Impact Solutions.</h3>
           </div>
 
-          {/* CONTENT AREA */}
-          <div className="col-span-1 md:col-span-8 lg:col-span-6 p-8 md:p-16 overflow-y-auto scrollbar-hide bg-black/20">
-             <motion.div
-               key={activeTab}
-               initial={{ opacity: 0, x: 20 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.5 }}
-               className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-8 md:gap-y-12"
-             >
-                {megaMenuData[activeTab].services.map((svc: any, idx: number) => (
-                   <div key={idx} className="flex flex-col gap-4 md:gap-6">
-                      <Link 
-                        href={`/services/${svc.slug}`}
-                        onClick={() => setIsMegaMenuOpen(false)}
-                        className="text-white text-[16px] md:text-[20px] font-bold uppercase tracking-wide hover:text-[#E6FF00] transition-colors group flex items-center gap-4"
-                      >
-                         {svc.name}
-                         <ArrowRight className="w-4 h-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      </Link>
-                      <div className="flex flex-col gap-2 md:gap-3">
-                         {svc.subs.map((sub: string, sidx: number) => (
-                           <Link 
-                            key={sidx}
-                            href={`/services/${svc.slug}#${sub.toLowerCase().replace(/\s+/g, '-')}`}
-                            onClick={() => setIsMegaMenuOpen(false)}
-                            className="text-white/30 text-[12px] md:text-[13px] hover:text-white transition-colors flex items-center gap-3 group/sub"
-                           >
-                              <div className="w-1.5 h-[1px] bg-white/10 group-hover/sub:w-4 group-hover/sub:bg-[#E6FF00] transition-all" />
-                              {sub}
-                           </Link>
-                         ))}
-                      </div>
-                   </div>
-                ))}
-             </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 pb-20">
+            {serviceItems.map((svc, idx) => (
+              <motion.div
+                key={svc.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isMegaMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: idx * 0.05 }}
+              >
+                <Link 
+                  href={`/services/${svc.slug}`}
+                  onClick={() => setIsMegaMenuOpen(false)}
+                  className="group relative flex items-center justify-between p-7 lg:p-10 rounded-none bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-[#E6FF00]/30 transition-all duration-500 overflow-hidden"
+                >
+                  <div className="flex flex-col gap-1 relative z-10">
+                    <span className="text-white text-[13px] md:text-[14px] font-bold uppercase tracking-widest group-hover:text-white group-hover:translate-x-1 transition-all">
+                      {svc.name.includes(' ') ? (
+                        <>
+                          {svc.name.split(' ')[0]} <br />
+                          {svc.name.split(' ').slice(1).join(' ')}
+                        </>
+                      ) : svc.name}
+                    </span>
+                  </div>
+                  <div className="shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 group-hover:bg-[#E6FF00] group-hover:border-[#E6FF00] group-hover:rotate-[-45deg]">
+                    <ArrowRight className="w-3.5 h-3.5 text-white group-hover:text-black transition-colors" />
+                  </div>
+
+                  {/* Kinetic Shadow Background (Subtle) */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                </Link>
+              </motion.div>
+            ))}
           </div>
 
-          {/* FEATURED PANEL */}
-          <div className="hidden lg:col-span-3 lg:flex flex-col border-l border-white/10 p-12 bg-neutral-950/20">
-             <div className="group relative rounded-[4px] overflow-hidden aspect-[4/5] border border-white/10 bg-black cursor-pointer mb-12">
-                <img 
-                  src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" 
-                  className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-[1.1] group-hover:scale-100" 
-                  alt="Spotlight"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8">
-                   <span className="text-[#E6FF00] text-[9px] font-bold tracking-[0.4em] mb-4 block">SPOTLIGHT</span>
-                   <h4 className="text-white text-[18px] font-medium leading-tight mb-6">Lumina Noir. Visual Architecture.</h4>
-                   <Link href="/work/1" onClick={() => setIsMegaMenuOpen(false)} className="inline-flex items-center gap-2 text-[10px] text-white/50 uppercase tracking-widest font-bold">
-                      Explore <ArrowRight className="w-3.5 h-3.5" />
-                   </Link>
-                </div>
+          {/* Bottom Call to Action or Footer inside Mega Menu */}
+          <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+             <div className="flex flex-col gap-1">
+                <span className="text-white text-[16px] font-medium tracking-tight">Ready to activate your brand?</span>
+                <span className="text-white/20 text-[11px] tracking-widest font-bold uppercase">Let's build something extraordinary.</span>
              </div>
-             
              <Link 
               href="/contact" 
               onClick={() => setIsMegaMenuOpen(false)}
-              className="mt-auto group/btn flex items-center justify-between p-6 border border-white/5 hover:border-[#E6FF00]/30 transition-all rounded-[4px]"
+              className="flex items-center gap-4 text-[#E6FF00] group"
              >
-                <div className="flex flex-col">
-                   <span className="text-white text-[12px] font-bold tracking-widest">START A PROJECT</span>
-                   <span className="text-white/20 text-[9px] tracking-widest mt-1">Global Delivery Units</span>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover/btn:bg-[#E6FF00] group-hover/btn:text-black transition-all">
+                <span className="text-[11px] font-bold tracking-[0.3em] uppercase">Start Deployment</span>
+                <div className="w-10 h-10 rounded-full border border-[#E6FF00]/20 flex items-center justify-center group-hover:bg-[#E6FF00] group-hover:text-black transition-all">
                    <ArrowRight className="w-4 h-4" />
                 </div>
              </Link>
           </div>
-
         </div>
       </motion.div>
     </>

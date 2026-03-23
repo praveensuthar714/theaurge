@@ -22,26 +22,26 @@ interface Capability {
 
 const capabilities: Capability[] = [
   {
-    title: "Strategy",
-    description: "Research, positioning, and planning",
+    title: "Intelligence",
+    description: "Auditing your brand's DNA to identify gaps and tactical opportunities",
     icon: Target,
     image: "/scene1.png",
   },
   {
-    title: "Creative",
-    description: "Visual identity, content, and storytelling",
+    title: "Engineering",
+    description: "Architecting a synchronized blueprint of cinematic and technical systems",
     icon: Palette,
     image: "/scene2.png",
   },
   {
-    title: "Technology",
-    description: "Web, automation, and systems",
+    title: "Assembly",
+    description: "Executing high-fidelity production with surgical across-the-board precision",
     icon: Cpu,
     image: "/scene3.png",
   },
   {
-    title: "Growth",
-    description: "Marketing, SEO, and performance",
+    title: "Dominance",
+    description: "Tactical deployment and aggressive scaling to capture the global market",
     icon: Zap,
     image: "/scene4.png",
   }
@@ -204,20 +204,18 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
 
       <div className="container mx-auto max-w-7xl relative z-10 px-6">
         <div className="text-center mb-12">
-          <span className="wwd-content subtitle-premium block mb-4" style={{ opacity: 0 }}>Designed for Dominance</span>
+          <span className="wwd-content subtitle-premium block mb-4" style={{ opacity: 0 }}>The Workflow</span>
 
-          <h2 className="wwd-content text-[38px] md:text-[60px] font-medium leading-[1.05] tracking-[-0.03em] mb-6" style={{ opacity: 0 }}>
-            <span className="bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
-              What We Do<span className="text-[#E6FF00]">.</span>
-            </span>
+          <h2 className="wwd-content h-lg mb-6" style={{ opacity: 0 }}>
+            Our Blueprint<span className="text-[#E6FF00]">.</span>
           </h2>
 
           <div className="wwd-content flex flex-col items-center gap-1" style={{ opacity: 0 }}>
             <p className="text-white/35 text-[14px] md:text-[15px] font-light tracking-wide">
-              We combine strategy, creativity & technology to build brands that
+              A precise, high-fidelity methodology engineered to take your brand from
             </p>
             <p className="text-white text-[15px] md:text-[16px] font-semibold tracking-[0.08em] uppercase">
-              Stand Out<span className="text-[#E6FF00]">.</span>
+              Vision to Reality<span className="text-[#E6FF00]">.</span>
             </p>
           </div>
         </div>
@@ -229,8 +227,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
         </div>
       </div>
 
-      {/* Subtle Bottom Separation Line */}
-      <div className="absolute bottom-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      {/* Removed Subtle Bottom Separation Line as requested */}
     </section>
   );
 };

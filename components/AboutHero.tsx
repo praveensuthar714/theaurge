@@ -18,7 +18,7 @@ const HERO_TEXT_FADE_END = 0.12;
 const MID_TEXT_START = 0.38;
 const MID_TEXT_FULL  = 0.75;
 
-export const HeroScene: React.FC = () => {
+export const AboutHero: React.FC = () => {
   const containerRef   = useRef<HTMLDivElement>(null);
   const stickyRef      = useRef<HTMLDivElement>(null);
   const videoRef       = useRef<HTMLVideoElement>(null);
@@ -298,4 +298,4 @@ export const HeroScene: React.FC = () => {
   );
 };
 
-export default HeroScene;
+export default AboutHero;

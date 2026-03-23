@@ -87,7 +87,7 @@ export default function ServicesPage() {
           >
             <span className="subtitle-premium">The Ecosystem</span>
             <h1 className="text-[48px] md:text-[98px] font-medium leading-[0.95] tracking-tight text-white mb-14 max-w-5xl">
-              Engineered <span className="italic font-light text-white/30">for impact</span>. <br />
+              Engineered <span className="font-light text-white/30">for impact</span>. <br />
               Synchronized for scale.
             </h1>
             <p className="text-white/50 text-[18px] md:text-[24px] max-w-2xl leading-relaxed font-light mb-16">
@@ -161,7 +161,7 @@ export default function ServicesPage() {
                     <group.icon className="w-5 h-5 text-white/20" />
                   </div>
                   <h2 className="text-[34px] md:text-[48px] font-medium text-white mb-6 tracking-tight leading-none group-hover:text-[#E6FF00] transition-colors">{group.title}</h2>
-                  <p className="text-white/30 text-[16px] md:text-[18px] mb-0 max-w-md leading-relaxed font-light italic">
+                  <p className="text-white/30 text-[16px] md:text-[18px] mb-0 max-w-md leading-relaxed font-light">
                     {group.desc}
                   </p>
                 </div>
@@ -218,7 +218,7 @@ export default function ServicesPage() {
       <section className="py-64 text-center bg-black relative">
          <div className="container mx-auto px-6 relative z-10">
             <h2 className="text-[48px] md:text-[88px] font-light text-white tracking-tighter leading-[0.9] mb-20 max-w-4xl mx-auto">
-               Ready to architect <br /> your <span className="italic text-white/30">market impact</span>?
+               Ready to architect <br /> your <span className="text-white/30">market impact</span>?
             </h2>
             <Link 
               href="/contact" 

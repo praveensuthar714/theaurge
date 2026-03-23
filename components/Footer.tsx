@@ -2,112 +2,153 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Instagram, Twitter, Linkedin, Facebook } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Instagram, Linkedin, Twitter, Mail } from 'lucide-react';
 
-const footerLinks = [
-  {
-    title: "Studio",
-    links: [
-      { name: "Work", href: "/work" },
-      { name: "Services", href: "/services" },
-      { name: "About", href: "/about" },
-      { name: "Journal", href: "/blog" },
-    ]
-  },
-  {
-    title: "Services",
-    links: [
-      { name: "Video Production", href: "/services" },
-      { name: "Brand Identity", href: "/services" },
-      { name: "Web Experiences", href: "/services" },
-      { name: "Digital Strategy", href: "/services" },
-    ]
-  },
-  {
-    title: "Connect",
-    links: [
-      { name: "Instagram", href: "https://instagram.com" },
-      { name: "Twitter", href: "https://twitter.com" },
-      { name: "LinkedIn", href: "https://linkedin.com" },
-      { name: "Facebook", href: "https://facebook.com" },
-    ]
-  }
-];
+const footerData = {
+  solutions: [
+    { name: "Creative Production", href: "/services" },
+    { name: "Website Experience", href: "/services" },
+    { name: "Video Production", href: "/services" },
+    { name: "AI Automation", href: "/services" },
+    { name: "Growth Strategy", href: "/services" },
+  ],
+  studio: [
+    { name: "Work", href: "/work" },
+    { name: "Services", href: "/services" },
+    { name: "Studio", href: "/about" },
+    { name: "Journal", href: "/blog" },
+    { name: "Contact", href: "/contact" },
+  ],
+  social: [
+    { name: "Instagram", href: "https://instagram.com", icon: <Instagram className="w-4 h-4" /> },
+    { name: "LinkedIn", href: "https://linkedin.com", icon: <Linkedin className="w-4 h-4" /> },
+    { name: "Twitter", href: "https://twitter.com", icon: <Twitter className="w-4 h-4" /> },
+  ]
+};
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-black pt-32 pb-12 border-t border-white/5 overflow-hidden">
-      {/* Background Atmosphere */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E6FF00]/[0.02] rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+    <footer className="relative bg-[#050505] pt-32 pb-12 overflow-hidden">
+      
+      {/* ── SAFETY BACKGROUND LAYER (UNMISSABLE) ── */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img 
+          src="/Footerbg.png" 
+          alt="" 
+          className="w-full h-full object-cover"
+        />
+        {/* TOP BLEND: Gradient patch to merge with body */}
+        <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#050505] to-transparent" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between mb-24 gap-16 lg:gap-0">
-          
-          {/* Logo & Manifesto Short */}
-          <div className="lg:w-1/3">
-            <Link href="/" className="inline-block mb-10">
-              <img 
-                src="/the-Aurge-e1754069744650.png" 
-                alt="theAurge Logo" 
-                className="h-10 md:h-12 w-auto object-contain brightness-110"
-              />
-            </Link>
-            <p className="text-white/40 text-[15px] max-w-sm leading-relaxed mb-10">
-              We are a premium creative studio dedicated to crafting cinematic digital experiences that bridge the gap between imagination and reality.
-            </p>
-            <div className="flex items-center gap-5">
-              {[Instagram, Twitter, Linkedin, Facebook].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-[4px] border border-white/10 flex items-center justify-center text-white/40 hover:text-[var(--accent)] hover:border-[var(--accent)]/30 transition-all duration-500">
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
+      <div className="container mx-auto max-w-[1400px] px-6 md:px-12 relative z-10">
+        
+        {/* TOP ROW: BRAND & CTA */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-24">
+          <div className="max-w-xl">
+             <Link href="/" className="inline-block mb-8">
+               <img 
+                 src="/the-Aurge-e1754069744650.png" 
+                 alt="theAurge" 
+                 className="h-9 md:h-11 w-auto object-contain brightness-110"
+               />
+             </Link>
+             <h3 className="text-[20px] md:text-[24px] font-medium text-[#EAEAEA] leading-snug tracking-tight">
+               Crafting high-precision cinematic <br className="hidden md:block" /> digital experiences for global leaders.
+             </h3>
           </div>
 
-          {/* Links Grid */}
-          <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 sm:gap-16">
-            {footerLinks.map((group, i) => (
-              <div key={i}>
-                <h4 className="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-8">{group.title}</h4>
-                <ul className="flex flex-col gap-5">
-                  {group.links.map((link, j) => (
-                    <li key={j}>
-                      <Link 
-                        href={link.href} 
-                        className="text-white/40 hover:text-white transition-colors duration-500 text-[13px] font-medium flex items-center group/link"
-                      >
-                        {link.name}
-                        {link.href.startsWith('http') && <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 group-hover/link:opacity-100 -translate-y-1 translate-x-1 group-hover/link:translate-y-0 group-hover/link:translate-x-0 transition-all duration-500" />}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <Link
+            href="/contact"
+            className="group relative flex items-center gap-6 bg-[#E6FF00] pl-7 pr-1 py-1 rounded-none text-black text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_30px_rgba(230,255,0,0.2)]"
+          >
+            <span className="pl-1">Start a Project</span>
+            <div className="relative w-10 h-10 rounded-none bg-black flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:w-14 group-hover:bg-black text-white">
+              <ArrowRight className="w-4 h-4 -translate-x-5 opacity-0 absolute transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
+              <ArrowRight className="w-4 h-4 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover:translate-x-5 group-hover:opacity-0" />
+            </div>
+          </Link>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-medium">
-            &copy; {new Date().getFullYear()} theAurge Studio / All Rights Reserved
-          </div>
-          
-          <div className="flex items-center gap-10">
-             <Link href="/privacy" className="text-[10px] text-white/30 hover:text-white transition-colors uppercase tracking-[0.3em] font-medium">Privacy</Link>
-             <Link href="/terms" className="text-[10px] text-white/30 hover:text-white transition-colors uppercase tracking-[0.3em] font-medium">Terms</Link>
+        {/* MIDDLE ROW: NAVIGATION */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-12 mb-24 border-t border-white/5 pt-16">
+          <div className="lg:col-span-3">
+             <h4 className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">Solutions</h4>
+             <ul className="space-y-4">
+               {footerData.solutions.map((item, i) => (
+                 <li key={i}>
+                   <Link href={item.href} className="text-white/40 hover:text-[#E6FF00] text-[14px] transition-all duration-300">
+                     {item.name}
+                   </Link>
+                 </li>
+               ))}
+             </ul>
           </div>
 
-          <div className="flex items-center gap-2 group cursor-pointer">
-             <span className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-medium group-hover:text-white transition-colors">Back to top</span>
-             <div className="w-8 h-8 rounded-[4px] border border-white/10 flex items-center justify-center text-white/30 group-hover:border-white transition-all duration-500 group-hover:-translate-y-1">
-                <ArrowUpRight className="w-3 h-3" />
+          <div className="lg:col-span-3">
+             <h4 className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">Studio</h4>
+             <ul className="space-y-4">
+               {footerData.studio.map((item, i) => (
+                 <li key={i}>
+                   <Link href={item.href} className="text-white/40 hover:text-[#E6FF00] text-[14px] transition-all duration-300">
+                     {item.name}
+                   </Link>
+                 </li>
+               ))}
+             </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+             <h4 className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">Contact</h4>
+             <div className="space-y-6">
+               <a href="mailto:hello@theaurge.com" className="text-white group block">
+                  <span className="text-white/40 block text-[10px] uppercase mb-1">Email</span>
+                  <span className="text-[16px] group-hover:text-[#E6FF00] transition-colors underline underline-offset-4 decoration-white/10">hello@theaurge.com</span>
+               </a>
+               <div className="flex items-center gap-4">
+                  {footerData.social.map((social, i) => (
+                    <a 
+                      key={i} 
+                      href={social.href} 
+                      className="w-9 h-9 border border-white/5 rounded-full flex items-center justify-center text-white/30 hover:text-white hover:border-white/20 transition-all"
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+               </div>
              </div>
           </div>
+
+          <div className="lg:col-span-3 lg:text-right flex flex-col items-start lg:items-end">
+             <h4 className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">Location</h4>
+             <p className="text-white/40 text-[14px] leading-relaxed">
+               Maharashtra, India <br />
+               Global Operations Hub <br />
+               Remote First Studio.
+             </p>
+          </div>
         </div>
+
+        {/* BOTTOM ROW: LEGAL */}
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+           <div className="flex items-center gap-8 text-[11px] text-white/20 font-medium">
+             <span>&copy; {new Date().getFullYear()} The Aurge</span>
+             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+           </div>
+
+           <button 
+             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+             className="flex items-center gap-4 group"
+           >
+             <span className="text-[10px] text-white/20 uppercase tracking-[0.3em] font-bold group-hover:text-white transition-colors">Origins</span>
+             <div className="relative w-10 h-10 border border-white/5 rounded-none flex items-center justify-center overflow-hidden text-white/20 group-hover:border-[#E6FF00] group-hover:text-[#E6FF00] transition-all">
+                <ArrowUpRight className="w-4 h-4 -translate-x-5 -translate-y-[-5px] opacity-0 absolute transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+                <ArrowUpRight className="w-4 h-4 translate-x-0 translate-y-0 opacity-100 absolute transition-all duration-500 group-hover:translate-x-5 group-hover:translate-y-[-5px] group-hover:opacity-0" />
+             </div>
+           </button>
+        </div>
+
       </div>
     </footer>
   );

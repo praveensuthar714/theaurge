@@ -100,63 +100,68 @@ const ScrollingColumn = ({ brands, direction }: { brands: typeof brandsCol1, dir
 };
 
 export const TrustedBrands: React.FC = () => {
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const allBrands = [...brandsCol1, ...brandsCol2, ...brandsCol3];
+
+  useEffect(() => {
+    if (!marqueeRef.current) return;
+    
+    // Smooth infinite scroll
+    const marquee = marqueeRef.current;
+    const totalWidth = marquee.scrollWidth / 2;
+    
+    const tl = gsap.to(marquee, {
+      x: -totalWidth,
+      duration: 35,
+      ease: "none",
+      repeat: -1
+    });
+
+    return () => { tl.kill(); };
+  }, []);
+
   return (
-    <section className="relative z-10 bg-black overflow-hidden py-12">
-      
-      {/* ── ATMOSPHERE: PURE BLACK BLANKET ── */}
-      <div className="absolute inset-0 pointer-events-none bg-black" />
+    <section className="relative z-10 bg-black py-24 sm:py-32">
+      <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
+        <span className="subtitle-premium">
+          RECOGNITION
+        </span>
+        <h2 className="h-lg mb-6">
+          Trusted by <span className="text-white/40">Global Leaders</span>
+        </h2>
+        <p className="body-text max-w-xl mx-auto">
+          We collaborate with technology leaders and creative agencies to engineer cinematic brand experiences.
+        </p>
+      </div>
 
-      <div className="max-w-[1400px] mx-auto px-8 md:px-12 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          
-          {/* ── TYPOGRAPHY ── */}
-          <div className="lg:w-[40%] text-left">
-            <span className="subtitle-premium !mb-4">
-              Recognition
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.1] tracking-[-0.02em] mb-7 bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent block max-w-sm">
-              Trusted by leading brands & creative partners.
-            </h2>
-            <p className="text-white/70 text-[14px] sm:text-[15px] max-w-sm mb-8 leading-relaxed block">
-              We collaborate with global technology leaders to engineer cinematic digital experiences.
-            </p>
+      <div className="relative w-full overflow-hidden py-10">
+        {/* Fading Edge Masks */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
 
-            {/* ── INNER PAGE CTAs ── */}
-            <div className="flex flex-wrap gap-3">
-              <Link href="/services" className="group relative flex items-center justify-between gap-5 bg-[#E6FF00] pl-5 pr-1 py-1 rounded-[4px] text-[#000] text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.04]">
-                <span className="pl-1">Our Services</span>
-                <div className="w-8 h-8 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:w-10 group-hover:bg-black text-[#000] group-hover:text-white">
-                  <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
-                  <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover:translate-x-4 group-hover:opacity-0" />
-                </div>
-              </Link>
-              <Link href="/work" className="group flex items-center gap-3 px-5 py-[9px] rounded-[4px] border border-white/10 text-white/50 hover:text-white hover:border-white/30 text-[10px] font-bold tracking-widest uppercase transition-all duration-500">
-                <span>See Work</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
-              <Link href="/studio" className="group flex items-center gap-3 px-5 py-[9px] rounded-[4px] border border-white/10 text-white/50 hover:text-white hover:border-white/30 text-[10px] font-bold tracking-widest uppercase transition-all duration-500">
-                <span>The Studio</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
+        <div 
+          ref={marqueeRef}
+          className="flex whitespace-nowrap items-center gap-20 will-change-transform"
+        >
+          {[...allBrands, ...allBrands].map((brand, i) => (
+            <div 
+              key={`${brand.name}-${i}`}
+              className="flex items-center justify-center grayscale opacity-30 hover:opacity-100 transition-opacity duration-700 min-w-[120px] md:min-w-[160px]"
+            >
+              <img 
+                src={`https://logo.clearbit.com/${brand.domain}`} 
+                alt={brand.name}
+                className="h-8 md:h-10 w-auto object-contain"
+                onError={(e) => {
+                  if (!e.currentTarget.src.includes('unavatar')) {
+                    e.currentTarget.src = `https://unavatar.io/${brand.domain}`;
+                  } else {
+                    e.currentTarget.style.display = 'none';
+                  }
+                }}
+              />
             </div>
-
-            <div className="w-12 h-[1px] bg-white/10 mt-10" />
-          </div>
-
-          {/* ── LOGO SHOWCASE: VELOCITY LOOPER ── */}
-          <div className="lg:w-[60%] w-full h-[500px] relative overflow-hidden">
-            
-            {/* Edge-to-Edge Gradient Masks: Restore atmospheric cutoff */}
-            <div className="absolute inset-x-0 -top-1 h-32 bg-gradient-to-b from-black via-black to-transparent z-20 pointer-events-none" />
-            <div className="absolute inset-x-0 -bottom-1 h-32 bg-gradient-to-t from-black via-black to-transparent z-20 pointer-events-none" />
-
-            <div className="grid grid-cols-3 gap-4 md:gap-5 h-full px-4">
-              <ScrollingColumn brands={brandsCol1} direction="up" />
-              <ScrollingColumn brands={brandsCol2} direction="down" />
-              <ScrollingColumn brands={brandsCol3} direction="up" />
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </section>
@@ -164,3 +169,4 @@ export const TrustedBrands: React.FC = () => {
 };
 
 export default TrustedBrands;
+

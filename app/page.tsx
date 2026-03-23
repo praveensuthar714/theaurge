@@ -11,9 +11,8 @@ import { useState, useEffect } from 'react';
 import { ServicesAssembly } from "@/components/ServicesAssembly";
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
-const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
+const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false });
 const TrustedBrands = dynamic(() => import("@/components/TrustedBrands"), { ssr: false });
-const ManifestoSection = dynamic(() => import("@/components/ManifestoSection"), { ssr: false });
 const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
 const PortfolioGrid = dynamic(() => import("@/components/PortfolioGrid"), { ssr: false });
 
@@ -24,6 +23,10 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
+    // IMPORT SCROLL ENGINE 
+    import('@/lib/scrollEngine').then((module) => {
+      module.initScrollAnimations();
+    });
   }, []);
 
   if (!mounted) return <div className="bg-black min-h-screen" />;
@@ -31,16 +34,13 @@ export default function Home() {
   return (
     <main className="relative bg-black min-h-screen flex flex-col">
       <Header />
-      {/* 1. Hero Scene (500vh Scroll) */}
-      <HeroScene />
+      {/* 1. Hero Video (Autoplay YouTube) */}
+      <HeroVideo />
 
       {/* 2. Trusted Brands Section */}
       <TrustedBrands />
 
-      {/* 3. Manifesto Section (Intro Philosophy) */}
-      <ManifestoSection />
-
-      {/* 4. Unified Services Assembly (Progressive Pinned Reveal) */}
+      {/* 3. Unified Services Assembly (Progressive Pinned Reveal) */}
       <ServicesAssembly />
 
       {/* NEW: Comparison Section (Why The Aurge vs Alternatives) */}

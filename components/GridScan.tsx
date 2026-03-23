@@ -516,10 +516,12 @@ export const GridScan: React.FC<GridScanProps> = ({
     window.addEventListener('resize', onResize);
 
     let last = performance.now();
+    let accumulatedTime = 0;
     const tick = () => {
       const now = performance.now();
       const dt = Math.max(0, Math.min(0.1, (now - last) / 1000));
       last = now;
+      accumulatedTime += dt;
 
       lookCurrent.current.copy(
         smoothDampVec2(lookCurrent.current, lookTarget.current, lookVel.current, smoothTime, maxSpeed, dt)
@@ -538,7 +540,7 @@ export const GridScan: React.FC<GridScanProps> = ({
       material.uniforms.uTilt.value = tiltCurrent.current * tiltScale;
       material.uniforms.uYaw.value = Math.max(-0.6, Math.min(0.6, yawCurrent.current * yawScale));
 
-      material.uniforms.iTime.value = now / 1000;
+      material.uniforms.iTime.value = accumulatedTime;
       renderer.clear(true, true, true);
       
       if (composerRef.current) {

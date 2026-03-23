@@ -61,16 +61,8 @@ const PremiumBackground: React.FC<PremiumBgProps> = ({ className = '' }) => {
         }}
       />
 
-      {/* Subtle horizontal light line — like a horizon glow */}
-      <div
-        className="absolute inset-x-0"
-        style={{
-          height: '1px',
-          top: '42%',
-          background: 'linear-gradient(to right, transparent, rgba(230,255,0,0.08) 30%, rgba(255,255,255,0.06) 50%, rgba(230,255,0,0.08) 70%, transparent)',
-          animation: 'line-pulse 6s ease-in-out infinite',
-        }}
-      />
+      {/* Removed Subtle horizontal light line — like a horizon glow as per user feedback */}
+
 
       <style jsx>{`
         @keyframes orb-drift-1 {

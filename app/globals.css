@@ -23,7 +23,7 @@
 @layer base {
   body {
     color: var(--foreground);
-    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
                 url('/body-bg.png') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Inter', sans-serif;
@@ -34,32 +34,34 @@
 }
 
 @layer components {
-  /* Minimal Editorial Typography */
-  .section-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(2rem, 4.5vw, 3.5rem);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: var(--foreground);
+  /* --- THE PLATINUM TYPOGRAPHY SYSTEM --- */
+  .heading-platinum {
+    @apply bg-gradient-to-br from-white via-white/80 to-white/30 bg-clip-text text-transparent font-medium leading-[1.1] tracking-[-0.02em];
+    -webkit-background-clip: text;
+  }
+
+  .h-xl {
+    @apply text-[38px] md:text-[72px] heading-platinum;
+  }
+
+  .h-lg {
+    @apply text-[32px] sm:text-[42px] md:text-[56px] heading-platinum;
+  }
+
+  .h-md {
+    @apply text-[24px] sm:text-[32px] md:text-[42px] heading-platinum font-light tracking-tight;
+  }
+
+  .h-sm {
+    @apply text-[18px] sm:text-[22px] md:text-[26px] heading-platinum font-normal;
   }
 
   .subtitle-premium {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5em;
-    color: rgba(255, 255, 255, 0.4);
-    display: block;
-    margin-bottom: 2rem;
+    @apply text-[10px] font-bold tracking-[0.5em] uppercase text-white/40 mb-6 block;
   }
 
   .body-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 400;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    @apply font-normal text-[15px] md:text-[17px] leading-relaxed text-white/50;
   }
 
   /* Refined Surface Panels */
@@ -68,7 +70,7 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 32px;
+    border-radius: 0px;
     box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
   }
 
@@ -76,7 +78,7 @@
     background: var(--accent);
     color: #000;
     padding: 0.8rem 2.2rem;
-    border-radius: 4px;
+    border-radius: 0px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;

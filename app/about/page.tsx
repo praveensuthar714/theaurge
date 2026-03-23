@@ -8,20 +8,28 @@ import { ArrowRight, ArrowUpRight, Target, Palette, Cpu, Zap, Globe, Sparkles, A
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+const AboutHero = dynamic(() => import("@/components/AboutHero"), { ssr: false });
+const ManifestoSection = dynamic(() => import("@/components/ManifestoSection"), { ssr: false });
 
 export default function StudioPage() {
   return (
     <main className="bg-black min-h-screen selection:bg-[#E6FF00] selection:text-black">
       <Header />
       
+      {/* 1. CINEMATIC HERO (Shifted from Home) */}
+      <AboutHero />
+
+      {/* 2. MANIFESTO (Shifted from Home) */}
+      <ManifestoSection />
+
       {/* SECTION 1 — WHO WE ARE (Reduced bulkiness) */}
-      <section className="pt-44 pb-32 px-6">
+      <section className="pb-32 px-6">
         <div className="container mx-auto max-w-7xl">
            <span className="text-[#E6FF00] text-[10px] font-bold tracking-[0.6em] uppercase mb-10 block opacity-50">the Studio</span>
            <h1 className="text-[38px] md:text-[62px] font-medium leading-[1.1] tracking-tighter text-white max-w-4xl mb-16 px-1">
               Building trust. <br />
               Connecting audiences. <br />
-              <span className="text-white/20 italic font-light">Impact at institutional scale.</span>
+              <span className="text-white/20 font-light">Impact at institutional scale.</span>
            </h1>
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end">
               <p className="text-white/40 text-[17px] md:text-[21px] max-w-2xl leading-relaxed font-light">
@@ -42,7 +50,7 @@ export default function StudioPage() {
       </section>
 
       {/* SECTION 2 — OUR SPECIALISTS (Clean Node Style) */}
-      <section className="py-44 px-6 border-y border-white/5 bg-[#050505] relative overflow-hidden">
+      <section className="py-44 px-6 bg-[#050505] relative overflow-hidden">
          <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-12">
                <div>
@@ -84,7 +92,7 @@ export default function StudioPage() {
       </section>
 
       {/* SECTION 4 — IMAGE GRID (Handcrafted Feel) */}
-      <section className="py-24 px-6 border-t border-white/5 bg-[#111]">
+      <section className="py-24 px-6 bg-[#111]">
          <div className="container mx-auto max-w-7xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="aspect-[4/5] rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-40 hover:opacity-100 transition-all duration-1000 bg-neutral-900">
@@ -101,7 +109,7 @@ export default function StudioPage() {
       <section className="py-64 text-center">
          <div className="container mx-auto px-6">
             <h2 className="text-[32px] md:text-[62px] font-medium text-white tracking-tight leading-tight mb-20">
-               Ready to execute <br /> your <span className="italic text-white/20">vision</span>?
+               Ready to execute <br /> your <span className="text-white/20">vision</span>?
             </h2>
             <Link 
               href="/contact" 

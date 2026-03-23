@@ -56,17 +56,19 @@ export const ComparisonSection: React.FC = () => {
       <div className="absolute inset-0 z-0 pointer-events-auto opacity-80">
         <GridScan
           sensitivity={0.4}
-          lineThickness={0.3}
-          linesColor="#0d0d0d"
+          lineThickness={0.5}
+          linesColor="#1A1A1A"
           gridScale={0.12}
           scanColor="#E6FF00"
-          scanOpacity={0.12}
+          scanOpacity={0.15}
+          scanDirection="pingpong"
+          scanPhaseTaper={0.0}
           enablePost={true}
           bloomIntensity={0.2}
           chromaticAberration={0.001}
           noiseIntensity={0.02}
-          scanDuration={6.0}
-          scanDelay={1.0}
+          scanDuration={3.0}
+          scanDelay={0.0}
         />
       </div>
 
@@ -76,10 +78,10 @@ export const ComparisonSection: React.FC = () => {
       <div className="container mx-auto max-w-6xl relative z-20">
         <div className="text-center mb-16 md:mb-24">
           <span className="subtitle-premium block mb-4 mx-auto">Superior Ecosystem</span>
-          <h2 className="text-[28px] md:text-[42px] font-medium leading-tight tracking-tight mb-5 text-white">
-            Traditional outsourcing versus The Aurge.
+          <h2 className="h-lg mb-5">
+            Traditional outsourcing versus <span className="text-white/40">The Aurge.</span>
           </h2>
-          <p className="text-white/40 text-[14px] font-light tracking-wide max-w-md mx-auto">
+          <p className="body-text max-w-md mx-auto">
             Compare our elite architecture against traditional market friction.
           </p>
         </div>

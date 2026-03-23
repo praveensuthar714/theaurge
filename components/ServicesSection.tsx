@@ -54,7 +54,7 @@ export const ServicesSection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-start gap-8 group py-12 border-b border-white/5 transition-colors duration-500 hover:border-white/20">
+              <div className="flex items-start gap-8 group py-12 transition-colors duration-500 hover:border-white/20">
                 <span className="text-[14px] font-semibold text-white/20 tracking-widest mt-2">{service.id}</span>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-medium text-[#F5F5F5] tracking-tight mb-4 group-hover:text-white transition-colors duration-500">
