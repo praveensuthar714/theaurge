@@ -15,6 +15,7 @@ const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false }
 const TrustedBrands = dynamic(() => import("@/components/TrustedBrands"), { ssr: false });
 const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
 const PortfolioGrid = dynamic(() => import("@/components/PortfolioGrid"), { ssr: false });
+const GlobalReach = dynamic(() => import("@/components/GlobalReach"), { ssr: false });
 
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
@@ -50,6 +51,9 @@ export default function Home() {
       <div id="work">
         <PortfolioGrid />
       </div>
+
+      {/* 6. Global Reach Globe */}
+      <GlobalReach />
 
       <Footer />
     </main>
