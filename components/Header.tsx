@@ -122,6 +122,20 @@ export const Header: React.FC = () => {
             <h3 className="text-white text-[24px] md:text-[32px] font-light tracking-tight">Our High-Impact Solutions.</h3>
           </div>
 
+          {/* Mobile Main Navigation */}
+          <div className="xl:hidden flex flex-col gap-6 mb-16 text-center border-b border-white/10 pb-12">
+            {navItems.map((item) => (
+              <Link 
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMegaMenuOpen(false)}
+                className="text-white text-2xl font-light tracking-widest uppercase hover:text-[#E6FF00] transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 pb-20">
             {serviceItems.map((svc, idx) => (
               <motion.div
