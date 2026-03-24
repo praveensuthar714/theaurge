@@ -13,10 +13,9 @@ const footerData = {
     { name: "Growth Strategy", href: "/services" },
   ],
   studio: [
-    { name: "Work", href: "/work" },
+    { name: "Portfolio", href: "/work" },
     { name: "Services", href: "/services" },
-    { name: "Studio", href: "/about" },
-    { name: "Journal", href: "/blog" },
+    { name: "About Us", href: "/about" },
     { name: "Contact", href: "/contact" },
   ],
   social: [
@@ -53,7 +52,7 @@ export const Footer: React.FC = () => {
                  className="h-9 md:h-11 w-auto object-contain brightness-110"
                />
              </Link>
-             <h3 className="text-[20px] md:text-[24px] font-medium text-[#EAEAEA] leading-snug tracking-tight">
+             <h3 className="h-md">
                Crafting high-precision cinematic <br className="hidden md:block" /> digital experiences for global leaders.
              </h3>
           </div>

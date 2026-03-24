@@ -8,23 +8,43 @@ import { ArrowRight, ChevronDown, ChevronRight, Sparkles, Monitor, Video, Layers
 const navItems = [
   { name: 'Portfolio', href: '/work' },
   { name: 'Services', href: '/services' },
-  { name: 'Team', href: '/about' },
-  { name: 'Blog', href: '/blog' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact Us', href: '/contact' },
 ];
 
-const serviceItems = [
-  { name: "Video Production", slug: "video-production" },
-  { name: "Brand Identity Design", slug: "brand-identity-design" },
-  { name: "Digital Marketing", slug: "digital-marketing" },
-  { name: "Photography", slug: "photography" },
-  { name: "Business Consultancy", slug: "business-consultancy" },
-  { name: "Web Development", slug: "web-development" },
-  { name: "Performance Marketing", slug: "performance-marketing" },
-  { name: "SEO", slug: "seo" },
-  { name: "AI Marketing", slug: "ai-marketing" },
-  { name: "Event Marketing", slug: "event-marketing" },
-  { name: "Offline Marketing", slug: "offline-marketing" },
-  { name: "Inbound Messaging", slug: "inbound-messaging" },
+const serviceCategories = [
+  {
+    title: "Creative",
+    items: [
+      { name: "Video Production", slug: "video-production" },
+      { name: "Photography", slug: "photography" },
+      { name: "Brand Identity", slug: "brand-identity-design" },
+    ]
+  },
+  {
+    title: "Digital",
+    items: [
+      { name: "Website Development", slug: "web-development" },
+      { name: "UI/UX Design", slug: "web-development" },
+      { name: "SEO Optimization", slug: "seo" },
+    ]
+  },
+  {
+    title: "Marketing",
+    items: [
+      { name: "Performance Marketing", slug: "performance-marketing" },
+      { name: "AI Marketing", slug: "ai-marketing" },
+      { name: "Inbound Messaging", slug: "inbound-messaging" },
+    ]
+  },
+  {
+    title: "Strategy",
+    items: [
+      { name: "Business Consultancy", slug: "business-consultancy" },
+      { name: "Event Marketing", slug: "event-marketing" },
+      { name: "Growth Strategy", slug: "digital-marketing" },
+    ]
+  }
 ];
 
 export const Header: React.FC = () => {
@@ -74,6 +94,7 @@ export const Header: React.FC = () => {
                   {item.name === 'Services' ? (
                     <div className="flex items-center gap-1 focus:outline-none">
                       {item.name}
+                      <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isMegaMenuOpen ? 'rotate-180 text-[#E6FF00]' : ''}`} />
                     </div>
                   ) : (
                     <Link href={item.href}>{item.name}</Link>
@@ -109,84 +130,56 @@ export const Header: React.FC = () => {
         </div>
       </motion.header>
 
-      {/* ── PREMIUM FULL-SCREEN MEGA MENU (REBUILT FOR 12 SERVICES) ── */}
+      {/* ── REFINED COMPACT MEGA MENU ── */}
       <motion.div
         initial={false}
-        animate={isMegaMenuOpen ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: -40, pointerEvents: 'none' }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-[150] bg-black/98 backdrop-blur-[60px] pt-36 pb-20 px-6 lg:px-12 overflow-y-auto overflow-x-hidden"
+        animate={isMegaMenuOpen ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: -20, pointerEvents: 'none' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-0 w-full z-[150] h-auto max-h-[85vh] overflow-hidden pt-[100px]"
       >
-        <div className="max-w-[1400px] w-full mx-auto">
-          <div className="mb-14 text-center">
-            <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.6em] mb-4 block opacity-50">Ecosystem</span>
-            <h3 className="text-white text-[24px] md:text-[32px] font-light tracking-tight">Our High-Impact Solutions.</h3>
-          </div>
+        {/* Backdrop / Glass layer - Contained height */}
+        <div className="absolute inset-0 bg-black/90 backdrop-blur-[80px] border-b border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)]" />
+        
+        <div className="relative max-w-[1400px] w-full mx-auto px-6 lg:px-12 py-12 lg:py-16 overflow-y-auto max-h-[calc(85vh-100px)]">
+          
+            {/* CATEGORIZED SERVICES GRID (Full Width) */}
+            <div className="lg:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20">
+              {serviceCategories.map((cat, catIdx) => (
+                <div key={cat.title} className="flex flex-col gap-8">
+                  <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.5em] opacity-40">
+                    {cat.title}
+                  </span>
+                  <div className="flex flex-col gap-5">
+                    {cat.items.map((item, idx) => (
+                      <Link 
+                        key={item.name}
+                        href={`/services/${item.slug}`}
+                        onClick={() => setIsMegaMenuOpen(false)}
+                        className="group flex items-center gap-2 text-white/50 text-[13px] md:text-[14px] font-medium transition-all duration-300 hover:text-[#E6FF00]"
+                      >
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
+                        <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
 
-          {/* Mobile Main Navigation */}
-          <div className="xl:hidden flex flex-col gap-6 mb-16 text-center border-b border-white/10 pb-12">
+          {/* MOBILE MAIN NAVIGATION (Integrated for Mobile Screens) */}
+          <div className="xl:hidden flex flex-col gap-6 mt-16 pt-12 border-t border-white/5 text-center">
             {navItems.map((item) => (
               <Link 
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMegaMenuOpen(false)}
-                className="text-white text-2xl font-light tracking-widest uppercase hover:text-[#E6FF00] transition-colors"
+                className="text-white text-xl font-light tracking-widest uppercase hover:text-[#E6FF00] transition-colors"
               >
                 {item.name}
               </Link>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 pb-20">
-            {serviceItems.map((svc, idx) => (
-              <motion.div
-                key={svc.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isMegaMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.8, delay: idx * 0.05 }}
-              >
-                <Link 
-                  href={`/services/${svc.slug}`}
-                  onClick={() => setIsMegaMenuOpen(false)}
-                  className="group relative flex items-center justify-between p-7 lg:p-10 rounded-none bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-[#E6FF00]/30 transition-all duration-500 overflow-hidden"
-                >
-                  <div className="flex flex-col gap-1 relative z-10">
-                    <span className="text-white text-[13px] md:text-[14px] font-bold uppercase tracking-widest group-hover:text-white group-hover:translate-x-1 transition-all">
-                      {svc.name.includes(' ') ? (
-                        <>
-                          {svc.name.split(' ')[0]} <br />
-                          {svc.name.split(' ').slice(1).join(' ')}
-                        </>
-                      ) : svc.name}
-                    </span>
-                  </div>
-                  <div className="shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 group-hover:bg-[#E6FF00] group-hover:border-[#E6FF00] group-hover:rotate-[-45deg]">
-                    <ArrowRight className="w-3.5 h-3.5 text-white group-hover:text-black transition-colors" />
-                  </div>
-
-                  {/* Kinetic Shadow Background (Subtle) */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Bottom Call to Action or Footer inside Mega Menu */}
-          <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-             <div className="flex flex-col gap-1">
-                <span className="text-white text-[16px] font-medium tracking-tight">Ready to activate your brand?</span>
-                <span className="text-white/20 text-[11px] tracking-widest font-bold uppercase">Let's build something extraordinary.</span>
-             </div>
-             <Link 
-              href="/contact" 
-              onClick={() => setIsMegaMenuOpen(false)}
-              className="flex items-center gap-4 text-[#E6FF00] group"
-             >
-                <span className="text-[11px] font-bold tracking-[0.3em] uppercase">Start Deployment</span>
-                <div className="w-10 h-10 rounded-full border border-[#E6FF00]/20 flex items-center justify-center group-hover:bg-[#E6FF00] group-hover:text-black transition-all">
-                   <ArrowRight className="w-4 h-4" />
-                </div>
-             </Link>
-          </div>
         </div>
       </motion.div>
     </>

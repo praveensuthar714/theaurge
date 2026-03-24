@@ -110,7 +110,7 @@ export const PortfolioGrid: React.FC = () => {
             <div className="sticky top-[140px] space-y-12">
               <div className="max-w-xs">
                 <span className="subtitle-premium block mb-4 md:mb-5 text-left text-[9px] md:text-[10px]">Selected Archive</span>
-                <h2 className="text-[36px] md:text-[52px] font-medium leading-[1.0] tracking-[-0.03em] text-white">
+                <h2 className="h-lg">
                   The Work<span className="text-[#E6FF00]">.</span>
                 </h2>
                 <p className="body-text text-white/30 mb-8 mt-6 leading-relaxed text-[13px] max-w-[280px]">

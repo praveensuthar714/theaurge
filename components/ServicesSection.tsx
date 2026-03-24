@@ -37,9 +37,9 @@ export const ServicesSection: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
           <div className="max-w-xl">
-            <span className="text-white/60 text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] uppercase mb-4 block">Expertise</span>
-            <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.1] tracking-[-0.02em] text-white mb-5">What we do</h2>
-            <p className="text-white/70 text-[14px] sm:text-[15px] max-w-sm mb-10 leading-relaxed block">
+            <span className="subtitle-premium">Expertise</span>
+            <h2 className="h-lg mb-5">What we do</h2>
+            <p className="body-text max-w-sm mb-10 block">
               We leverage cutting-edge technology and artistic precision to deliver high-end visual solutions for global brands.
             </p>
           </div>
@@ -57,7 +57,7 @@ export const ServicesSection: React.FC = () => {
               <div className="flex items-start gap-8 group py-12 transition-colors duration-500 hover:border-white/20">
                 <span className="text-[14px] font-semibold text-white/20 tracking-widest mt-2">{service.id}</span>
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-medium text-[#F5F5F5] tracking-tight mb-4 group-hover:text-white transition-colors duration-500">
+                  <h3 className="h-md mb-4 group-hover:text-white transition-colors duration-500">
                     {service.title}
                   </h3>
                   <p className="text-white/50 text-[15px] max-w-lg leading-relaxed font-light group-hover:text-white/70 transition-colors duration-500">

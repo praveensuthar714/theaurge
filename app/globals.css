@@ -36,7 +36,7 @@
 @layer components {
   /* --- THE PLATINUM TYPOGRAPHY SYSTEM --- */
   .heading-platinum {
-    @apply bg-gradient-to-br from-white via-white/80 to-white/30 bg-clip-text text-transparent font-medium leading-[1.1] tracking-[-0.02em];
+    @apply bg-gradient-to-br from-white via-white/80 to-white/30 bg-clip-text text-transparent font-medium leading-[1.2] tracking-[-0.02em] pb-2;
     -webkit-background-clip: text;
   }
 
