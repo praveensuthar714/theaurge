@@ -153,13 +153,13 @@ export const TrustedBrands: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative z-10 bg-black py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
+    <section className="section-v-spacing relative z-10 bg-black">
+      <div className="section-container text-center mb-20">
         <span className="subtitle-premium">
           RECOGNITION
         </span>
         <h2 className="h-lg mb-6">
-          Trusted by <span className="text-white/40">Global Leaders</span>
+          Trusted by Global Leaders
         </h2>
         <p className="body-text max-w-xl mx-auto">
           We collaborate with technology leaders and creative agencies to engineer cinematic brand experiences.

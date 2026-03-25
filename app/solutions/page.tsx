@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Zap, Target, Layers, Play, Cpu, Sparkles } from 'lucide-react';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
@@ -48,7 +49,7 @@ export default function SolutionsPage() {
            <h1 className="text-[42px] md:text-[82px] font-light leading-[1.05] tracking-tighter text-white max-w-5xl mb-16 px-1">
               Top-tier <br />
               Systems for <br />
-              <span className="text-white/30 italic">Market Leaders.</span>
+              Market Leaders.
            </h1>
            <p className="text-white/40 text-[18px] md:text-[22px] max-w-2xl leading-relaxed font-light">
               We don't just provide services. We deploy full-scale market solutions that combine creative intuition with technical precision.
@@ -91,7 +92,7 @@ export default function SolutionsPage() {
          <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col lg:flex-row gap-32 items-center">
                <div className="lg:w-1/2">
-                  <h2 className="text-white text-[42px] font-light leading-tight tracking-tight mb-16 px-1">Engineered for <br /> <span className="text-white/30 italic">Dominance.</span></h2>
+                  <h2 className="text-white text-[42px] font-light leading-tight tracking-tight mb-16 px-1">Engineered for Dominance.</h2>
                   <div className="flex flex-col gap-10">
                      {[
                        { t: "Deep Discovery", d: "We analyze your brand DNA to uncover untapped market leverage." },
@@ -122,7 +123,7 @@ export default function SolutionsPage() {
       <section className="py-64 text-center border-t border-white/5 bg-black">
           <div className="container mx-auto">
              <h2 className="text-[32px] md:text-[82px] font-light text-white mb-20 tracking-tighter leading-none px-4">
-                Ready to <br /> Deploy your <br /> <span className="italic text-white/30">system</span>?
+                Ready to <br /> Deploy your system?
              </h2>
              <Link 
                href="/contact" 

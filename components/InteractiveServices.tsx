@@ -225,7 +225,7 @@ export const InteractiveServices: React.FC = () => {
                     <circle
                       ref={(el) => { if (pulsesRef.current) pulsesRef.current[i] = el; }}
                       r="3.5"
-                      fill="#E6FF00"
+                      fill="var(--accent)"
                       opacity="0"
                     />
                   </g>
@@ -270,12 +270,12 @@ export const InteractiveServices: React.FC = () => {
               opacity: 0
             }}
           >
-            <div className="flex items-center gap-3 py-3 pl-5 pr-6 rounded-[4px] bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl group cursor-pointer transition-all duration-500 hover:bg-black/80 hover:border-white/20">
+            <div className="flex items-center gap-3 py-3 pl-5 pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-500 hover:bg-black/80 hover:border-white/20">
               <div 
                 ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
                 className="shrink-0 transition-transform duration-300"
               >
-                <service.icon className="w-5 h-5 text-[#B0B0B0] group-hover:text-white transition-colors duration-300" />
+                <service.icon className="w-5 h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-300" />
               </div>
               <span className="text-[13px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap text-center">
                 {service.name}
@@ -290,8 +290,8 @@ export const InteractiveServices: React.FC = () => {
           className="absolute z-[100] left-1/2 bottom-0 group cursor-pointer"
           style={{ opacity: 0 }}
         >
-          <div className="relative p-2.5 rounded-[4px] backdrop-blur-3xl bg-black/40 border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.9)] transition-all duration-700 hover:border-white/20">
-             <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-[4px] bg-[#080808] border border-white/5 relative overflow-hidden">
+          <div className="relative p-2.5 rounded-none glass-panel shadow-[0_40px_120px_rgba(0,0,0,0.9)] transition-all duration-700 hover:border-white/20">
+             <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-none bg-[#080808] border border-white/5 relative overflow-hidden">
                 <img 
                   src="/favicon.png" 
                   alt="" 

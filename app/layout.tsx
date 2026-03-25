@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 };
 
 import PageWrapper from "@/components/PageWrapper";
+const GlobalBackground = dynamic(() => import("@/components/GlobalBackground"), { ssr: false });
+const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
 
 export default function RootLayout({
   children,
@@ -23,6 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black">
       <body className={`${inter.className} bg-black text-white antialiased`}>
+        <Preloader />
+        <GlobalBackground />
         <div className="noise-overlay" />
         <CustomCursor />
         <PageWrapper>

@@ -236,7 +236,7 @@ export const HeroScene: React.FC = () => {
                 href="#contact"
                 className="group/btn relative flex items-center justify-between gap-4 bg-[var(--accent)] pl-5 pr-1 py-1 rounded-[4px] text-[#333] text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02] w-fit sm:w-auto"
               >
-                <span className="pl-1">Start a Project</span>
+                <span className="pl-1">Get in Touch</span>
                 <div className="w-8 h-8 rounded-[4px] bg-white/60 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-11 group-hover/btn:bg-white text-[#333]">
                   <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
                   <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />

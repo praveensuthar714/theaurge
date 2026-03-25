@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const workCategories = [
   { 
@@ -99,8 +100,8 @@ export const PortfolioGrid: React.FC = () => {
   };
 
   return (
-    <section ref={containerRef} className="bg-black pt-40 pb-60 px-6 relative z-10 overflow-visible">
-      <div className="container mx-auto max-w-[1400px]">
+    <section ref={containerRef} className="section-v-spacing bg-black overflow-visible">
+      <div className="section-container">
         
         {/* Unified Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
@@ -111,21 +112,14 @@ export const PortfolioGrid: React.FC = () => {
               <div className="max-w-xs">
                 <span className="subtitle-premium block mb-4 md:mb-5 text-left text-[9px] md:text-[10px]">Selected Archive</span>
                 <h2 className="h-lg">
-                  The Work<span className="text-[#E6FF00]">.</span>
+                  The Work<span className="text-accent">.</span>
                 </h2>
-                <p className="body-text text-white/30 mb-8 mt-6 leading-relaxed text-[13px] max-w-[280px]">
+                <p className="body-text mb-8 mt-6">
                   Explore our curated portfolio of high-performing architectural solutions.
                 </p>
-                <Link
-                  href="/work"
-                  className="group relative inline-flex items-center gap-5 bg-[#E6FF00] pl-6 pr-1 py-1 rounded-none text-black text-[11px] md:text-[12px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.04]"
-                >
-                  <span className="pl-1">View All Work</span>
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:w-10 group-hover:md:w-12 group-hover:bg-black text-black group-hover:text-white">
-                    <ArrowRight className="w-4 h-4 -translate-x-5 opacity-0 absolute transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
-                    <ArrowRight className="w-4 h-4 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover:translate-x-5 group-hover:opacity-0" />
-                  </div>
-                </Link>
+                <PremiumButton href="/work">
+                  View All Work
+                </PremiumButton>
               </div>
 
               {/* Interactive Tabs — HIGH-PRECISION LEGEND */}
@@ -135,7 +129,7 @@ export const PortfolioGrid: React.FC = () => {
                 
                 {/* Kinetic Actuator Bar */}
                 <motion.div 
-                   className="absolute left-[-1px] w-[3px] bg-[#E6FF00] h-4 rounded-full z-10"
+                   className="absolute left-[-1px] w-[3px] bg-accent h-4 rounded-full z-10"
                    animate={{ 
                      y: workCategories.findIndex(c => c.id === activeTab) * 36 + 20 
                    }}
@@ -165,8 +159,8 @@ export const PortfolioGrid: React.FC = () => {
               <div key={cat.id} id={`cat-section-${cat.id}`} className="flex flex-col gap-12 pt-10">
                 {/* Category Header (For Mobile/Tablet Visibility too) */}
                 <div className="lg:hidden">
-                   <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-widest mb-3 block">{cat.label} / {cat.name}</span>
-                   <p className="text-white/40 text-[13px] leading-relaxed max-w-sm">{cat.description}</p>
+                   <span className="text-accent text-[9px] font-bold uppercase tracking-widest mb-3 block">{cat.label} / {cat.name}</span>
+                   <p className="body-text !text-white/40">{cat.description}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
@@ -174,7 +168,7 @@ export const PortfolioGrid: React.FC = () => {
                     <Link 
                       key={project.id}
                       href={project.href}
-                      className={`card-${cat.id} group relative overflow-hidden aspect-[4/5] rounded-none bg-neutral-900 border border-white/5 transition-all duration-700 hover:border-[#E6FF00]/30`}
+                      className={`card-${cat.id} group relative overflow-hidden aspect-[4/5] rounded-none bg-neutral-900 border border-white/5 transition-all duration-700 hover:border-accent/30`}
                     >
                       <img 
                         src={project.image} 
@@ -184,10 +178,10 @@ export const PortfolioGrid: React.FC = () => {
                       <div className="absolute inset-x-0 bottom-0 p-8 pt-20 bg-gradient-to-t from-black via-black/40 to-transparent">
                         <div className="flex items-end justify-between">
                           <div>
-                            <span className="text-[10px] font-bold tracking-[0.2em] text-[#E6FF00] uppercase mb-1 block opacity-60">Featured</span>
-                            <h3 className="text-[20px] md:text-[24px] font-medium text-white tracking-tight">{project.title}</h3>
+                            <span className="text-[10px] font-bold tracking-[0.2em] text-accent uppercase mb-1 block opacity-60">Featured</span>
+                            <h3 className="h-sm">{project.title}</h3>
                           </div>
-                          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#E6FF00] group-hover:border-transparent group-hover:text-black transition-all">
+                          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-accent group-hover:border-transparent group-hover:text-black transition-all">
                              <ArrowUpRight className="w-5 h-5" />
                           </div>
                         </div>
@@ -202,13 +196,9 @@ export const PortfolioGrid: React.FC = () => {
             <div className="pt-20 border-t border-white/5">
                <div className="max-w-md">
                  <h3 className="h-md mb-6">Your vision, <br /> properly engineered.</h3>
-                 <Link
-                  href="/contact"
-                  className="group relative bg-[#E6FF00] px-8 py-3 rounded-none text-black text-[11px] font-bold tracking-widest uppercase inline-flex items-center gap-4 hover:scale-[1.03] transition-all"
-                 >
+                 <PremiumButton href="/contact">
                   Inquire Now
-                  <ArrowRight className="w-4 h-4" />
-                 </Link>
+                 </PremiumButton>
                </div>
             </div>
           </div>

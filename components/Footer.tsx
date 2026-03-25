@@ -52,8 +52,8 @@ export const Footer: React.FC = () => {
                  className="h-9 md:h-11 w-auto object-contain brightness-110"
                />
              </Link>
-             <h3 className="h-md">
-               Crafting high-precision cinematic <br className="hidden md:block" /> digital experiences for global leaders.
+             <h3 className="text-2xl md:text-3xl font-medium text-white/90 leading-snug tracking-tight max-w-sm md:max-w-md">
+               Crafting high-precision cinematic digital experiences for global leaders.
              </h3>
           </div>
 
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
             href="/contact"
             className="group relative flex items-center gap-6 bg-[#E6FF00] pl-7 pr-1 py-1 rounded-none text-black text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_30px_rgba(230,255,0,0.2)]"
           >
-            <span className="pl-1">Start a Project</span>
+            <span className="pl-1">Get in Touch</span>
             <div className="relative w-10 h-10 rounded-none bg-black flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:w-14 group-hover:bg-black text-white">
               <ArrowRight className="w-4 h-4 -translate-x-5 opacity-0 absolute transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
               <ArrowRight className="w-4 h-4 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover:translate-x-5 group-hover:opacity-0" />

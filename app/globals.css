@@ -23,9 +23,7 @@
 @layer base {
   body {
     color: var(--foreground);
-    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
-                url('/body-bg.png') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #0A0A0A;
     font-family: 'Inter', sans-serif;
     overflow-x: clip; /* clip instead of hidden to allow position: sticky */
     -webkit-font-smoothing: antialiased;
@@ -36,8 +34,9 @@
 @layer components {
   /* --- THE PLATINUM TYPOGRAPHY SYSTEM --- */
   .heading-platinum {
-    @apply bg-gradient-to-br from-white via-white/80 to-white/30 bg-clip-text text-transparent font-medium leading-[1.2] tracking-[-0.02em] pb-2;
+    @apply bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent font-medium leading-[1.2] tracking-[-0.02em] pb-2;
     -webkit-background-clip: text;
+    background-clip: text;
   }
 
   .h-xl {
@@ -60,8 +59,29 @@
     @apply text-[10px] font-bold tracking-[0.5em] uppercase text-white/40 mb-6 block;
   }
 
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 md:px-12 w-full;
+  }
+
+  .section-v-spacing {
+    @apply py-24 md:py-32;
+  }
+
   .body-text {
     @apply font-normal text-[15px] md:text-[17px] leading-relaxed text-white/50;
+  }
+
+  /* SERVICE PAGE BUTTONS */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 
+           bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase 
+           transition-all duration-300 hover:bg-[var(--accent)];
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 
+           border border-white/20 text-white text-[10px] font-bold tracking-[0.2em] uppercase 
+           hover:border-white hover:bg-white hover:text-black transition-all duration-300;
   }
 
   /* Refined Surface Panels */

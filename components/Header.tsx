@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, ChevronRight, Sparkles, Monitor, Video, Layers } from 'lucide-react';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const navItems = [
   { name: 'Portfolio', href: '/work' },
@@ -25,14 +26,14 @@ const serviceCategories = [
     title: "Digital",
     items: [
       { name: "Website Development", slug: "web-development" },
-      { name: "UI/UX Design", slug: "web-development" },
+      { name: "UI/UX Design", slug: "ui-ux-design" },
       { name: "SEO Optimization", slug: "seo" },
     ]
   },
   {
     title: "Marketing",
     items: [
-      { name: "Performance Marketing", slug: "performance-marketing" },
+      { name: "Performance Marketing", slug: "marketing" },
       { name: "AI Marketing", slug: "ai-marketing" },
       { name: "Inbound Messaging", slug: "inbound-messaging" },
     ]
@@ -41,8 +42,8 @@ const serviceCategories = [
     title: "Strategy",
     items: [
       { name: "Business Consultancy", slug: "business-consultancy" },
-      { name: "Event Marketing", slug: "event-marketing" },
-      { name: "Growth Strategy", slug: "digital-marketing" },
+      { name: "AI Automation", slug: "ai-automation" },
+      { name: "Growth Strategy", slug: "growth-strategy" },
     ]
   }
 ];
@@ -107,16 +108,9 @@ export const Header: React.FC = () => {
 
           {/* Right Section — CTA */}
           <div className="shrink-0 flex items-center gap-3">
-            <Link 
-              href="/contact" 
-              className="group/btn relative flex items-center justify-between gap-5 bg-[#E6FF00] pl-6 pr-1 py-1 rounded-none text-black text-[10px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02]"
-            >
-              <span className="pl-1">Start a Project</span>
-              <div className="relative w-8 h-8 rounded-none bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-12 group-hover/btn:bg-black text-black group-hover/btn:text-white">
-                <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
-                <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
-              </div>
-            </Link>
+            <PremiumButton href="/contact">
+              Get in Touch
+            </PremiumButton>
 
             <button 
               onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 // ─── constants ────────────────────────────────────────────────────────────────
 /** Total hero scroll height — gives enough runway for the full video. */
@@ -103,11 +104,13 @@ export const AboutHero: React.FC = () => {
 
   // Mid-scroll statement
   const showMidText  = progress > MID_TEXT_START * 0.9;
-  const midOpacity   = progress >= MID_TEXT_FULL
-    ? 1
-    : progress >= MID_TEXT_START
-      ? (progress - MID_TEXT_START) / (MID_TEXT_FULL - MID_TEXT_START)
-      : 0;
+  const midOpacity   = progress >= 0.9 
+    ? Math.max(0, 1 - (progress - 0.9) / 0.05) 
+    : progress >= MID_TEXT_FULL
+      ? 1
+      : progress >= MID_TEXT_START
+        ? (progress - MID_TEXT_START) / (MID_TEXT_FULL - MID_TEXT_START)
+        : 0;
 
   // Scroll indicator
   const scrollIndicatorOpacity = Math.max(0, 1 - progress * 8);
@@ -117,7 +120,7 @@ export const AboutHero: React.FC = () => {
   const exitScale    = 1 - exitProgress * 0.045;
   const exitRadius   = exitProgress * 32;
   const exitBlur     = exitProgress * 6;
-  const exitOpacity  = 1 - exitProgress * 0.25;
+  const exitOpacity  = 1 - exitProgress; // Fade out completely to 0
 
   return (
     <div
@@ -217,31 +220,24 @@ export const AboutHero: React.FC = () => {
               transition: 'none',
             }}
           >
-            <span className="text-white/60 text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] uppercase mb-4 block">
+            <span className="subtitle-premium !text-left !mb-4">
               theAurge Agency
             </span>
 
-            <h1 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.1] tracking-[-0.02em] mb-5 bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent block">
+            <h1 className="h-md mb-5 !text-left">
               A creative studio <br className="hidden sm:block" />
               where ideas become <br className="hidden sm:block" />
               cinematic brands.
             </h1>
 
-            <p className="text-white/70 text-[14px] sm:text-[15px] max-w-sm mb-10 leading-relaxed block">
+            <p className="body-text !text-white/70 !text-[14px] sm:!text-[15px] max-w-sm mb-10 !text-left">
               We specialize in high-end visual storytelling, crafting intentional digital
               experiences for the modern era.
             </p>
             <div className="flex flex-row items-center gap-4 mt-8 md:mt-6 pointer-events-auto flex-wrap">
-              <Link
-                href="#contact"
-                className="group/btn relative flex items-center justify-between gap-4 bg-[var(--accent)] pl-5 pr-1 py-1 rounded-[4px] text-[#333] text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase transition-all duration-500 hover:scale-[1.02] w-fit sm:w-auto"
-              >
-                <span className="pl-1">Start a Project</span>
-                <div className="w-8 h-8 rounded-[4px] bg-white/60 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-11 group-hover/btn:bg-white text-[#333]">
-                  <ArrowRight className="w-3.5 h-3.5 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
-                  <ArrowRight className="w-3.5 h-3.5 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
-                </div>
-              </Link>
+              <PremiumButton href="#contact" className="scale-[0.85] sm:scale-100">
+                Get in Touch
+              </PremiumButton>
 
               <Link
                 href="#work"

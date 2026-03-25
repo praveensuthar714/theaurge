@@ -112,7 +112,7 @@ const GlowCard: React.FC<GlowCardProps> = ({ item }) => {
     <div
       ref={cardRef}
       onPointerMove={handlePointerMove}
-      className="assembly-card border-glow-card group relative aspect-square rounded-[1px] overflow-hidden bg-[#0A0A0A] transition-all duration-700 active:scale-[0.98] cursor-pointer"
+      className="assembly-card border-glow-card group relative aspect-square rounded-none overflow-hidden bg-secondary transition-all duration-700 active:scale-[0.98] cursor-pointer"
       style={{
         border: `1.5px solid rgba(230, 255, 0, 0.15)`,
         ...GLOW_VARS
@@ -134,14 +134,14 @@ const GlowCard: React.FC<GlowCardProps> = ({ item }) => {
 
       {/* Icon */}
       <div className="absolute top-8 left-8 z-50">
-        <div className="w-10 h-10 rounded-[1px] border border-white/10 flex items-center justify-center bg-black/60 backdrop-blur-3xl transition-all duration-700 group-hover:border-[#E6FF00]/40 group-hover:bg-black">
-          <item.icon className="w-4 h-4 text-white/40 group-hover:text-[#E6FF00] transition-all duration-700" />
+        <div className="w-10 h-10 rounded-none border border-white/10 flex items-center justify-center bg-black/60 backdrop-blur-3xl transition-all duration-700 group-hover:border-accent/40 group-hover:bg-black">
+          <item.icon className="w-4 h-4 text-white/40 group-hover:text-accent transition-all duration-700" />
         </div>
       </div>
 
       {/* Labels */}
       <div className="absolute bottom-8 left-8 z-50 flex flex-col gap-2 pr-10">
-        <h3 className="text-white text-[19px] font-bold tracking-tight mb-0">
+        <h3 className="heading-platinum !pb-0 !mb-0 text-[19px] md:text-[22px] tracking-tight">
           {item.title}
         </h3>
         <p className="text-white/30 text-[13px] font-light leading-snug group-hover:text-white/70 transition-colors h-[40px]">
@@ -190,7 +190,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center pb-10 pt-20 overflow-hidden z-30 transition-all duration-1000"
+      className="relative min-h-screen flex flex-col justify-center pb-24 pt-20 overflow-hidden z-30 transition-all duration-1000"
     >
       {/* Fade-in from transparent so the Services diagram above stays visible */}
       <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent to-black pointer-events-none z-0" />
@@ -200,22 +200,22 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
       <PremiumBackground className="z-[1]" />
 
       {/* Background Atmosphere */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#E6FF00]/[0.012] rounded-full blur-[200px] pointer-events-none translate-x-1/2 -translate-y-1/2 opacity-50" />
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/[0.012] rounded-full blur-[200px] pointer-events-none translate-x-1/2 -translate-y-1/2 opacity-50" />
 
       <div className="container mx-auto max-w-7xl relative z-10 px-6">
         <div className="text-center mb-12">
           <span className="wwd-content subtitle-premium block mb-4" style={{ opacity: 0 }}>The Workflow</span>
 
           <h2 className="wwd-content h-lg mb-6" style={{ opacity: 0 }}>
-            Our Blueprint<span className="text-[#E6FF00]">.</span>
+            Our Blueprint<span className="text-accent">.</span>
           </h2>
 
           <div className="wwd-content flex flex-col items-center gap-1" style={{ opacity: 0 }}>
-            <p className="text-white/35 text-[14px] md:text-[15px] font-light tracking-wide">
+            <p className="body-text !text-white/35 text-[14px]">
               A precise, high-fidelity methodology engineered to take your brand from
             </p>
             <p className="text-white text-[15px] md:text-[16px] font-semibold tracking-[0.08em] uppercase">
-              Vision to Reality<span className="text-[#E6FF00]">.</span>
+              Vision to Reality<span className="text-accent">.</span>
             </p>
           </div>
         </div>

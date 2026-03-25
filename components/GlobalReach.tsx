@@ -33,7 +33,7 @@ export const GlobalReach = () => {
           GLOBAL FOOTPRINT
         </span>
         <h2 className="h-lg mb-6 mt-4">
-          Aurge Across <span className="text-white/40">Borders.</span>
+          Aurge Across Borders.
         </h2>
         <p className="body-text max-w-xl mx-auto">
           As a premier global service provider, we engineer cinematic brand experiences for clients across multiple countries, transcending boundaries to deliver world-class digital solutions.

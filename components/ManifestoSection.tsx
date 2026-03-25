@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 import MagicRings from './MagicRings';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const manifestoContent = [
   {
@@ -149,7 +150,7 @@ export const ManifestoSection: React.FC = () => {
                       </span>
                       <div className="w-2 h-[1px] bg-white/10" />
                    </div>
-                   <h2 className="text-[18px] sm:text-[22px] md:text-[26px] font-medium tracking-tight leading-[1.3] text-white/20">
+                   <h2 className="heading-platinum !pb-0 text-[18px] sm:text-[22px] md:text-[26px] tracking-tight leading-[1.3] text-white/20">
                      {parts[0]}
                      <span className="bg-gradient-to-b from-white via-white/90 to-stone-400 bg-clip-text text-transparent relative inline-block mx-1 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                         {item.highlight}
@@ -163,13 +164,9 @@ export const ManifestoSection: React.FC = () => {
 
           {/* Persistent Bottom CTA - Tightened Margin */}
           <div className="manifesto-block mt-10" style={{ opacity: 0, visibility: 'hidden' }}>
-            <Link href="#contact" className="group/btn relative flex items-center justify-between gap-6 bg-[var(--accent)] pl-6 pr-1 py-1 rounded-[4px] text-[#000] text-[11px] font-bold tracking-widest uppercase transition-all duration-500 hover:scale-[1.05]">
-              <span className="pl-1">Start a Project</span>
-              <div className="w-8 h-8 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-11 group-hover/btn:bg-black text-[#000] group-hover/btn:text-white">
-                <ArrowRight className="w-4 h-4 -translate-x-4 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
-                <ArrowRight className="w-4 h-4 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-4 group-hover/btn:opacity-0" />
-              </div>
-            </Link>
+            <PremiumButton href="#contact">
+              Get in Touch
+            </PremiumButton>
           </div>
 
         </div>

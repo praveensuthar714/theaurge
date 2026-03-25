@@ -25,8 +25,7 @@ export default function JournalPage() {
         <div className="container mx-auto max-w-7xl">
            <span className="text-white/20 text-[10px] font-bold tracking-[0.5em] uppercase mb-10 block">the Journal</span>
            <h1 className="text-[38px] md:text-[62px] font-medium leading-[1.05] tracking-tighter text-white max-w-4xl px-1">
-              Articles. Content. <br />
-              <span className="text-white/20 italic font-light">Thinking at Scale.</span>
+              Articles. Content. Thinking at Scale.
            </h1>
         </div>
       </section>
@@ -87,7 +86,7 @@ export default function JournalPage() {
           <div className="container mx-auto px-6 relative z-10">
              <span className="text-white/20 text-[9px] uppercase tracking-[0.6em] font-bold mb-10 block">the Thinking Hub</span>
              <h2 className="text-[32px] md:text-[42px] font-light text-white mb-20 tracking-tighter leading-tight max-w-2xl mx-auto px-4">
-                Receive our strategic thinking <br /> <span className="text-white/20 italic">directly in your lab.</span>
+                Receive our strategic thinking directly in your lab.
              </h2>
              <div className="flex flex-col md:flex-row items-center justify-center gap-0 max-w-xl mx-auto border-b border-white/10 pb-4 overflow-hidden group">
                 <input 

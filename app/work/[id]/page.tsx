@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, ArrowRight, Play, ExternalLink, Share2, ChevronRight, Zap } from 'lucide-react';
 import { useParams } from 'next/navigation';
+import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
@@ -33,7 +34,7 @@ export default function CaseStudyPage() {
                  <span className="text-[#E6FF00] text-[10px] uppercase tracking-[0.6em] font-bold mb-10 block">Case Study Archive</span>
                  <h1 className="text-[48px] md:text-[82px] font-light leading-[1] tracking-tighter text-white max-w-4xl px-1">
                     Lumina Noir. <br />
-                    <span className="text-white/30 italic">Redefining Presence.</span>
+                    Redefining Presence.
                  </h1>
               </div>
               <div className="lg:col-span-4 flex flex-col gap-8 border-l border-white/5 pl-12 h-fit mb-12">
@@ -63,7 +64,7 @@ export default function CaseStudyPage() {
                   </p>
                </div>
                <div className="lg:col-span-8 text-center bg-black/60 p-12 md:p-32 rounded-[4px] border border-white/5 relative overflow-hidden">
-                  <h3 className="text-white text-[24px] md:text-[48px] font-light leading-tight tracking-tight mb-16 relative z-10 italic">
+                  <h3 className="text-white text-[24px] md:text-[48px] font-light leading-tight tracking-tight mb-16 relative z-10">
                      "We didn't just design a logo. We engineered a visual system that <span className="text-[#E6FF00]">lives and breathes</span> across every touchpoint."
                   </h3>
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#E6FF00]/10 rounded-full blur-[120px] pointer-events-none" />
@@ -119,21 +120,14 @@ export default function CaseStudyPage() {
          <div className="container mx-auto px-6">
             <p className="text-white/20 text-[10px] uppercase tracking-[0.6em] font-bold mb-12 block">NEXT CASE STUDY</p>
             <Link href="/work/2" className="group block mb-24">
-               <h2 className="text-[32px] md:text-[72px] font-light text-white tracking-tight leading-none px-8 group-hover:text-white/30 transition-colors">
-                  Aether Flow. <br /> <span className="italic text-white/30">Frontier Scale.</span>
+               <h2 className="h-xl !mb-0 px-8 group-hover:text-white/30 transition-colors">
+                  Aether Flow. Frontier Scale.
                </h2>
             </Link>
             
-            <Link 
-              href="/contact" 
-              className="group/btn relative inline-flex items-center justify-between gap-10 bg-[#E6FF00] pl-10 pr-1 py-1 rounded-[4px] text-black text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-500 hover:scale-[1.05]"
-            >
-              <span className="pl-2">Deploy similar system</span>
-              <div className="relative w-12 h-12 rounded-[4px] bg-black/10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover/btn:w-20 group-hover/btn:bg-black text-black group-hover/btn:text-white">
-                <ArrowRight className="w-6 h-6 -translate-x-10 opacity-0 absolute transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100" />
-                <ArrowRight className="w-6 h-6 translate-x-0 opacity-100 absolute transition-all duration-500 group-hover/btn:translate-x-10 group-hover/btn:opacity-0" />
-              </div>
-            </Link>
+            <PremiumButton href="/contact" className="scale-125 md:scale-150">
+               Deploy similar system
+            </PremiumButton>
          </div>
       </section>
 

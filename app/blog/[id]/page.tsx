@@ -74,7 +74,7 @@ export default function BlogDetailPage() {
               </p>
 
               <blockquote className="border-l-4 border-[#E6FF00] pl-10 my-20">
-                 <p className="text-white text-[28px] italic font-light leading-relaxed">
+                                   <p className="text-white text-[28px] font-light leading-relaxed">
                    "A great website should feel less like a document and more like a sequence from a film you love."
                  </p>
               </blockquote>

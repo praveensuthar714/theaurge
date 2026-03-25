@@ -50,7 +50,7 @@ const comparisonData = [
 
 export const ComparisonSection: React.FC = () => {
   return (
-    <section className="relative w-full bg-black py-24 md:py-40 px-6 z-20 overflow-hidden">
+    <section className="section-v-spacing relative bg-[#050505] z-20 overflow-hidden">
       
       {/* --- CINEMATIC GRID BACKGROUND --- */}
       <div className="absolute inset-0 z-0 pointer-events-auto opacity-80">
@@ -75,11 +75,11 @@ export const ComparisonSection: React.FC = () => {
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
 
-      <div className="container mx-auto max-w-6xl relative z-20">
+      <div className="section-container relative z-20">
         <div className="text-center mb-16 md:mb-24">
           <span className="subtitle-premium block mb-4 mx-auto">Superior Ecosystem</span>
           <h2 className="h-lg mb-5">
-            Traditional outsourcing versus <span className="text-white/40">The Aurge.</span>
+            Traditional outsourcing versus The Aurge.
           </h2>
           <p className="body-text max-w-md mx-auto">
             Compare our elite architecture against traditional market friction.
@@ -87,7 +87,7 @@ export const ComparisonSection: React.FC = () => {
         </div>
 
         <div className="w-full relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent backdrop-blur-[40px] rounded-[4px] z-0 shadow-2xl" />
+          <div className="absolute inset-0 glass-panel !from-white/[0.04] !to-transparent z-0" />
           
           <div className="relative z-10 pb-4">
             {/* Table Header (Desktop) */}
@@ -105,15 +105,15 @@ export const ComparisonSection: React.FC = () => {
               {comparisonData.map((row, index) => (
                 <div
                   key={index}
-                  className={`flex flex-col md:grid md:grid-cols-[3fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:items-center px-5 py-6 md:px-8 md:py-9 transition-colors duration-500 hover:bg-white/[0.04] rounded-[6px] md:rounded-[4px] border border-white/5 md:border-transparent ${
+                  className={`flex flex-col md:grid md:grid-cols-[3fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:items-center px-5 py-6 md:px-8 md:py-9 transition-colors duration-500 hover:bg-white/[0.04] rounded-none border border-white/5 md:border-transparent ${
                     row.isAurge ? "bg-white/[0.03] border-white/10" : "bg-black/20"
                   }`}
                 >
                   <div className="flex flex-col gap-2 md:gap-1 md:pr-12">
-                    <h4 className={`text-[20px] md:text-[24px] font-medium tracking-tight ${row.isAurge ? "text-[#E6FF00]" : "text-white"}`}>
+                    <h4 className={`h-sm !mb-1 ${row.isAurge ? "text-accent" : "text-white"}`}>
                       {row.target}
                     </h4>
-                    <p className={`text-[13px] md:text-[14px] leading-relaxed font-light ${row.isAurge ? "text-[#E6FF00]/70" : "text-white/40"}`}>
+                    <p className={`text-[13px] md:text-[14px] leading-relaxed font-light ${row.isAurge ? "text-accent/70" : "text-white/40"}`}>
                       {row.desc}
                     </p>
                   </div>
@@ -124,7 +124,7 @@ export const ComparisonSection: React.FC = () => {
                         <span className="md:hidden text-white/30 text-[9px] font-bold uppercase tracking-widest">{columns[idx].label}</span>
                         {score ? (
                           row.isAurge ? (
-                            <Check className="w-5 h-5 md:w-6 md:h-6 stroke-[2.5px] text-[#E6FF00] drop-shadow-[0_0_8px_rgba(230,255,0,0.4)]" />
+                            <Check className="w-5 h-5 md:w-6 md:h-6 stroke-[2.5px] text-accent drop-shadow-[0_0_8px_rgba(230,255,0,0.4)]" />
                           ) : (
                             <motion.div
                               animate={{
