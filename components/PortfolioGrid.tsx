@@ -50,15 +50,39 @@ const workCategories = [
   }
 ];
 
-export const PortfolioGrid: React.FC = () => {
+export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => {
   const containerRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState(workCategories[0].id);
+  const [lightbox, setLightbox] = useState<any | null>(null);
+
+  // Group fetched dynamic assets roughly evenly across the existing UI categories
+  const categoriesWithAssets = workCategories.map((cat, index) => {
+    if (!assets || assets.length === 0) return cat;
+    
+    const itemsPerCategory = Math.ceil(assets.length / workCategories.length);
+    const catAssets = assets.slice(index * itemsPerCategory, (index + 1) * itemsPerCategory);
+    
+    return {
+      ...cat,
+      projects: catAssets.map((asset) => {
+        const filename = asset.public_id.split('/').pop() || 'Project';
+        const title = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        return {
+          id: asset.public_id,
+          title,
+          image: asset.secure_url,
+          type: asset.resource_type,
+          href: '#'
+        };
+      })
+    };
+  });
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      workCategories.forEach((cat) => {
+      categoriesWithAssets.forEach((cat) => {
         ScrollTrigger.create({
           trigger: `#cat-section-${cat.id}`,
           start: "top 60%",
@@ -89,7 +113,7 @@ export const PortfolioGrid: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [categoriesWithAssets]);
 
   const scrollToCategory = (id: string) => {
     const el = document.getElementById(`cat-section-${id}`);
@@ -131,13 +155,13 @@ export const PortfolioGrid: React.FC = () => {
                 <motion.div 
                    className="absolute left-[-1px] w-[3px] bg-accent h-4 rounded-full z-10"
                    animate={{ 
-                     y: workCategories.findIndex(c => c.id === activeTab) * 36 + 20 
+                     y: categoriesWithAssets.findIndex(c => c.id === activeTab) * 36 + 20 
                    }}
                    transition={{ type: "spring", stiffness: 400, damping: 40 }}
                 />
 
                 <nav className="flex flex-col gap-4">
-                  {workCategories.map((cat) => (
+                  {categoriesWithAssets.map((cat) => (
                     <button
                       key={cat.id}
                       onClick={() => scrollToCategory(cat.id)}
@@ -155,42 +179,63 @@ export const PortfolioGrid: React.FC = () => {
 
           {/* RIGHT COLUMN: SCROLLING WORK GRID */}
           <div className="lg:col-span-8 flex flex-col gap-32">
-            {workCategories.map((cat) => (
-              <div key={cat.id} id={`cat-section-${cat.id}`} className="flex flex-col gap-12 pt-10">
-                {/* Category Header (For Mobile/Tablet Visibility too) */}
-                <div className="lg:hidden">
-                   <span className="text-accent text-[9px] font-bold uppercase tracking-widest mb-3 block">{cat.label} / {cat.name}</span>
-                   <p className="body-text !text-white/40">{cat.description}</p>
+            {!assets || assets.length === 0 ? (
+              <div className="pt-10">
+                <div className="flex flex-col items-center justify-center p-20 border border-white/5 bg-white/[0.02] rounded-2xl w-full">
+                  <p className="text-white/40 tracking-widest text-[11px] uppercase font-bold">No portfolio items found</p>
+                  <p className="text-white/20 text-xs mt-3">Upload media to your Cloudinary `portfolio/` folder.</p>
                 </div>
+              </div>
+            ) : (
+              categoriesWithAssets.map((cat) => (
+                <div key={cat.id} id={`cat-section-${cat.id}`} className="flex flex-col gap-12 pt-10">
+                  {/* Category Header (For Mobile/Tablet Visibility too) */}
+                  <div className="lg:hidden">
+                     <span className="text-accent text-[9px] font-bold uppercase tracking-widest mb-3 block">{cat.label} / {cat.name}</span>
+                     <p className="body-text !text-white/40">{cat.description}</p>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                  {cat.projects.map((project, pidx) => (
-                    <Link 
-                      key={project.id}
-                      href={project.href}
-                      className={`card-${cat.id} group relative overflow-hidden aspect-[4/5] rounded-none bg-neutral-900 border border-white/5 transition-all duration-700 hover:border-accent/30`}
-                    >
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
-                      />
-                      <div className="absolute inset-x-0 bottom-0 p-8 pt-20 bg-gradient-to-t from-black via-black/40 to-transparent">
-                        <div className="flex items-end justify-between">
-                          <div>
-                            <span className="text-[10px] font-bold tracking-[0.2em] text-accent uppercase mb-1 block opacity-60">Featured</span>
-                            <h3 className="h-sm">{project.title}</h3>
-                          </div>
-                          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-accent group-hover:border-transparent group-hover:text-black transition-all">
-                             <ArrowUpRight className="w-5 h-5" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                    {cat.projects.map((project, pidx) => (
+                      <div 
+                        key={project.id}
+                        onClick={() => setLightbox(project)}
+                        className={`card-${cat.id} group relative overflow-hidden aspect-[4/5] rounded-none bg-neutral-900 border border-white/5 transition-all duration-700 hover:border-accent/30 cursor-pointer`}
+                      >
+                        {project.type === 'video' ? (
+                          <video
+                            src={project.image}
+                            className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                          />
+                        ) : (
+                          <img 
+                            src={project.image} 
+                            alt={project.title}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
+                          />
+                        )}
+                        <div className="absolute inset-x-0 bottom-0 p-8 pt-20 bg-gradient-to-t from-black via-black/40 to-transparent">
+                          <div className="flex items-end justify-between">
+                            <div>
+                              <span className="text-[10px] font-bold tracking-[0.2em] text-accent uppercase mb-1 block opacity-60">Featured</span>
+                              <h3 className="h-sm">{project.title}</h3>
+                            </div>
+                            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-accent group-hover:border-transparent group-hover:text-black transition-all">
+                               <ArrowUpRight className="w-5 h-5" />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </Link>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
 
             {/* Final CTA in the scroll path */}
             <div className="pt-20 border-t border-white/5">
@@ -205,6 +250,32 @@ export const PortfolioGrid: React.FC = () => {
 
         </div>
       </div>
+{/* LIGHTBOX OVERLAY */}
+      <motion.div>
+        {lightbox && (
+          <div 
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/98 backdrop-blur-md p-4 md:p-12 cursor-pointer"
+          >
+            <button 
+              onClick={() => setLightbox(null)}
+              className="absolute top-6 right-6 text-white hover:text-accent z-[10000] p-4 font-bold tracking-widest uppercase text-xs"
+            >
+              [ Close ]
+            </button>
+            <div 
+              className="relative w-full max-w-7xl max-h-[85vh] aspect-video bg-black/50 rounded-lg overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+              onClick={e => e.stopPropagation()}
+            >
+              {lightbox.type === 'video' ? (
+                <video src={lightbox.image} controls autoPlay className="w-full h-full object-contain" />
+              ) : (
+                <img src={lightbox.image} className="w-full h-full object-contain" alt="" />
+              )}
+            </div>
+          </div>
+        )}
+      </motion.div>
     </section>
   );
 };

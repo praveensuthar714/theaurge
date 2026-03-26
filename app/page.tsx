@@ -1,61 +1,10 @@
-'use client';
+import HomeClient from './HomeClient';
+import { getPortfolioAssets } from '@/lib/cloudinary';
 
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from "lucide-react";
+export const revalidate = 3600; // Revalidate at most every hour
 
-import { useState, useEffect } from 'react';
+export default async function Page() {
+  const assets = await getPortfolioAssets();
 
-// Dynamic imports with SSR disabled to prevent hydration 'insertBefore' errors
-import { ServicesAssembly } from "@/components/ServicesAssembly";
-
-const Header = dynamic(() => import("@/components/Header"), { ssr: false });
-const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false });
-const TrustedBrands = dynamic(() => import("@/components/TrustedBrands"), { ssr: false });
-const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
-const PortfolioGrid = dynamic(() => import("@/components/PortfolioGrid"), { ssr: false });
-const GlobalReach = dynamic(() => import("@/components/GlobalReach"), { ssr: false });
-
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
-
-export default function Home() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    // IMPORT SCROLL ENGINE 
-    import('@/lib/scrollEngine').then((module) => {
-      module.initScrollAnimations();
-    });
-  }, []);
-
-  if (!mounted) return <div className="bg-black min-h-screen" />;
-
-  return (
-    <main className="relative bg-black min-h-screen flex flex-col">
-      <Header />
-      {/* 1. Hero Video (Autoplay YouTube) */}
-      <HeroVideo />
-
-      {/* 2. Trusted Brands Section */}
-      <TrustedBrands />
-
-      {/* 3. Unified Services Assembly (Progressive Pinned Reveal) */}
-      <ServicesAssembly />
-
-      {/* NEW: Comparison Section (Why The Aurge vs Alternatives) */}
-      <ComparisonSection />
-
-      {/* 5. Portfolio Grid */}
-      <div id="work">
-        <PortfolioGrid />
-      </div>
-
-      {/* 6. Global Reach Globe */}
-      <GlobalReach />
-
-      <Footer />
-    </main>
-  );
+  return <HomeClient portfolioAssets={assets} />;
 }

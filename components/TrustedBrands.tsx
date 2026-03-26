@@ -102,23 +102,23 @@ const ScrollingColumn = ({ brands, direction }: { brands: typeof brandsCol1, dir
 export const TrustedBrands: React.FC = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const configMap: Record<number, { scale: number, invert: boolean }> = {
-    1: { scale: 1.8, invert: false },
-    2: { scale: 1.9, invert: false }, // Increased Mauli Trucking
-    3: { scale: 1.1, invert: false },
-    4: { scale: 2.0, invert: false }, // Increased Nourishing Farms
-    5: { scale: 1.1, invert: false },
-    6: { scale: 2.2, invert: false }, // Increased Nexus
-    7: { scale: 1.8, invert: false },
-    8: { scale: 1.9, invert: false }, // Increased Heera Panna
-    9: { scale: 1.1, invert: false },
-    10: { scale: 1.8, invert: false },
-    11: { scale: 1.6, invert: false },
-    12: { scale: 1.8, invert: false },
-    13: { scale: 2.3, invert: false }, // Increased Eagle Book
-    14: { scale: 1.1, invert: false },
-    15: { scale: 1.8, invert: false }, // Increased Brixton
-    17: { scale: 1.8, invert: false },
-    20: { scale: 1.2, invert: false },
+    1: { scale: 1.2, invert: false },
+    2: { scale: 1.3, invert: false }, // Mauli Trucking
+    3: { scale: 1.0, invert: false },
+    4: { scale: 1.4, invert: false }, // Nourishing Farms
+    5: { scale: 1.0, invert: false },
+    6: { scale: 1.5, invert: false }, // Nexus
+    7: { scale: 1.2, invert: false },
+    8: { scale: 1.3, invert: false }, // Heera Panna
+    9: { scale: 1.0, invert: false },
+    10: { scale: 1.2, invert: false },
+    11: { scale: 1.2, invert: false },
+    12: { scale: 1.2, invert: false },
+    13: { scale: 1.6, invert: false }, // Eagle Book
+    14: { scale: 1.0, invert: false },
+    15: { scale: 1.3, invert: false }, // Brixton
+    17: { scale: 1.2, invert: false },
+    20: { scale: 1.1, invert: false },
     21: { scale: 1.0, invert: false },
   };
 
@@ -130,8 +130,8 @@ export const TrustedBrands: React.FC = () => {
       src: `/clientlogos/${id}.png`, 
       name: `Brand ${id}`,
       scale: conf.scale,
-      filter: conf.invert ? 'grayscale invert contrast-125 brightness-150' : 'grayscale contrast-125 brightness-150',
-      blend: 'mix-blend-screen'
+      filter: '',
+      blend: '' // Removed mix-blend-screen
     };
   });
 
@@ -168,23 +168,34 @@ export const TrustedBrands: React.FC = () => {
 
       <div className="relative w-full overflow-hidden py-10">
         {/* Fading Edge Masks */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-        <div 
-          ref={marqueeRef}
-          className="flex whitespace-nowrap items-center gap-20 will-change-transform"
-        >
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes infinite-scroll-marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+          }
+          .animate-infinite-scroll {
+            animation: infinite-scroll-marquee 40s linear infinite;
+          }
+          .animate-infinite-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}} />
+
+        <div className="flex w-fit whitespace-nowrap items-center gap-20 md:gap-24 animate-infinite-scroll will-change-transform pr-20 md:pr-24">
           {[...allBrands, ...allBrands].map((brand, i) => (
             <div 
               key={`${brand.name}-${i}`}
-              className={`px-10 md:px-16 flex items-center justify-center opacity-70 hover:opacity-100 transition-all duration-500 hover:scale-[1.05] ${brand.blend}`}
+              className={`px-6 md:px-10 flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity duration-300 ${brand.blend}`}
             >
               <div style={{ transform: `scale(${brand.scale})` }} className="flex items-center justify-center">
                 <img 
                   src={brand.src} 
                   alt={brand.name}
-                  className={`h-8 md:h-10 w-auto max-w-[120px] md:max-w-[160px] object-contain transition-opacity ${brand.filter}`}
+                  className={`w-auto h-auto max-h-[75px] max-w-[130px] md:max-h-[95px] md:max-w-[170px] object-contain transform-gpu`}
+                  loading="lazy"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
