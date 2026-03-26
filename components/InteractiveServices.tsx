@@ -170,7 +170,7 @@ export const InteractiveServices: React.FC = () => {
         <div className="absolute inset-x-0 top-0 h-[40vh] bg-gradient-to-b from-black via-black/40 to-transparent" />
       </div>
 
-      <div className="relative w-full h-[90%] md:h-full max-w-[1240px] mx-auto z-10 px-6 scale-[0.6] sm:scale-75 md:scale-100 origin-center">
+      <div className="relative w-full h-full max-w-[1240px] mx-auto z-10 px-6 scale-[0.85] sm:scale-90 md:scale-100 origin-bottom">
         
         {/* NETWORK TOPOLOGY SYSTEM */}
         <svg 
@@ -201,8 +201,20 @@ export const InteractiveServices: React.FC = () => {
               
               {/* ANIMATED WIRE LAYERS */}
               {services.map((service, i) => {
-                const targetX = (service.x / 100) * actualContWidth;
-                const targetY = (service.y / 100) * dimensions.height;
+                const isMobile = dimensions.width < 768;
+                let xPerc = service.x;
+                let yPerc = service.y;
+
+                if (isMobile) {
+                  // Re-position for mobile to prevent overlapping
+                  if (service.id === '2') { xPerc = 25; yPerc = 38; }
+                  if (service.id === '3') { xPerc = 75; yPerc = 38; }
+                  if (service.id === '4') { xPerc = 25; yPerc = 62; }
+                  if (service.id === '5') { xPerc = 75; yPerc = 62; }
+                }
+
+                const targetX = (xPerc / 100) * actualContWidth;
+                const targetY = (yPerc / 100) * dimensions.height;
                 
                 let path = "";
                 if (service.id === '1') {
@@ -242,47 +254,68 @@ export const InteractiveServices: React.FC = () => {
                 className="opacity-90 shadow-2xl"
                 filter="url(#network-glow)"
               />
-              {[30, 70, 10, 90].map((xPerc, idx) => (
-                <circle
-                  key={`node-v4-${idx}`}
-                  ref={(el) => { intersectionNodesRef.current[idx+1] = el; }}
-                  cx={(xPerc / 100) * actualContWidth}
-                  cy={junctionYValue}
-                  r="2.5"
-                  fill="white"
-                  className="opacity-60"
-                />
-              ))}
+              {[30, 70, 10, 90].map((xPerc, idx) => {
+                const isMobile = dimensions.width < 768;
+                let finalXPerc = xPerc;
+                if (isMobile) {
+                  if (xPerc === 30 || xPerc === 10) finalXPerc = 25;
+                  if (xPerc === 70 || xPerc === 90) finalXPerc = 75;
+                }
+                return (
+                  <circle
+                    key={`node-v4-${idx}`}
+                    ref={(el) => { intersectionNodesRef.current[idx+1] = el; }}
+                    cx={(finalXPerc / 100) * actualContWidth}
+                    cy={junctionYValue}
+                    r="2.5"
+                    fill="white"
+                    className="opacity-60"
+                  />
+                );
+              })}
             </g>
           )}
         </svg>
 
         {/* SERVICE INTERACTIVE NODES */}
-        {services.map((service, i) => (
-          <div
-            key={service.id}
-            ref={(el) => { serviceNodesRef.current[i] = el; }}
-            style={{ 
-              position: 'absolute', 
-              left: `${service.x}%`, 
-              top: `${service.y}%`, 
-              zIndex: 30,
-              opacity: 0
-            }}
-          >
-            <div className="flex items-center gap-3 py-3 pl-5 pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-500 hover:bg-black/80 hover:border-white/20">
-              <div 
-                ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
-                className="shrink-0 transition-transform duration-300"
-              >
-                <service.icon className="w-5 h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-300" />
+        {services.map((service, i) => {
+          const isMobile = dimensions.width < 768;
+          let xPerc = service.x;
+          let yPerc = service.y;
+
+          if (isMobile) {
+            if (service.id === '2') { xPerc = 25; yPerc = 38; }
+            if (service.id === '3') { xPerc = 75; yPerc = 38; }
+            if (service.id === '4') { xPerc = 25; yPerc = 62; }
+            if (service.id === '5') { xPerc = 75; yPerc = 62; }
+          }
+
+          return (
+            <div
+              key={service.id}
+              ref={(el) => { serviceNodesRef.current[i] = el; }}
+              style={{ 
+                position: 'absolute', 
+                left: `${xPerc}%`, 
+                top: `${yPerc}%`, 
+                zIndex: 30,
+                opacity: 0
+              }}
+            >
+              <div className="flex items-center gap-2 md:gap-3 py-2 md:py-3 px-3 md:pl-5 md:pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-500 hover:bg-black/80 hover:border-white/20">
+                <div 
+                  ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
+                  className="shrink-0 transition-transform duration-300"
+                >
+                  <service.icon className="w-4 h-4 md:w-5 md:h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-300" />
+                </div>
+                <span className="text-[10px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap text-center">
+                  {service.name}
+                </span>
               </div>
-              <span className="text-[13px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap text-center">
-                {service.name}
-              </span>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {/* BRIDGING CENTRAL HUB */}
         <div
