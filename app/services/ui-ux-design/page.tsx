@@ -68,15 +68,15 @@ const data: ServicePageData = {
     quote: "The UI/UX strategy they built for our product changed everything. We look so much more professional now.",
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
-    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+    avatar: '/video-production/imgi_100_226be715409b0d808df20bfb96176d7b0bd0d97e-768x768.jpg',
     metrics: [
-      { label: 'Growth Lift', value: '110%' },
-      { label: 'User Trust', value: '92%' },
-      { label: 'ROI Scale', value: '4.2x' },
+      { label: 'Usability Rate', value: '94%' },
+      { label: 'Conv. Rate', value: '2.8x' },
+      { label: 'User Sat.', value: '99%' },
     ],
     caseStudy: {
-      title: 'Success: Scaling Nexus with Professional UI/UX',
-      image: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
+      title: 'Success: Experience Flow for Vortex',
+      image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png',
     }
   },
 

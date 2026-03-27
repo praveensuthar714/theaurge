@@ -54,15 +54,15 @@ const data: ServicePageData = {
     quote: "Our new website is incredibly fast and easy for our customers to use. The results have been fantastic.",
     author: 'Elena Ross',
     role: 'CTO @ Nexus',
-    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+    avatar: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png',
     metrics: [
-      { label: 'Site Speed', value: '100%' },
-      { label: 'New Leads', value: '42%' },
-      { label: 'User Satisfaction', value: '95%' },
+      { label: 'Page Speed', value: '100/100' },
+      { label: 'Mobile Optim.', value: '98%' },
+      { label: 'Revenue Growth', value: '40%' },
     ],
     caseStudy: {
-      title: 'Success: A Faster, Better Website for Nexus',
-      image: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png',
+      title: 'Success: High-Perf Platform for Nexus',
+      image: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
     }
   },
 

@@ -85,11 +85,15 @@ export const Header: React.FC = () => {
 
           {/* Navigation Capsule — REFINED AS PER SCREENSHOT */}
           <div className="hidden xl:flex items-center px-10 py-3 rounded-none bg-black/10 backdrop-blur-[40px] border border-white/10 shadow-2xl transition-all duration-700 hover:bg-black/20">
-            <nav className="flex items-center gap-14 relative">
+            <nav 
+              className="flex items-center gap-14 relative"
+              onMouseLeave={() => setIsMegaMenuOpen(false)}
+            >
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.name}
-                  onClick={() => item.name === 'Services' ? setIsMegaMenuOpen(!isMegaMenuOpen) : null}
+                  href={item.href}
+                  onMouseEnter={() => item.name === 'Services' ? setIsMegaMenuOpen(true) : null}
                   className={`relative group text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 py-1 ${isMegaMenuOpen && item.name === 'Services' ? 'text-[#E6FF00]' : 'text-white/80 hover:text-[#E6FF00]'}`}
                 >
                   {item.name === 'Services' ? (
@@ -98,10 +102,10 @@ export const Header: React.FC = () => {
                       <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isMegaMenuOpen ? 'rotate-180 text-[#E6FF00]' : ''}`} />
                     </div>
                   ) : (
-                    <Link href={item.href}>{item.name}</Link>
+                    item.name
                   )}
                   <span className={`absolute -bottom-1 left-0 w-0 h-[1.5px] rounded-full bg-[#E6FF00] transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100 ${isMegaMenuOpen && item.name === 'Services' ? 'w-full opacity-100' : ''}`} />
-                </button>
+                </Link>
               ))}
             </nav>
           </div>

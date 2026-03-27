@@ -68,15 +68,15 @@ const data: ServicePageData = {
     quote: "The AI automation they built for us saved us hundreds of hours a month. It truly helps us focus on growth.",
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
-    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+    avatar: '/video-production/imgi_100_226be715409b0d808df20bfb96176d7b0bd0d97e-768x768.jpg',
     metrics: [
-      { label: 'Time Saved', value: '+300h' },
-      { label: 'Error Rate', value: '-95%' },
-      { label: 'ROI Scale', value: '3.4x' },
+      { label: 'Conversion', value: '3.2x' },
+      { label: 'Retention', value: '45%' },
+      { label: 'Efficiency', value: '60%' },
     ],
     caseStudy: {
-      title: 'Success: Scaling Nexus with AI Automation',
-      image: '/ai-automation/imgi_68_43cd1cce775c4e63a36195e13dd3913f3e9caa28-768x880.png',
+      title: 'Success: Intelligent Workflows for Apex',
+      image: '/video-production/imgi_10_33767250764af83fd74059d7a2f07d76455fb869-2400x1176.png',
     }
   },
 

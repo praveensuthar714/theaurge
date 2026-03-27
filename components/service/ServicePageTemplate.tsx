@@ -58,8 +58,10 @@ export interface ServicePageData {
   bentoCard1Title: string;
   bentoCard1Desc: string;
   bentoCard1Icon: React.ElementType;
+  bentoCard1Image?: string;
   bentoCard2Title: string;
   bentoCard2Icon: React.ElementType;
+  bentoCard2Image?: string;
 
   showcaseHeading: string;
   showcaseItems: ShowcaseItem[];
@@ -235,7 +237,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                    <div className="w-20 h-16 md:w-24 md:h-20 bg-neutral-100 relative">
                       {mod.image ? (
                         <img 
-                          src={`${mod.image}&v=1`} 
+                          src={`${mod.image}?v=1`} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-100" 
                           alt={mod.title}
                         />
@@ -380,7 +382,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                     >
                       <div className="w-16 h-12 overflow-hidden bg-black/40">
                         <img 
-                          src={`${data.results.caseStudy.image}&v=1`} 
+                          src={`${data.results.caseStudy.image}?v=1`} 
                           className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" 
                           alt="" 
                         />
@@ -426,7 +428,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               className="md:col-span-12 lg:col-span-8 group relative overflow-hidden bg-black border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 min-h-[340px] md:min-h-[400px]"
             >
               <img
-                src={`${data.bentoMainImage}&v=1`}
+                src={`${data.bentoMainImage}?v=1`}
                 className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-[2s]"
                 alt=""
               />
@@ -448,11 +450,23 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={1}
-                className="group relative bg-black border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 p-8 md:p-10 flex flex-col min-h-[220px]"
+                className="group relative bg-black border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 p-8 md:p-10 flex flex-col min-h-[220px] overflow-hidden"
               >
-                <BentoCard1Icon className="w-5 h-5 text-[#E6FF00]/40 group-hover:text-[#E6FF00] transition-colors" />
-                <h3 className="text-lg md:h-sm !text-white mt-auto">{data.bentoCard1Title}</h3>
-                <p className="body-text text-[11px] md:text-[12px] mt-2 opacity-40">{data.bentoCard1Desc}</p>
+                {data.bentoCard1Image && (
+                  <>
+                    <img 
+                      src={`${data.bentoCard1Image}?v=1`} 
+                      className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-[2s]" 
+                      alt="" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  </>
+                )}
+                <div className="relative z-10 flex flex-col h-full">
+                  <BentoCard1Icon className="w-5 h-5 text-[#E6FF00]/40 group-hover:text-[#E6FF00] transition-colors" />
+                  <h3 className="text-lg md:h-sm !text-white mt-auto">{data.bentoCard1Title}</h3>
+                  <p className="body-text text-[11px] md:text-[12px] mt-2 opacity-40">{data.bentoCard1Desc}</p>
+                </div>
               </motion.div>
 
               {/* Card 3 */}
@@ -462,11 +476,23 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={2}
-                className="group relative bg-[#050505] border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 p-8 md:p-10 flex flex-col items-start justify-end min-h-[220px]"
+                className="group relative bg-[#050505] border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 p-8 md:p-10 flex flex-col items-start justify-end min-h-[220px] overflow-hidden"
               >
-                <BentoCard2Icon className="w-5 h-5 text-white/10 group-hover:text-[#E6FF00]/40 transition-colors mb-auto" />
-                <h3 className="text-lg md:h-sm !text-white">{data.bentoCard2Title}</h3>
-                <div className="h-[1px] w-0 bg-[#E6FF00] mt-4 group-hover:w-full transition-all duration-700" />
+                {data.bentoCard2Image && (
+                  <>
+                    <img 
+                      src={`${data.bentoCard2Image}?v=1`} 
+                      className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-[2s]" 
+                      alt="" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                  </>
+                )}
+                <div className="relative z-10 w-full">
+                  <BentoCard2Icon className="w-5 h-5 text-white/10 group-hover:text-[#E6FF00]/40 transition-colors mb-auto" />
+                  <h3 className="text-lg md:h-sm !text-white">{data.bentoCard2Title}</h3>
+                  <div className="h-[1px] w-0 bg-[#E6FF00] mt-4 group-hover:w-full transition-all duration-700" />
+                </div>
               </motion.div>
             </div>
           </div>

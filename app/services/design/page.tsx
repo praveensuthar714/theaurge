@@ -68,15 +68,15 @@ const data: ServicePageData = {
     quote: "The design system built for us changed everything. We look so much more professional now.",
     author: 'Markus Vane',
     role: 'Creative Director @ Eon',
-    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+    avatar: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png',
     metrics: [
-      { label: 'Customer Trust', value: '+45%' },
-      { label: 'Site Traffic', value: '30%' },
-      { label: 'Design Score', value: '9.8/10' },
+      { label: 'Visual Appeal', value: '98%' },
+      { label: 'Brand Lift', value: '35%' },
+      { label: 'Engagement', value: '2.5x' },
     ],
     caseStudy: {
-      title: 'Eon: Designing for Market Dominance',
-      image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png',
+      title: 'Success: Visual Ecosystem for Eon',
+      image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png',
     }
   },
 

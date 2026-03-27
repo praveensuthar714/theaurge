@@ -68,15 +68,15 @@ const data: ServicePageData = {
     quote: "The brand identity they built for our series changed everything. We look so much more professional now.",
     author: 'Markus Vane',
     role: 'Creative Director @ Eon',
-    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+    avatar: '/video-production/imgi_100_226be715409b0d808df20bfb96176d7b0bd0d97e-768x768.jpg',
     metrics: [
-      { label: 'Customer Trust', value: '45%' },
-      { label: 'Site Visits', value: '30%' },
-      { label: 'Growth Rating', value: '150%' },
+      { label: 'Brand Equity', value: '4.5x' },
+      { label: 'Market Share', value: '18%' },
+      { label: 'Recall', value: '95%' },
     ],
     caseStudy: {
-      title: 'Success: A Brand Narrative for Eon',
-      image: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
+      title: 'Success: A New Identity for Lumina',
+      image: '/branding/imgi_15_18990d94cc12d56d2c085ecdfb53274f8750514a-2800x1450.png',
     }
   },
 
