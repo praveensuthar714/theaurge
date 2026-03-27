@@ -97,10 +97,10 @@ export default function StudioPage() {
          <div className="container mx-auto max-w-7xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="aspect-[4/5] rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-40 hover:opacity-100 transition-all duration-1000 bg-neutral-900">
-                   <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="The Vision" />
+                   <img src="/images/scene1.png" className="w-full h-full object-cover" alt="The Vision" />
                 </div>
                 <div className="aspect-[4/5] rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-40 hover:opacity-100 transition-all duration-1000 bg-neutral-900 mt-12 md:mt-24">
-                   <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="The Vision" />
+                   <img src="/images/scene2.png" className="w-full h-full object-cover" alt="The Vision" />
                 </div>
             </div>
          </div>

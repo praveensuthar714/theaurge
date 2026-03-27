@@ -10,9 +10,9 @@ const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 const articles = [
-  { id: 1, title: 'The Psychology of High-End Brand Storytelling.', date: 'Mar 18, 2026', category: 'Thinking', desc: 'Why the top 1% of brands use cinematic narrative to build institutional trust and legacy.', image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2070&auto=format&fit=crop' },
-  { id: 2, title: 'Measuring ROI in the AI-Automated Era.', date: 'Mar 15, 2026', category: 'Strategy', desc: 'A deep dive into cross-platform attribution in high-friction digital environments.', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop' },
-  { id: 3, title: 'The Death of the Traditional Creative Agency.', date: 'Mar 12, 2026', category: 'Ecosystem', desc: 'Why specialized production houses are replacing generic marketing agencies in 2026.', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop' },
+  { id: 1, title: 'The Psychology of High-End Brand Storytelling.', date: 'Mar 18, 2026', category: 'Thinking', desc: 'Why the top 1% of brands use cinematic narrative to build institutional trust and legacy.', image: '/branding/imgi_1_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png' },
+  { id: 2, title: 'Measuring ROI in the AI-Automated Era.', date: 'Mar 15, 2026', category: 'Strategy', desc: 'A deep dive into cross-platform attribution in high-friction digital environments.', image: '/ai-marketing/imgi_1_cf43af844d6a97f588b639f2592e3667143f308c-900x1104.png' },
+  { id: 3, title: 'The Death of the Traditional Creative Agency.', date: 'Mar 12, 2026', category: 'Ecosystem', desc: 'Why specialized production houses are replacing generic marketing agencies in 2026.', image: '/capabilities/digital-experiences.png' },
 ];
 
 export default function JournalPage() {

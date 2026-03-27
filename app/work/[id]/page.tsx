@@ -78,15 +78,15 @@ export default function CaseStudyPage() {
         <div className="container mx-auto max-w-7xl">
            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
               <div className="aspect-[16/11] rounded-[4px] overflow-hidden border border-white/10 group grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-                 <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="Execution" />
+                 <img src="/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png" className="w-full h-full object-cover" alt="Execution" />
               </div>
               <div className="aspect-[16/11] rounded-[4px] overflow-hidden border border-white/10 group grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-                 <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="Execution" />
+                 <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="Execution" />
               </div>
            </div>
            
            <div className="aspect-[21/9] rounded-[4px] overflow-hidden border border-white/10 bg-black group relative cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[2s]" alt="Full Width Display" />
+              <img src="/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png" className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[2s]" alt="Full Width Display" />
               <div className="absolute inset-0 flex items-center justify-center">
                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-black group-hover:scale-110 transition-transform">
                     <Play className="w-8 h-8 ml-1 fill-black" />

@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Professional SEO',
   heroSubheading: '& Optimization.',
   heroDescription: 'Optimizing your digital presence to rank higher, reach more customers, and dominate your market.',
-  heroBg: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2072&auto=format&fit=crop',
+  heroBg: '/performance-marketing/imgi_87_eed97c6479a951f6169af5645730a69694bc058a-768x880.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Visibility',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our SEO',
   bentoSubheading: 'Expertise.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/performance-marketing/imgi_1_8233166219079021cffd1f915256d7957270b153-1200x1472.png',
   bentoMainTitle: 'Search Strategy',
   bentoMainSubtitle: 'Execution',
   bentoMainDesc: 'In-depth keyword research and competitor analysis to identify the best ways for you to rank on Google.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Results',
   showcaseItems: [
-    { title: 'Project One', category: 'Organic', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Project Two', category: 'Technical', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Three', category: 'Growth', image: 'https://images.unsplash.com/photo-1454165833767-1314d07b483c?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Four', category: 'Optimization', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc511d?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Project One', category: 'Organic', image: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Project Two', category: 'Technical', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { title: 'Project Three', category: 'Growth', image: '/performance-marketing/imgi_3_8e1325c7b507a7bfda755f8c3b98594affda26fd-3600x1110.png' },
+    { title: 'Project Four', category: 'Optimization', image: '/performance-marketing/imgi_38_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Globe, title: 'Organic Growth', description: 'Expertly managed campaigns that maximize your brand visibility and leads.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Search, title: 'Technical Cleanup', description: 'Optimizing your site code for faster load times and better search indexing.', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400' },
-    { icon: BarChart, title: 'Data Analysis', description: 'Advanced tracking and reporting for complete visibility into your growth.', image: 'https://images.unsplash.com/photo-1454165833767-1314d07b483c?auto=format&fit=crop&q=80&w=400' },
-    { icon: Rocket, title: 'Search Strategy', description: 'Keyword research and strategy built to help you outrank your competitors.', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc511d?auto=format&fit=crop&q=80&w=400' },
-    { icon: Shield, title: 'Brand Authority', description: 'Positioning and content that makes your brand stand out in search results.', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Core Vitals', description: 'A technical refining lab where your site speed and performance are perfected.', image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc4b?auto=format&fit=crop&q=80&w=400' },
+    { icon: Globe, title: 'Organic Growth', description: 'Expertly managed campaigns that maximize your brand visibility and leads.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { icon: Search, title: 'Technical Cleanup', description: 'Optimizing your site code for faster load times and better search indexing.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
+    { icon: BarChart, title: 'Data Analysis', description: 'Advanced tracking and reporting for complete visibility into your growth.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
+    { icon: Rocket, title: 'Search Strategy', description: 'Keyword research and strategy built to help you outrank your competitors.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
+    { icon: Shield, title: 'Brand Authority', description: 'Positioning and content that makes your brand stand out in search results.', image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png' },
+    { icon: Zap, title: 'Core Vitals', description: 'A technical refining lab where your site speed and performance are perfected.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The SEO strategy they built for our launch was a game-changer. We reached page one within months.",
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
+    avatar: '/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Organic Lift', value: '110%' },
       { label: 'Keyword Scope', value: '35+' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Brand Narrative for Nexus',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/performance-marketing/imgi_14_10b6468101169b5d6a5739cf9952e8313827ac03-2787x1457.png',
     }
   },
 

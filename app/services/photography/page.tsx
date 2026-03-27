@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Professional',
   heroSubheading: 'Photography.',
   heroDescription: 'Capturing high-quality imagery that defines your brand and tells your story with visual clarity.',
-  heroBg: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=2074&auto=format&fit=crop',
+  heroBg: '/video-production/imgi_40_ac7bdf55928d15f333796ec5b6f049cd330536dd-3324x2208.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Power',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our Photo',
   bentoSubheading: 'Expertise.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/video-production/imgi_4_8849646b5a328f2de4e375ef109594bebc4858b9-1200x1472.png',
   bentoMainTitle: 'Brand Portrait',
   bentoMainSubtitle: 'Session',
   bentoMainDesc: 'Professional portraits and brand lifestyle imagery that help you connect with your audience on a personal level.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Portfolio',
   showcaseItems: [
-    { title: 'Project One', category: 'Lifestyle', image: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Project Two', category: 'Product', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Three', category: 'Corporate', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Four', category: 'Events', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Project One', category: 'Lifestyle', image: '/branding/imgi_1_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Project Two', category: 'Product', image: '/video-production/imgi_82_95ce326d59a9bcefe3d54972376402e1c0f6d792-768x880.png' },
+    { title: 'Project Three', category: 'Corporate', image: '/branding/imgi_84_643d1b3c67e393f909a870625276cee749d16674-2376x1320.png' },
+    { title: 'Project Four', category: 'Events', image: '/video-production/imgi_85_9babda97975af7d29219e4183c688efe0d0463f4-720x728.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Camera, title: 'Commercial Photo', description: 'High-quality filming and stills with professional crews and equipment.', image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&q=80&w=400' },
-    { icon: Image, title: 'Product Stills', description: 'Video advertisements designed to get clicks and conversions.', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layers, title: 'Editing & Retouch', description: 'Professional post-production including editing, color, and effects.', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Motion Capture', description: 'Fast-paced editing perfect for TikTok, Reels, and YouTube.', image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Flash Systems', description: 'Beautiful lighting and composition for a professional look.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
-    { icon: Monitor, title: 'Digital Assets', description: 'Speed-optimized editing to get your content live quickly.', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc511d?auto=format&fit=crop&q=80&w=400' },
+    { icon: Camera, title: 'Commercial Photo', description: 'High-quality filming and stills with professional crews and equipment.', image: '/video-production/imgi_26_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg' },
+    { icon: Image, title: 'Product Stills', description: 'Video advertisements designed to get clicks and conversions.', image: '/video-production/imgi_30_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png' },
+    { icon: Layers, title: 'Editing & Retouch', description: 'Professional post-production including editing, color, and effects.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Sparkles, title: 'Motion Capture', description: 'Fast-paced editing perfect for TikTok, Reels, and YouTube.', image: '/video-production/imgi_21_73ca3279a0631316a07443f727af6f7cb0fb106d-132x84.png' },
+    { icon: Zap, title: 'Flash Systems', description: 'Beautiful lighting and composition for a professional look.', image: '/video-production/imgi_10_720ce9fb43ee5ce93fbed66e56bfe075aee95760-1000x1000.png' },
+    { icon: Monitor, title: 'Digital Assets', description: 'Speed-optimized editing to get your content live quickly.', image: '/video-production/imgi_25_8174c6cb21efd19c01df7cddbdcadf03bfbc2477-720x720.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The brand images they produced for us were incredible. It really helped us connect with our customers.",
     author: 'Sam Thorne',
     role: 'Marketing Lead @ Nexus',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
+    avatar: '/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Ads Lift', value: '2.4x' },
       { label: 'Customer Trust', value: '92%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Brand Narrative for Nexus',
-      image: 'https://images.unsplash.com/photo-1492691223115-f86a89694073?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/video-production/imgi_2_8babda97975af7d29219e4183c688efe0d0463f4-720x728.png',
     }
   },
 

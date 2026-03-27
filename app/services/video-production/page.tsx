@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Professional Video',
   heroSubheading: 'Production.',
   heroDescription: 'Creating high-quality cinematic videos and advertisements that help your brand tell its story and connect with your audience.',
-  heroBg: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2070&auto=format&fit=crop',
+  heroBg: '/video-production/imgi_88_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Power',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our Video',
   bentoSubheading: 'Services.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1478720330259-f1530e87a321?auto=format&fit=crop&q=80&w=1200&v=2',
+  bentoMainImage: '/video-production/imgi_10_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png',
   bentoMainTitle: 'Brand Film',
   bentoMainSubtitle: 'Production',
   bentoMainDesc: 'Professional films that define your brand and help you project authority in your market.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Films',
   showcaseItems: [
-    { title: 'Nexus Campaign', category: 'Brand Film', image: 'https://images.unsplash.com/photo-1598897349489-bc474642db4f?q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Eon Narrative', category: 'Ad Film', image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600' },
-    { title: 'Vortex Motion', category: 'Motion', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600' },
-    { title: 'Apex Short Film', category: 'Short Film', image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Nexus Campaign', category: 'Brand Film', image: '/video-production/imgi_13_81b6522f52cc241b6bd7218483f140be359dd2b6-2400x1260.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Eon Narrative', category: 'Ad Film', image: '/video-production/imgi_68_43cd1cce775c4e63a36195e13dd3913f3e9caa28-768x880.png' },
+    { title: 'Vortex Motion', category: 'Motion', image: '/video-production/imgi_70_3b4df6c308e199c6b80eb1b9248604fb265d8f9d-768x880.png' },
+    { title: 'Apex Short Film', category: 'Short Film', image: '/video-production/imgi_71_39c97cafcdcc6468c15ef19eed05c26029d6d329-768x880.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Camera, title: 'Film Production', description: 'High-quality filming with professional crews and equipment.', image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Ad Production', description: 'Video advertisements designed to get clicks and conversions.', image: 'https://images.unsplash.com/photo-1598818381102-535839d1b338?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Editing & VFX', description: 'Professional post-production including editing, color, and effects.', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Monitor, title: 'Social Video', description: 'Fast-paced editing perfect for TikTok, Reels, and YouTube.', image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400' },
-    { icon: Camera, title: 'Cinematic Style', description: 'Beautiful lighting and composition for a professional look.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Fast Turnaround', description: 'Speed-optimized editing to get your content live quickly.', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc511d?auto=format&fit=crop&q=80&w=400' },
+    { icon: Camera, title: 'Film Production', description: 'High-quality filming with professional crews and equipment.', image: '/video-production/imgi_3_c0a72587cff2a0330d036f2daa0c2966e509e83e-88x56.png' },
+    { icon: Zap, title: 'Ad Production', description: 'Video advertisements designed to get clicks and conversions.', image: '/video-production/imgi_4_b670e23665c3387cd4659a89392b0d416395c161-72x56.png' },
+    { icon: Sparkles, title: 'Editing & VFX', description: 'Professional post-production including editing, color, and effects.', image: '/video-production/imgi_5_39ea31c2e790762ccd4c267eedac6ea28aa192c4-72x56.png' },
+    { icon: Monitor, title: 'Social Video', description: 'Fast-paced editing perfect for TikTok, Reels, and YouTube.', image: '/video-production/imgi_6_188877b82aca48b7db038b5ea7ae4b442c1c75db-72x56.png' },
+    { icon: Camera, title: 'Cinematic Style', description: 'Beautiful lighting and composition for a professional look.', image: '/video-production/imgi_7_1280ab7981c4a3009811b0d80327ca3f76c32de3-72x56.png' },
+    { icon: Zap, title: 'Fast Turnaround', description: 'Speed-optimized editing to get your content live quickly.', image: '/video-production/imgi_8_cd13368aad2d06cc072aa42b992e897c2867d9ac-72x56.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The brand film they produced for us was incredible. It really helped us connect with our customers and look professional.",
     author: 'Markus Vane',
     role: 'Creative Director @ Stellar',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
+    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Engagement', value: '2.4x' },
       { label: 'Brand Recall', value: '92%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Brand Narrative for Stellar',
-      image: 'https://images.unsplash.com/photo-1492691223115-f86a89694073?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/video-production/imgi_88_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
     }
   },
 

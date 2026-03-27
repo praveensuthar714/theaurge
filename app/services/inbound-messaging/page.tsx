@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Inbound',
   heroSubheading: 'Messaging Systems.',
   heroDescription: 'Converting your website traffic into leads through high-fidelity messaging, chatbots, and real-time engagement.',
-  heroBg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop',
+  heroBg: '/inbound-messaging/imgi_88_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Engagement',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our Messaging',
   bentoSubheading: 'Services.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/inbound-messaging/imgi_27_acd5f4256d06d3edb5f23cd3e1078fa13b07137a-1200x1472.png',
   bentoMainTitle: 'Smart Chatbots',
   bentoMainSubtitle: 'Execution',
   bentoMainDesc: 'Using AI-driven bots to handle customer inquiries, book meetings, and qualify leads 24/7.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Success',
   showcaseItems: [
-    { title: 'Project One', category: 'Chatbot', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Project Two', category: 'Live Chat', image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Three', category: 'Support', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Project Four', category: 'Leads AI', image: 'https://images.unsplash.com/photo-1531746790731-6c087fdec69a?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Project One', category: 'Chatbot', image: '/inbound-messaging/imgi_68_c517d6dac9b9fa15a5bf1a60d2511a33f7154bc9-800x838.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Project Two', category: 'Live Chat', image: '/inbound-messaging/imgi_69_43cd1cce775c4e63a36195e13dd3913f3e9caa28-768x880.png' },
+    { title: 'Project Three', category: 'Support', image: '/inbound-messaging/imgi_70_3b4df6c308e199c6b80eb1b9248604fb265d8f9d-768x880.png' },
+    { title: 'Project Four', category: 'Leads AI', image: '/inbound-messaging/imgi_71_39c97cafcdcc6468c15ef19eed05c26029d6d329-768x880.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: MessageSquare, title: 'Smart Bots', description: 'Expertly managed chatbots that maximize your lead capture and conversion.', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400' },
-    { icon: Smartphone, title: 'Mobile Messaging', description: 'Optimizing your messaging systems for mobile users on phones and tablets.', image: 'https://images.unsplash.com/photo-1556656793-062ff9f1610d?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Fast Lead Capture', description: 'Keyword research and campaign strategy built to help you capture every visitor.', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layout, title: 'Funnel Logic', description: 'Systems and tools to optimize your messaging funnel for better results.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Monitor, title: 'Digital Hub', description: 'Deploying your messaging systems globally to facilitate business reach.', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Cinematic UX', description: 'High-end visuals and transitions for a completely automated ad experience.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
+    { icon: MessageSquare, title: 'Smart Bots', description: 'Expertly managed chatbots that maximize your lead capture and conversion.', image: '/inbound-messaging/imgi_13_81b6522f52cc241b6bd7218483f140be359dd2b6-2400x1260.png' },
+    { icon: Smartphone, title: 'Mobile Messaging', description: 'Optimizing your messaging systems for mobile users on phones and tablets.', image: '/inbound-messaging/imgi_26_acd5f4256d06d3edb5f23cd3e1078fa13b07137a-1200x1472.png' },
+    { icon: Zap, title: 'Fast Lead Capture', description: 'Keyword research and campaign strategy built to help you capture every visitor.', image: '/inbound-messaging/imgi_28_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Layout, title: 'Funnel Logic', description: 'Systems and tools to optimize your messaging funnel for better results.', image: '/inbound-messaging/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
+    { icon: Monitor, title: 'Digital Hub', description: 'Deploying your messaging systems globally to facilitate business reach.', image: '/inbound-messaging/imgi_72_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { icon: Sparkles, title: 'Cinematic UX', description: 'High-end visuals and transitions for a completely automated ad experience.', image: '/inbound-messaging/imgi_21_39ea31c2e790762ccd4c267eedac6ea28aa192c4-72x56.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The messaging strategy they built for our launch was a game-changer. Our leads increased by 2.4x.",
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
+    avatar: '/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Growth Lift', value: '110%' },
       { label: 'Leads Scoped', value: '92%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: Scaling Nexus with Smart Messaging',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/inbound-messaging/imgi_88_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
     }
   },
 

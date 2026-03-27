@@ -7,46 +7,36 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 import { PremiumButton } from '@/components/ui/PremiumButton';
 
+import { formatCloudinaryTitle } from '@/lib/cloudinary';
+
 const workCategories = [
   { 
     id: 'creative', 
     name: 'Creative Production', 
     label: '01',
     description: 'Cinematic visual storytelling and high-fidelity production.',
-    projects: [
-      { id: 1, title: 'Lumina Noir', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop', href: '/work/1' },
-      { id: 4, title: 'Neon Pulse', image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2070&auto=format&fit=crop', href: '/work/4' },
-    ]
+    projects: []
   },
   { 
     id: 'branding', 
     name: 'Brand Identity', 
     label: '02',
     description: 'Architecting visual DNA and strategy-led brand systems.',
-    projects: [
-      { id: 2, title: 'Aether Flow', image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop', href: '/work/2' },
-      { id: 5, title: 'Veritas', image: 'https://images.unsplash.com/photo-1634942537034-22161ce40875?q=80&w=2069&auto=format&fit=crop', href: '/work/5' },
-    ]
+    projects: []
   },
   { 
     id: 'digital', 
     name: 'Digital Products', 
     label: '03',
     description: 'High-performance interactive experiences and digital ecosystems.',
-    projects: [
-      { id: 6, title: 'Quantum UI', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop', href: '/work/6' },
-      { id: 7, title: 'Shift Ecosystem', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', href: '/work/7' },
-    ]
+    projects: []
   },
   { 
     id: 'marketing', 
     name: 'Growth & Strategy', 
     label: '04',
     description: 'Data-driven performance and exponential market positioning.',
-    projects: [
-      { id: 3, title: 'Summit Peaks', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop', href: '/work/3' },
-      { id: 8, title: 'Dominion AI', image: 'https://images.unsplash.com/photo-1620712943543-bcc4628c7190?q=80&w=2070&auto=format&fit=crop', href: '/work/8' },
-    ]
+    projects: []
   }
 ];
 
@@ -57,20 +47,30 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
 
   // Group fetched dynamic assets roughly evenly across the existing UI categories
   const categoriesWithAssets = workCategories.map((cat, index) => {
-    if (!assets || assets.length === 0) return cat;
+    if (!assets || assets.length === 0) return { ...cat, projects: [] };
     
     const itemsPerCategory = Math.ceil(assets.length / workCategories.length);
     const catAssets = assets.slice(index * itemsPerCategory, (index + 1) * itemsPerCategory);
     
     return {
       ...cat,
-      projects: catAssets.map((asset) => {
-        const filename = asset.public_id.split('/').pop() || 'Project';
-        const title = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      projects: catAssets.map((asset, i) => {
+        let optimizedUrl = asset.secure_url;
+        let posterUrl = undefined;
+        
+        if (optimizedUrl.includes('/upload/')) {
+          optimizedUrl = optimizedUrl.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/');
+          if (asset.resource_type === 'video') {
+             optimizedUrl = optimizedUrl.replace(/\.[^/.]+$/, ".mp4");
+             posterUrl = optimizedUrl.replace(/\.mp4$/, ".jpg");
+          }
+        }
+
         return {
           id: asset.public_id,
-          title,
-          image: asset.secure_url,
+          title: formatCloudinaryTitle(asset.public_id, index * itemsPerCategory + i),
+          image: optimizedUrl,
+          poster: posterUrl,
           type: asset.resource_type,
           href: '#'
         };
@@ -205,6 +205,7 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
                         {project.type === 'video' ? (
                           <video
                             src={project.image}
+                            poster={project.poster}
                             className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
                             autoPlay
                             muted

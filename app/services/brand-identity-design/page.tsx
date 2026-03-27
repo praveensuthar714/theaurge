@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Premium Brand',
   heroSubheading: 'Identity Design.',
   heroDescription: 'Defining bespoke brand identities that tell your unique story and command market authority.',
-  heroBg: 'https://images.unsplash.com/photo-1541462608141-ad43d574b4a?q=80&w=2070&auto=format&fit=crop',
+  heroBg: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Identity',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our Design',
   bentoSubheading: 'Services.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/branding/imgi_1_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png',
   bentoMainTitle: 'Brand Strategy',
   bentoMainSubtitle: 'Design',
   bentoMainDesc: 'Bespoke brand identities that clearly define your mission and connect with your audience.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Portfolio',
   showcaseItems: [
-    { title: 'Brand One', category: 'Identity', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Logo Design Two', category: 'Modern', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Identity Three', category: 'Premium', image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Visuals Four', category: 'Corporate', image: 'https://images.unsplash.com/photo-1541462608141-ad43d574b4a?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Brand One', category: 'Identity', image: '/branding/imgi_84_643d1b3c67e393f909a870625276cee749d16674-2376x1320.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Logo Design Two', category: 'Modern', image: '/branding/imgi_87_0acb20f2a9708d15596ec5b6f421c6fa6758729b-1152x1320.png' },
+    { title: 'Identity Three', category: 'Premium', image: '/branding/imgi_89_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { title: 'Visuals Four', category: 'Corporate', image: '/branding/imgi_15_18990d94cc12d56d2c085ecdfb53274f8750514a-2800x1450.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Palette, title: 'Identity Systems', description: 'Complete brand identities that define your business across all your marketing.', image: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&q=80&w=400' },
-    { icon: PenTool, title: 'Bespoke Logos', description: 'High-end logo marks designed to project brand trust and unique style.', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layout, title: 'Visual Guides', description: 'Comprehensive design guidelines to keep your brand consistent everywhere.', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layers, title: 'Asset Packs', description: 'Professional social media, ad, and print assets ready for your final launch.', image: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=400' },
-    { icon: Box, title: '3D Elements', description: 'High-quality graphics and 3D visual assets that make your brand stand out.', image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Digital Arts', description: 'Beautiful visuals and transitions for a completely immersive experience.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=400' },
+    { icon: Palette, title: 'Identity Systems', description: 'Complete brand identities that define your business across all your marketing.', image: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
+    { icon: PenTool, title: 'Bespoke Logos', description: 'High-end logo marks designed to project brand trust and unique style.', image: '/branding/imgi_34_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
+    { icon: Layout, title: 'Visual Guides', description: 'Comprehensive design guidelines to keep your brand consistent everywhere.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Layers, title: 'Asset Packs', description: 'Professional social media, ad, and print assets ready for your final launch.', image: '/branding/imgi_29_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png' },
+    { icon: Box, title: '3D Elements', description: 'High-quality graphics and 3D visual assets that make your brand stand out.', image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png' },
+    { icon: Sparkles, title: 'Digital Arts', description: 'Beautiful visuals and transitions for a completely immersive experience.', image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The brand identity they built for our series changed everything. We look so much more professional now.",
     author: 'Markus Vane',
     role: 'Creative Director @ Eon',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
+    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Customer Trust', value: '45%' },
       { label: 'Site Visits', value: '30%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Brand Narrative for Eon',
-      image: 'https://images.unsplash.com/photo-1492691223115-f86a89694073?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
     }
   },
 

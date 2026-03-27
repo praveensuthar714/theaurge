@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Web Design',
   heroSubheading: '& Development.',
   heroDescription: 'Building high-performance websites and digital platforms that drive results and grow your business.',
-  heroBg: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop',
+  heroBg: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Digital',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our Web',
   bentoSubheading: 'Expertise.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/website-development/imgi_13_63137c06a840043ddc8877d799fe93b94d8889dd-2800x1450.png',
   bentoMainTitle: 'Full-Stack',
   bentoMainSubtitle: 'Development',
   bentoMainDesc: 'Modern web applications built with the latest technology for speed, security, and scale.',
@@ -31,12 +31,12 @@ const data: ServicePageData = {
   bentoCard2Icon: Globe,
 
   modules: [
-    { icon: Code2, title: 'Clean Code', description: 'Expertly written code that is fast, secure, and easy to maintain.', image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=400' },
-    { icon: Cpu, title: 'Fast Performance', description: 'Optimized websites that load instantly across all devices.', image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc4b?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layers, title: 'Responsive Design', description: 'Websites that look and work perfectly on phones, tablets, and desktops.', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400' },
-    { icon: Globe, title: 'SEO Optimized', description: 'Built-in SEO best practices to help your website rank on Google.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Secure Systems', description: 'Advanced security protocols to keep your data and users safe.', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Great UX', description: 'User-friendly interfaces that make navigating your site a breeze.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=400' },
+    { icon: Code2, title: 'Clean Code', description: 'Expertly written code that is fast, secure, and easy to maintain.', image: '/website-development/imgi_26_eff3357620f38b12c5d8bec26b6dd6360cb25c43-2400x2944.png' },
+    { icon: Cpu, title: 'Fast Performance', description: 'Optimized websites that load instantly across all devices.', image: '/website-development/imgi_27_eff3357620f38b12c5d8bec26b6dd6360cb25c43-2400x2944.png' },
+    { icon: Layers, title: 'Responsive Design', description: 'Websites that look and work perfectly on phones, tablets, and desktops.', image: '/website-development/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
+    { icon: Globe, title: 'SEO Optimized', description: 'Built-in SEO best practices to help your website rank on Google.', image: '/website-development/imgi_113_52dd44eac93588f55945d184aa59d46dc7806d3a-1440x1548.png' },
+    { icon: Zap, title: 'Secure Systems', description: 'Advanced security protocols to keep your data and users safe.', image: '/website-development/imgi_110_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
+    { icon: Sparkles, title: 'Great UX', description: 'User-friendly interfaces that make navigating your site a breeze.', image: '/website-development/imgi_108_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png' },
   ],
 
   processLabel: 'Our Process',
@@ -54,7 +54,7 @@ const data: ServicePageData = {
     quote: "Our new website is incredibly fast and easy for our customers to use. The results have been fantastic.",
     author: 'Elena Ross',
     role: 'CTO @ Nexus',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400',
+    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Site Speed', value: '100%' },
       { label: 'New Leads', value: '42%' },
@@ -62,16 +62,16 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Faster, Better Website for Nexus',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400',
+      image: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png',
     }
   },
 
   showcaseHeading: 'Our Projects',
   showcaseItems: [
-    { title: 'Portfolio One', category: 'Web App', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Portfolio Two', category: 'E-commerce', image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=600' },
-    { title: 'Portfolio Three', category: 'Business Site', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600' },
-    { title: 'Portfolio Four', category: 'Landing Page', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Portfolio One', category: 'Web App', image: '/website-development/imgi_26_eff3357620f38b12c5d8bec26b6dd6360cb25c43-2400x2944.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Portfolio Two', category: 'E-commerce', image: '/website-development/imgi_113_52dd44eac93588f55945d184aa59d46dc7806d3a-1440x1548.png' },
+    { title: 'Portfolio Three', category: 'Business Site', image: '/website-development/imgi_110_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
+    { title: 'Portfolio Four', category: 'Landing Page', image: '/website-development/imgi_108_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png', span: 'lg:col-span-2' },
   ],
 
   differentiators: [

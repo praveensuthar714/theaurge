@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'Brand &',
   heroSubheading: 'UI/UX Design.',
   heroDescription: 'Creating high-end brand identities and conversion-led digital experiences for businesses worldwide.',
-  heroBg: 'https://images.unsplash.com/photo-1541462608141-ad43d574b4a?q=80&w=2070&auto=format&fit=crop',
+  heroBg: '/designandcreativehero.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Visual',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Design',
   bentoSubheading: 'Expertise.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/images/design-bento-1.png',
   bentoMainTitle: 'Brand Identity',
   bentoMainSubtitle: 'Design',
   bentoMainDesc: 'Bespoke brand identities that clearly define your mission and connect with your audience.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'Our Portfolio',
   showcaseItems: [
-    { title: 'Brand One', category: 'Identity', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'UX Project Two', category: 'Product Design', image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Logo Three', category: 'Branding', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Web App Four', category: 'UI Design', image: 'https://images.unsplash.com/photo-1541462608141-ad43d574b4a?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'Brand One', category: 'Identity', image: '/branding/imgi_84_643d1b3c67e393f909a870625276cee749d16674-2376x1320.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'UX Project Two', category: 'Product Design', image: '/branding/imgi_1_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png' },
+    { title: 'Logo Three', category: 'Branding', image: '/branding/imgi_87_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png' },
+    { title: 'Web App Four', category: 'UI Design', image: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Palette, title: 'Brand Identity', description: 'Complete identity systems that define your business across all channels.', image: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layers, title: 'UI/UX Design', description: 'User-friendly interfaces designed to guide your customers through your site.', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=400' },
-    { icon: Box, title: 'Visual Assets', description: 'High-quality graphics and 3D elements that make your brand stand out.', image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=400' },
-    { icon: Layout, title: 'Product Design', description: 'End-to-end design for digital products that your users will love.', image: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=400' },
-    { icon: PenTool, title: 'Typography', description: 'Custom typography and font choices that fit your brand perfectly.', image: 'https://images.unsplash.com/photo-1504270997636-07ddfbd48945?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'Graphic Design', description: 'Beautiful visuals for social media, ads, and digital marketing.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=400' },
+    { icon: Palette, title: 'Brand Identity', description: 'Complete identity systems that define your business across all channels.', image: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png' },
+    { icon: Layers, title: 'UI/UX Design', description: 'User-friendly interfaces designed to guide your customers through your site.', image: '/images/design-hero-mockup.png' },
+    { icon: Box, title: 'Visual Assets', description: 'High-quality graphics and 3D elements that make your brand stand out.', image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png' },
+    { icon: Layout, title: 'Product Design', description: 'End-to-end design for digital products that your users will love.', image: '/images/design-showcase-grid.png' },
+    { icon: PenTool, title: 'Typography', description: 'Custom typography and font choices that fit your brand perfectly.', image: '/branding/imgi_39_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Sparkles, title: 'Graphic Design', description: 'Beautiful visuals for social media, ads, and digital marketing.', image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The design system built for us changed everything. We look so much more professional now.",
     author: 'Markus Vane',
     role: 'Creative Director @ Eon',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
+    avatar: '/branding/imgi_111_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Customer Trust', value: '+45%' },
       { label: 'Site Traffic', value: '30%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Eon: Designing for Market Dominance',
-      image: 'https://images.unsplash.com/photo-1492691223115-f86a89694073?auto=format&fit=crop&q=80&w=400',
+      image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png',
     }
   },
 

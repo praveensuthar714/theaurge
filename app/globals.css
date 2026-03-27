@@ -134,6 +134,23 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
+/* Scrollbar Hide Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Antigravity Utilities */
 .perspective-container {
   perspective: 1200px;

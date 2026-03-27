@@ -112,7 +112,7 @@ export default function SolutionsPage() {
                   </div>
                </div>
                <div className="lg:w-1/2 relative bg-neutral-900 rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-1000 aspect-[16/10]">
-                  <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="The Framework" />
+                  <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="The Framework" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                </div>
             </div>

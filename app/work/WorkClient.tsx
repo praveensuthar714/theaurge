@@ -6,79 +6,117 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, Video, Camera, MousePointer2, Sparkles, Monitor } from 'lucide-react';
 import { PremiumButton } from '@/components/ui/PremiumButton';
+import { formatCloudinaryTitle, inferCategories } from '@/lib/cloudinary';
+import { websitePortfolio } from '@/lib/websiteData';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
-const topCategories = ['All Services', 'Videos', 'Websites', 'Social Media', 'SEO'];
-const industryCategories = ['All Industries', 'Corporate', 'Real Estate', 'Education', 'E-commerce', 'Healthcare', 'Automotive'];
+// Removed 'All Services' from topCategories so it forces a specific service like Videos
+const topCategories = ['Videos', 'Creative & Design', 'Websites', 'SEO', 'Brand Identity', 'PPC'];
+const industryCategories = [
+  'All Industries', 'Corporate', 'Finance', 'E-commerce', 'Education', 
+  'Agency', 'Healthcare', 'NGO', 'Spiritual', 'Travel', 'Manufacturing', 'Automotive'
+];
 
 export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[] }) {
-  const [activeTop, setActiveTop] = useState('All Services');
+  const [activeTop, setActiveTop] = useState('Videos');
   const [activeSub, setActiveSub] = useState('All Industries');
   const [lightbox, setLightbox] = useState<any | null>(null);
+  
+  // Pagination State
+  const [visibleCount, setVisibleCount] = useState(12);
 
   // Convert raw Cloudinary data into structured projects matching the UI requirements
   const dynamicProjects = (portfolioAssets || []).map((asset, i) => {
-    const filename = asset.public_id.split('/').pop() || `Project ${i}`;
-    const title = filename.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const title = formatCloudinaryTitle(asset.public_id, i);
+    const { service, industry } = inferCategories(asset.public_id, asset.resource_type as 'image'|'video', asset.tags || []);
     
-    // Smartly assign categories based on resource type
-    const isVideo = asset.resource_type === 'video';
-    const imageCategories = ['Websites', 'Social Media', 'SEO'];
-    const assignedCat = isVideo ? 'Videos' : imageCategories[i % imageCategories.length];
+    let optimizedUrl = asset.secure_url;
+    let posterUrl = undefined;
     
-    // Check tags for industry, fallback to rotating assignment
-    let assignedIndustry = industryCategories[(i % (industryCategories.length - 1)) + 1];
-    if (asset.tags && asset.tags.length > 0) {
-      const match = industryCategories.find(c => asset.tags.some((t: string) => t.toLowerCase() === c.toLowerCase()));
-      if (match) assignedIndustry = match;
+    if (optimizedUrl.includes('/upload/')) {
+      // Inject Cloudinary performance metrics to eliminate buffering
+      optimizedUrl = optimizedUrl.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/');
+      if (asset.resource_type === 'video') {
+         // Force universally supported codec and extract immediate poster frame
+         optimizedUrl = optimizedUrl.replace(/\.[^/.]+$/, ".mp4");
+         posterUrl = optimizedUrl.replace(/\.mp4$/, ".jpg");
+      }
     }
     
     return {
       id: asset.public_id,
       title,
-      topCategory: assignedCat,
-      industry: assignedIndustry,
-      image: asset.secure_url,
-      type: asset.resource_type
+      topCategory: service,
+      industry: industry,
+      image: optimizedUrl,
+      poster: posterUrl,
+      type: asset.resource_type,
+      externalUrl: undefined
     };
   });
 
-  const filteredProjects = dynamicProjects.filter(p => {
-    const topMatch = activeTop === 'All Services' || p.topCategory === activeTop;
+  // Merge with PDF Website data
+  const allProjects = [...dynamicProjects, ...websitePortfolio.map(w => ({
+    id: w.id,
+    title: w.title,
+    topCategory: w.category,
+    industry: w.industry,
+    image: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png', // Default premium asset for external sites
+    poster: undefined,
+    type: 'image',
+    externalUrl: w.url
+  }))];
+
+  const filteredProjects = allProjects.filter(p => {
+    const topMatch = p.topCategory === activeTop;
     const subMatch = activeSub === 'All Industries' || p.industry === activeSub;
     return topMatch && subMatch;
   });
+
+  const currentlyVisibleProjects = filteredProjects.slice(0, visibleCount);
+
+  // Smooth reset for pagination when switching tabs
+  const handleTopChange = (cat: string) => {
+    setActiveTop(cat);
+    setActiveSub('All Industries');
+    setVisibleCount(12);
+  };
+
+  const handleSubChange = (cat: string) => {
+    setActiveSub(cat);
+    setVisibleCount(12);
+  };
 
   return (
     <main className="min-h-screen bg-black selection:bg-[#E6FF00] selection:text-black">
       <Header />
       
       {/* HERO SECTION */}
-      <section className="pt-44 pb-12">
+      <section className="pt-32 md:pt-44 pb-8 md:pb-12">
         <div className="section-container text-center">
-           <span className="subtitle-premium">Selected Archive</span>
-           <h1 className="h-lg max-w-4xl mx-auto px-4 mt-6">
+           <span className="subtitle-premium text-[9px] md:text-[10px]">Selected Archive</span>
+           <h1 className="text-[36px] md:text-[56px] heading-platinum max-w-4xl mx-auto px-4 mt-4 md:mt-6">
               Our Portfolio.
            </h1>
         </div>
       </section>
 
       {/* DUAL LAYERED TABS */}
-      <section className="pb-16 px-6">
-         <div className="section-container flex flex-col items-center gap-10">
+      <section className="pb-10 md:pb-16 px-4 md:px-6">
+         <div className="section-container flex flex-col items-center gap-6 md:gap-10">
             {/* TOP CATEGORIES (SERVICES) */}
             <div className="w-full flex justify-center">
-               <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-4 max-w-full px-4 scrollbar-hide">
+               <div className="flex items-center gap-2 md:gap-3 overflow-x-auto scrollbar-hide no-scrollbar pb-2 max-w-full px-2">
                   {topCategories.map((cat) => (
                     <button
                       key={cat}
-                      onClick={() => { setActiveTop(cat); setActiveSub('All Industries'); }}
-                      className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-none text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase border transition-all duration-500 whitespace-nowrap ${
+                      onClick={() => handleTopChange(cat)}
+                      className={`px-5 md:px-8 py-2 md:py-3 rounded-none text-[9px] md:text-[11px] font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase border transition-all duration-500 whitespace-nowrap ${
                         activeTop === cat 
                         ? 'bg-[#D9FF00] border-[#D9FF00] text-black shadow-[0_0_20px_rgba(217,255,0,0.15)]' 
-                        : 'bg-transparent border-white/10 text-white/40 hover:border-white/20 hover:text-white'
+                        : 'bg-transparent border-white/5 text-white/30 hover:border-white/20 hover:text-white'
                       }`}
                     >
                       {cat}
@@ -89,15 +127,15 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
 
             {/* SUB CATEGORIES (INDUSTRIES) */}
             <div className="w-full flex justify-center">
-               <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 max-w-full px-4 scrollbar-hide">
+               <div className="flex items-center gap-1.5 md:gap-2 overflow-x-auto scrollbar-hide no-scrollbar pb-1 max-w-full px-2">
                   {industryCategories.map((sub) => (
                     <button
                       key={sub}
-                      onClick={() => setActiveSub(sub)}
-                      className={`px-5 sm:px-6 py-2 rounded-none text-[9px] sm:text-[10px] font-bold tracking-wider uppercase border transition-all duration-500 whitespace-nowrap ${
+                      onClick={() => handleSubChange(sub)}
+                      className={`px-4 md:px-6 py-1.5 md:py-2 rounded-none text-[8px] md:text-[10px] font-bold tracking-wider uppercase border transition-all duration-500 whitespace-nowrap ${
                         activeSub === sub 
                         ? 'bg-white/5 border-[#D9FF00] text-[#D9FF00] shadow-[0_0_15px_rgba(217,255,0,0.1)]' 
-                        : 'bg-transparent border-white/5 text-white/25 hover:border-white/10 hover:text-white/40'
+                        : 'bg-transparent border-white/5 text-white/20 hover:border-white/10 hover:text-white/40'
                       }`}
                     >
                       {sub}
@@ -116,31 +154,41 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
                 No projects found for {activeTop} in {activeSub}.
               </div>
             )}
-            <div className="flex xl:grid md:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto xl:overflow-visible no-scrollbar pb-12 xl:pb-0 snap-x snap-mandatory xl:snap-none px-4 xl:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-12 px-4 md:px-0">
                <AnimatePresence mode="popLayout">
-                  {filteredProjects.map((project) => (
+                  {currentlyVisibleProjects.map((project) => (
                     <motion.div
                       key={project.id}
                       layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className="group bg-[#0A0A0A] rounded-2xl border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 snap-center min-w-[85vw] md:min-w-0"
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="group bg-[#0A0A0A] rounded-2xl border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500"
                     >
-                       <div onClick={() => setLightbox(project)} className="block w-full cursor-pointer">
+                       <div 
+                         onClick={() => {
+                           if (project.externalUrl) {
+                             window.open(project.externalUrl, '_blank');
+                           } else {
+                             setLightbox(project);
+                           }
+                         }} 
+                         className="block w-full cursor-pointer"
+                       >
                           {/* Image Wrap */}
-                          <div className="relative aspect-video overflow-hidden pt-4 px-4">
+                          <div className="relative aspect-video overflow-hidden pt-4 px-4 bg-neutral-900 border-b border-white/5">
                              {project.type === 'video' ? (
                                <video 
                                  src={project.image} 
-                                 className="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-[1.05]" 
+                                 poster={project.poster}
+                                 className="w-full h-full object-cover rounded-t-xl transition-transform duration-700 group-hover:scale-[1.05]" 
                                  autoPlay muted loop playsInline
                                />
                              ) : (
                                <img 
                                  src={project.image} 
-                                 className="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-[1.05]" 
+                                 className="w-full h-full object-cover rounded-t-xl transition-transform duration-700 group-hover:scale-[1.05]" 
                                  alt={project.title}
                                  loading="lazy"
                                />
@@ -166,6 +214,22 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
                    ))}
                </AnimatePresence>
             </div>
+
+            {/* LOAD MORE BUTTON */}
+            {filteredProjects.length > visibleCount && (
+              <motion.div 
+                 initial={{ opacity: 0 }} 
+                 animate={{ opacity: 1 }} 
+                 className="flex justify-center mt-12"
+              >
+                <button
+                  onClick={() => setVisibleCount(prev => prev + 12)}
+                  className="px-8 py-3 bg-white/5 border border-white/10 text-white/70 hover:text-white text-[10px] uppercase tracking-widest font-bold hover:bg-white/10 hover:border-white/20 transition-all rounded-full flex items-center gap-2"
+                >
+                  Load More Projects
+                </button>
+              </motion.div>
+            )}
          </div>
       </section>
 

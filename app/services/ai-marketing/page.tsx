@@ -8,7 +8,7 @@ const data: ServicePageData = {
   heroHeading: 'AI-Powered',
   heroSubheading: 'Marketing Labs.',
   heroDescription: 'Using advanced artificial intelligence to automate your marketing, personalize content, and drive growth.',
-  heroBg: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop',
+  heroBg: '/ai-marketing/imgi_2_2af62e5e1db7ef4cc918e482af45be7b71c17e0a-3114x1822.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The AI',
@@ -20,7 +20,7 @@ const data: ServicePageData = {
 
   bentoHeading: 'Our AI',
   bentoSubheading: 'Expertise.',
-  bentoMainImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+  bentoMainImage: '/ai-marketing/imgi_3_d375f1d50d97b0de7953ca2cecd2b8aea2cd96b2-3524x1181.png',
   bentoMainTitle: 'Neural Marketing',
   bentoMainSubtitle: 'Execution',
   bentoMainDesc: 'Using machine learning to analyze market trends and automate your high-conversion marketing funnels.',
@@ -32,19 +32,19 @@ const data: ServicePageData = {
 
   showcaseHeading: 'AI Success',
   showcaseItems: [
-    { title: 'AI Campaign One', category: 'Automation', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2 lg:row-span-2' },
-    { title: 'Neural Ad Two', category: 'AI Creative', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Smart Growth Three', category: 'ML Strategy', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600' },
-    { title: 'Bot Scale Four', category: 'UX AI', image: 'https://images.unsplash.com/photo-1531746790731-6c087fdec69a?auto=format&fit=crop&q=80&w=600', span: 'lg:col-span-2' },
+    { title: 'AI Campaign One', category: 'Automation', image: '/ai-marketing/imgi_67_95ce326d59a9bcefe3d54972376402e1c0f6d792-768x880.png', span: 'lg:col-span-2 lg:row-span-2' },
+    { title: 'Neural Ad Two', category: 'AI Creative', image: '/ai-marketing/imgi_68_820fcedc95debaaefa4d58ecca6d6ed3d3960edf-768x880.png' },
+    { title: 'Smart Growth Three', category: 'ML Strategy', image: '/ai-marketing/imgi_69_e6989f6ff874ec6e3405da44a681bfa372114226-768x880.png' },
+    { title: 'Bot Scale Four', category: 'UX AI', image: '/ai-marketing/imgi_70_9babda97975af7d29219e4183c688efe0d0463f4-720x728.png', span: 'lg:col-span-2' },
   ],
 
   modules: [
-    { icon: Brain, title: 'Neural Analysis', description: 'Expertly managed campaigns that use AI to maximize your brand visibility.', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400' },
-    { icon: Sparkles, title: 'AI Creative', description: 'A technical refining lab where your brand visuals and copy are perfected by AI.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=400' },
-    { icon: Zap, title: 'Growth Systems', description: 'Keyword research and campaign strategy built by AI to help you outrank all competitors.', image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=400' },
-    { icon: Cpu, title: 'Funnel Bots', description: 'Systems and tools to optimize your entire marketing funnel using smart AI bots.', image: 'https://images.unsplash.com/photo-1531746790731-6c087fdec69a?auto=format&fit=crop&q=80&w=400' },
-    { icon: Rocket, title: 'Smart Velocity', description: 'High-end visuals and transitions for a completely automated ad experience.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
-    { icon: BarChart, title: 'Predictive Labs', description: 'Advanced tracking and reporting to give you complete visibility using data labs.', image: 'https://images.unsplash.com/photo-1454165833767-1314d07b483c?auto=format&fit=crop&q=80&w=400' },
+    { icon: Brain, title: 'Neural Analysis', description: 'Expertly managed campaigns that use AI to maximize your brand visibility.', image: '/ai-marketing/imgi_1_cf43af844d6a97f588b639f2592e3667143f308c-900x1104.png' },
+    { icon: Sparkles, title: 'AI Creative', description: 'A technical refining lab where your brand visuals and copy are perfected by AI.', image: '/ai-marketing/imgi_12_62d597b44186cfd29aaa3f4df6b0954804fad818-656x920.png' },
+    { icon: Zap, title: 'Growth Systems', description: 'Keyword research and campaign strategy built by AI to help you outrank all competitors.', image: '/ai-marketing/imgi_14_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
+    { icon: Cpu, title: 'Funnel Bots', description: 'Systems and tools to optimize your entire marketing funnel using smart AI bots.', image: '/ai-marketing/imgi_15_bb10a1d5a9b2c425ff6639dbf9fcc30dc8bfd4b0-1440x1548.png' },
+    { icon: Rocket, title: 'Smart Velocity', description: 'High-end visuals and transitions for a completely automated ad experience.', image: '/ai-marketing/imgi_16_e7dfa073272b449ee6e5c880a0f31ea1700dd71b-1440x1548.png' },
+    { icon: BarChart, title: 'Predictive Labs', description: 'Advanced tracking and reporting to give you complete visibility using data labs.', image: '/ai-marketing/imgi_18_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png' },
   ],
 
   processLabel: 'Our Process',
@@ -68,7 +68,7 @@ const data: ServicePageData = {
     quote: "The AI marketing strategy they built for us was a game-changer. Our lead quality increased by 2.4x.",
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
+    avatar: '/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
     metrics: [
       { label: 'Growth Lift', value: '110%' },
       { label: 'Lead Quality', value: '92%' },
@@ -76,7 +76,7 @@ const data: ServicePageData = {
     ],
     caseStudy: {
       title: 'Success: A Brand Narrative for Nexus',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&v=2',
+      image: '/ai-marketing/imgi_3_d375f1d50d97b0de7953ca2cecd2b8aea2cd96b2-3524x1181.png',
     }
   },
 

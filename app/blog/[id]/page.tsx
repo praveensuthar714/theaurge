@@ -41,7 +41,7 @@ export default function BlogDetailPage() {
             </h1>
             <div className="flex items-center gap-6">
                <div className="w-14 h-14 rounded-full overflow-hidden border border-white/10">
-                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop" alt="Author" className="w-full h-full object-cover" />
+                  <img src="/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png" alt="Author" className="w-full h-full object-cover" />
                </div>
                <div>
                   <p className="text-white text-[16px] font-medium leading-none mb-1.5">Julian Vance</p>
@@ -54,7 +54,7 @@ export default function BlogDetailPage() {
         <div className="container mx-auto max-w-7xl px-6 mb-32">
           <div className="aspect-[21/9] rounded-[4px] overflow-hidden border border-white/5 bg-neutral-900">
              <img 
-               src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2070&auto=format&fit=crop" 
+               src="/capabilities/digital-experiences.png" 
                alt="Article Visual" 
                className="w-full h-full object-cover"
              />
@@ -116,7 +116,7 @@ export default function BlogDetailPage() {
                {[1, 2].map((i) => (
                   <div key={i} className="group cursor-pointer">
                      <div className="aspect-[16/9] rounded-[4px] overflow-hidden mb-8 border border-white/5">
-                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                        <img src="/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                      </div>
                      <h3 className="text-white text-[24px] font-medium leading-tight group-hover:text-[#E6FF00] transition-colors">Brand Architecture in the Age of AI</h3>
                   </div>
