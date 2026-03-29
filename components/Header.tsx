@@ -83,28 +83,16 @@ export const Header: React.FC = () => {
             />
           </Link>
 
-          {/* Navigation Capsule — REFINED AS PER SCREENSHOT */}
           <div className="hidden xl:flex items-center px-10 py-3 rounded-none bg-black/10 backdrop-blur-[40px] border border-white/10 shadow-2xl transition-all duration-700 hover:bg-black/20">
-            <nav 
-              className="flex items-center gap-14 relative"
-              onMouseLeave={() => setIsMegaMenuOpen(false)}
-            >
+            <nav className="flex items-center gap-14 relative">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  onMouseEnter={() => item.name === 'Services' ? setIsMegaMenuOpen(true) : null}
-                  className={`relative group text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 py-1 ${isMegaMenuOpen && item.name === 'Services' ? 'text-[#E6FF00]' : 'text-white/80 hover:text-[#E6FF00]'}`}
+                  className="relative group text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 py-1 text-white/80 hover:text-[#E6FF00]"
                 >
-                  {item.name === 'Services' ? (
-                    <div className="flex items-center gap-1 focus:outline-none">
-                      {item.name}
-                      <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isMegaMenuOpen ? 'rotate-180 text-[#E6FF00]' : ''}`} />
-                    </div>
-                  ) : (
-                    item.name
-                  )}
-                  <span className={`absolute -bottom-1 left-0 w-0 h-[1.5px] rounded-full bg-[#E6FF00] transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100 ${isMegaMenuOpen && item.name === 'Services' ? 'w-full opacity-100' : ''}`} />
+                  {item.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] rounded-full bg-[#E6FF00] transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100" />
                 </Link>
               ))}
             </nav>
@@ -138,46 +126,20 @@ export const Header: React.FC = () => {
         {/* Backdrop / Glass layer - Contained height */}
         <div className="absolute inset-0 bg-black/90 backdrop-blur-[80px] border-b border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)]" />
         
-        <div className="relative max-w-[1400px] w-full mx-auto px-6 lg:px-12 py-12 lg:py-16 overflow-y-auto max-h-[calc(85vh-100px)]">
-          
-            {/* CATEGORIZED SERVICES GRID (Full Width) */}
-            <div className="lg:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20">
-              {serviceCategories.map((cat, catIdx) => (
-                <div key={cat.title} className="flex flex-col gap-8">
-                  <span className="text-[#E6FF00] text-[9px] font-bold uppercase tracking-[0.5em] opacity-40">
-                    {cat.title}
-                  </span>
-                  <div className="flex flex-col gap-5">
-                    {cat.items.map((item, idx) => (
-                      <Link 
-                        key={item.name}
-                        href={`/services/${item.slug}`}
-                        onClick={() => setIsMegaMenuOpen(false)}
-                        className="group flex items-center gap-2 text-white/50 text-[13px] md:text-[14px] font-medium transition-all duration-300 hover:text-[#E6FF00]"
-                      >
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
-                        <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
+        <div className="relative max-w-[1400px] w-auto mx-auto px-6 lg:px-12 py-12 lg:py-16 overflow-y-auto max-h-[calc(85vh-100px)] flex items-center justify-center min-h-[40vh]">
           {/* MOBILE MAIN NAVIGATION (Integrated for Mobile Screens) */}
-          <div className="xl:hidden flex flex-col gap-6 mt-16 pt-12 border-t border-white/5 text-center">
+          <div className="flex flex-col gap-8 text-center">
             {navItems.map((item) => (
               <Link 
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMegaMenuOpen(false)}
-                className="text-white text-xl font-light tracking-widest uppercase hover:text-[#E6FF00] transition-colors"
+                className="text-white text-2xl md:text-3xl font-light tracking-[0.3em] uppercase hover:text-[#E6FF00] transition-colors"
               >
                 {item.name}
               </Link>
             ))}
           </div>
-
         </div>
       </motion.div>
     </>
