@@ -17,19 +17,19 @@ const fadeUp: any = {
 };
 
 const allServices = [
-  { id: "01", name: "Video Production", slug: "video-production", image: '/services_v2/video_production.png', desc: 'Cinematic brand films and high-impact advertisements.' },
-  { id: "02", name: "Designing / Creatives", slug: "design", image: '/designandcreativehero.png', desc: 'Visual storytelling and architectural design systems.' },
-  { id: "03", name: "Website Development", slug: "web-development", image: '/scene2.png', desc: 'High-performance digital infrastructure for global scale.' },
-  { id: "04", name: "AI Automation", slug: "ai-automation", image: '/ai-automation/imgi_89_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png', desc: 'Next-gen intelligent workflows and system architectural.' },
-  { id: "05", name: "Brand Identity", slug: "brand-identity-design", image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png', desc: 'Institutional branding that commands market authority.' },
-  { id: "06", name: "UI/UX Design", slug: "ui-ux-design", image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png', desc: 'Intuitive experience engineering for complex platforms.' },
-  { id: "07", name: "Performance Marketing", slug: "marketing", image: '/performance-marketing/imgi_14_10b6468101169b5d6a5739cf9952e8313827ac03-2787x1457.png', desc: 'ROI-driven market capture and growth frameworks.' },
-  { id: "08", name: "Photography", slug: "photography", image: '/branding/imgi_17_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg', desc: 'Premium editorial and commercial visual assets.' },
-  { id: "09", name: "AI Marketing", slug: "ai-marketing", image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png', desc: 'Data-intelligent kampaigns driven by neural growth.' },
-  { id: "10", name: "SEO Optimization", slug: "seo", image: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png', desc: 'Algorithmic dominance for maximum organic visibility.' },
-  { id: "11", name: "Business Consultancy", slug: "business-consultancy", image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png', desc: 'Master planning for institutional scaling and impact.' },
-  { id: "12", name: "Growth Strategy", slug: "growth-strategy", image: '/performance-marketing/imgi_18_64db3f8eb788d86bae40e90cf6c01b567d26ec21-2800x1450.png', desc: 'Tactical roadmaps for sustainable market leadership.' },
-  { id: "13", name: "Inbound Messaging", slug: "inbound-messaging", image: '/performance-marketing/imgi_19_06370dec062b519a87c00bcbe16dca558848aa78-2800x1450.jpg', desc: 'High-conversion narrative systems for audience capture.' },
+  { id: "01", name: "Film Production", slug: "film-production", image: '/services_v2/video_production.png', desc: 'Cinematic storytelling driven by emotion, detail, and vision.' },
+  { id: "02", name: "Video Production", slug: "video-production", image: '/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png', desc: 'Purposeful visual narratives that connect and inspire.' },
+  { id: "03", name: "Brand Identity Design", slug: "brand-identity-design", image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png', desc: 'Distinctive identities that build trust and long-term connection.' },
+  { id: "04", name: "Social Media Marketing", slug: "social-media-marketing", image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png', desc: 'Cutting through the noise with result-driven digital strategies.' },
+  { id: "05", name: "Photography", slug: "photography", image: '/branding/imgi_17_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg', desc: 'Capturing moments and stories within a single frame.' },
+  { id: "06", name: "Brand Strategy", slug: "brand-strategy", image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png', desc: 'Deep market insights combined with practical execution plans.' },
+  { id: "07", name: "Web Development", slug: "web-development", image: '/scene2.png', desc: 'Highly functional, user-focused digital experiences.' },
+  { id: "08", name: "Performance Marketing", slug: "performance-marketing", image: '/performance-marketing/imgi_14_10b6468101169b5d6a5739cf9952e8313827ac03-2787x1457.png', desc: 'Data-driven strategies focused on measurable results.' },
+  { id: "09", name: "SEO", slug: "seo", image: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png', desc: 'Building organic presence through intent and relevance.' },
+  { id: "10", name: "AI Marketing", slug: "ai-marketing", image: '/ai-automation/imgi_89_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png', desc: 'Intelligent, automated, and highly personalized future marketing.' },
+  { id: "11", name: "Event Marketing", slug: "event-marketing", image: '/video-production/imgi_15_c04d7f33b7555728ba75e83de4d85a4a45e47333-2800x1450.png', desc: 'Creating real human connections through memorable moments.' },
+  { id: "12", name: "Offline Marketing", slug: "offline-marketing", image: '/bgimagectaservice.png', desc: 'Impactful real-world presence and strategic recall.' },
+  { id: "13", name: "Inbound Messaging", slug: "inbound-messaging", image: '/performance-marketing/imgi_19_06370dec062b519a87c00bcbe16dca558848aa78-2800x1450.jpg', desc: 'Direct, personalized communication flow that builds trust.' },
 ];
 
 export default function ServicesPage() {

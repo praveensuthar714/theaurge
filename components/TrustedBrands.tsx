@@ -153,7 +153,7 @@ export const TrustedBrands: React.FC = () => {
   }, []);
 
   return (
-    <section className="section-v-spacing relative z-10 bg-black">
+    <section className="pt-24 md:pt-32 pb-0 relative z-10 bg-black">
       <div className="section-container text-center mb-20">
         <span className="subtitle-premium">
           RECOGNITION

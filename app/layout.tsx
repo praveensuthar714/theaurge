@@ -1,24 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import React from "react";
 import "./globals.css";
-import dynamic from 'next/dynamic';
-
-// Client-side only components to prevent hydration errors
-const CustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "theAurge | Cinematic Brand Assembly",
-  description: "High-end visual storytelling and brand engineering.",
-  icons: {
-    icon: '/favicon.png',
-  }
-};
-
 import PageWrapper from "@/components/PageWrapper";
-const GlobalBackground = dynamic(() => import("@/components/GlobalBackground"), { ssr: false });
-const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
+import { metadata, inter } from "./layout-metadata";
+import { Preloader, GlobalBackground, CustomCursor } from "@/components/ClientComponents";
+
+export { metadata };
 
 export default function RootLayout({
   children,

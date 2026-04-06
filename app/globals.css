@@ -1,8 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
   --background: #0A0A0A;
@@ -10,7 +9,6 @@
   --surface: #1C1C20;
   --foreground: #FFFFFF;
   --text-secondary: #BBBBBB;
-  
   --accent: #D9FF00;
   --accent-soft: #C8EB00;
 }
@@ -25,133 +23,40 @@
     color: var(--foreground);
     background-color: #0A0A0A;
     font-family: 'Inter', sans-serif;
-    overflow-x: clip; /* clip instead of hidden to allow position: sticky */
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
-  /* --- THE PLATINUM TYPOGRAPHY SYSTEM --- */
   .heading-platinum {
     @apply bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent font-medium leading-[1.2] tracking-[-0.02em] pb-2;
     -webkit-background-clip: text;
     background-clip: text;
   }
-
-  .h-xl {
-    @apply text-[38px] md:text-[72px] heading-platinum;
-  }
-
-  .h-lg {
-    @apply text-[32px] sm:text-[42px] md:text-[56px] heading-platinum;
-  }
-
-  .h-md {
-    @apply text-[24px] sm:text-[32px] md:text-[42px] heading-platinum font-light tracking-tight;
-  }
-
-  .h-sm {
-    @apply text-[18px] sm:text-[22px] md:text-[26px] heading-platinum font-normal;
-  }
-
-  .subtitle-premium {
-    @apply text-[10px] font-bold tracking-[0.5em] uppercase text-white/40 mb-6 block;
-  }
-
-  .section-container {
-    @apply max-w-7xl mx-auto px-6 md:px-12 w-full;
-  }
-
-  .section-v-spacing {
-    @apply py-24 md:py-32;
-  }
-
-  .body-text {
-    @apply font-normal text-[15px] md:text-[17px] leading-relaxed text-white/50;
-  }
-
-  /* SERVICE PAGE BUTTONS */
-  .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 
-           bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase 
-           transition-all duration-300 hover:bg-[var(--accent)];
-  }
-
-  .btn-secondary {
-    @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 
-           border border-white/20 text-white text-[10px] font-bold tracking-[0.2em] uppercase 
-           hover:border-white hover:bg-white hover:text-black transition-all duration-300;
-  }
-
-  /* Refined Surface Panels */
-  .glass-panel {
-    background: rgba(20, 20, 20, 0.4);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 0px;
-    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
-  }
-
-  .btn-premium {
-    background: var(--accent);
-    color: #000;
-    padding: 0.8rem 2.2rem;
-    border-radius: 0px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    transition: all 0.5s ease;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .btn-premium:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(217, 255, 0, 0.3);
-  }
+  .h-xl { @apply text-[38px] md:text-[72px] heading-platinum; }
+  .h-lg { @apply text-[32px] sm:text-[42px] md:text-[56px] heading-platinum; }
+  .h-md { @apply text-[24px] sm:text-[32px] md:text-[42px] heading-platinum font-light tracking-tight; }
+  .h-sm { @apply text-[18px] sm:text-[22px] md:text-[26px] heading-platinum font-normal; }
+  .subtitle-premium { @apply text-[10px] font-bold tracking-[0.5em] uppercase text-white/40 mb-6 block; }
+  .section-container { @apply max-w-7xl mx-auto px-6 md:px-12 w-full; }
+  .section-v-spacing { @apply py-24 md:py-32; }
+  .body-text { @apply font-normal text-[15px] md:text-[17px] leading-relaxed text-white/50; }
+  .btn-primary { @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[var(--accent)]; }
+  .btn-secondary { @apply relative inline-flex items-center justify-center gap-2 px-6 py-4 border border-white/20 text-white text-[10px] font-bold tracking-[0.2em] uppercase hover:border-white hover:bg-white hover:text-black transition-all duration-300; }
+  .glass-panel { background: rgba(20, 20, 20, 0.4); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0px; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5); }
+  .btn-premium { background: var(--accent); color: #000; padding: 0.8rem 2.2rem; border-radius: 0px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.8rem; transition: all 0.5s ease; border: none; cursor: pointer; }
+  .btn-premium:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(217, 255, 0, 0.3); }
 }
 
- ::selection {
-  background: var(--accent);
-  color: #000;
-}
-
-/* Custom Scroll Handling */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Scrollbar Hide Utilities */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Antigravity Utilities */
-.perspective-container {
-  perspective: 1200px;
-}
+::selection { background: var(--accent); color: #000; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.perspective-container { perspective: 1200px; }

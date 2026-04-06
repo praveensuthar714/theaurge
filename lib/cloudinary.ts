@@ -2,6 +2,8 @@ export interface CloudinaryAsset {
   public_id: string;
   secure_url: string;
   resource_type: 'image' | 'video';
+  width: number;
+  height: number;
 }
 
 export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
@@ -17,7 +19,7 @@ export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
   const auth = 'Basic ' + Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
 
   try {
-    // 1. Fetch Images (up to 500 max, removing folder prefix to globally capture all uploaded assets)
+    // 1. Fetch Images
     const imagesRes = await fetch(
       `https://api.cloudinary.com/v1_1/${cloudName}/resources/image/upload?max_results=500&tags=true`,
       {
@@ -30,9 +32,11 @@ export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
       public_id: res.public_id,
       secure_url: res.secure_url,
       resource_type: 'image',
+      width: res.width,
+      height: res.height,
     }));
 
-    // 2. Fetch Videos (up to 500 max, globally capturing all videos)
+    // 2. Fetch Videos
     const videosRes = await fetch(
       `https://api.cloudinary.com/v1_1/${cloudName}/resources/video/upload?max_results=500&tags=true`,
       {
@@ -45,6 +49,8 @@ export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
       public_id: res.public_id,
       secure_url: res.secure_url,
       resource_type: 'video',
+      width: res.width,
+      height: res.height,
     }));
 
     // Combine both and return

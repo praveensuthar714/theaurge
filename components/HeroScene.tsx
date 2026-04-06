@@ -71,11 +71,6 @@ export const HeroScene: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Direct window escape for the fallback script
-    (window as any).setVideoReadyFallback = () => {
-      setVideoReady(true);
-    };
-
     const st = ScrollTrigger.create({
       trigger: container,
       start: 'top top',
@@ -88,6 +83,15 @@ export const HeroScene: React.FC = () => {
 
     return () => st.kill();
   }, []);
+
+  // --- VIDEO LOAD FALLBACK: Move to useEffect instead of inline script tag ---
+  useEffect(() => {
+    if (videoReady) return;
+    const fallbackTimer = setTimeout(() => {
+      setVideoReady(true);
+    }, 3000);
+    return () => clearTimeout(fallbackTimer);
+  }, [videoReady]);
 
 
   // ─── rAF scrub loop lifecycle ─────────────────────────────────────────────
@@ -187,12 +191,6 @@ export const HeroScene: React.FC = () => {
           />
         )}
 
-        {/* --- VIDEO LOAD FALLBACK --- */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          setTimeout(() => {
-            if (window.setVideoReadyFallback) window.setVideoReadyFallback();
-          }, 3000);
-        `}} />
 
 
         {/* Subtle vignette */}
