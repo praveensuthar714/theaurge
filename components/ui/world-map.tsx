@@ -44,12 +44,12 @@ export function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[1/1] md:aspect-[1.5/0.8] bg-black rounded-none relative font-sans">
+    <div className="w-full aspect-[1.8/1] md:aspect-[1.5/0.8] bg-black rounded-none relative font-sans">
       <div
         className="absolute inset-x-0 h-full w-full"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent, white 20%, white 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, white 20%, white 90%, transparent)",
+          maskImage: "linear-gradient(to bottom, white 90%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, white 90%, transparent)",
         }}
       >
         <motion.div
@@ -60,15 +60,15 @@ export function WorldMap({
             backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}")`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
+            backgroundPosition: "top center",
           }}
         />
       </div>
 
       <svg
         ref={svgRef}
-        viewBox="0 -20 800 440"
-        className="w-full h-full absolute inset-0 pointer-events-none select-none"
+        viewBox="0 -60 800 500"
+        className="w-full h-full absolute inset-0 pointer-events-none select-none overflow-visible"
       >
         <defs>
           <filter id="hub-glow">

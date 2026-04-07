@@ -18,7 +18,7 @@ export const WorldMapSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative z-10 bg-black pt-0 pb-24 md:pb-28 overflow-hidden"
+      className="relative z-10 bg-black pt-16 md:pt-24 pb-12 md:pb-16 overflow-hidden"
     >
       {/* Dynamic Global Atmosphere */}
       <motion.div 

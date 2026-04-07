@@ -13,7 +13,8 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.1, // Slightly snappier response
-      touchMultiplier: 2,
+      touchMultiplier: 1.0, // Neutral for mobile
+      syncTouch: false, // MANDATORY for v1.x: Use native momentum on mobile
       infinite: false,
     });
 

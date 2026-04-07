@@ -107,49 +107,64 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
         ? creativeProjects
         : []; // SEO and PPC are currently empty
 
-  // Optimized Component for Lazy Assets
+  // Optimized Component for Lazy Assets - Mobile-first
   const OptimizedAsset = ({ item }: { item: any }) => {
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const [inView, setInView] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
+      setIsMobile(window.innerWidth < 768);
       const observer = new IntersectionObserver(
         ([entry]) => setInView(entry.isIntersecting),
-        { threshold: 0.1 }
+        { threshold: 0.1, rootMargin: '200px' }
       );
-      if (videoRef.current) observer.observe(videoRef.current);
+      if (containerRef.current) observer.observe(containerRef.current);
       return () => observer.disconnect();
     }, []);
 
     if (item.type === 'video') {
-       return (
-         <video 
-           ref={videoRef}
-           {...(inView ? { src: item.url } : {})} 
-           poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_800/')}
-           autoPlay muted loop playsInline
-           className="w-full h-full object-cover transition-opacity duration-700"
-           style={{ opacity: inView ? 1 : 0.5 }}
-         />
-       );
+      return (
+        <div ref={containerRef} className="w-full h-full">
+          {inView ? (
+            <video
+              src={item.url}
+              poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_400/')}
+              autoPlay={!isMobile}
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_400/')}
+              alt={item.title}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+      );
     }
 
+    // For websites: never load iframes on mobile (kills scroll performance)
     return (
-      <div className="w-full h-full relative" onMouseEnter={() => setIsHovered(true)}>
-        {item.type === 'website' && inView ? (
-          <iframe 
+      <div ref={containerRef} className="w-full h-full relative" onMouseEnter={() => setIsHovered(true)}>
+        {item.type === 'website' && inView && !isMobile ? (
+          <iframe
             src={item.url}
-            className="w-full h-full border-none transform origin-top transition-transform duration-700 hover:scale-[1.02]"
-            style={{ width: '100%', height: '100%', pointerEvents: isHovered ? 'auto' : 'none' }}
+            className="w-full h-full border-none"
+            style={{ pointerEvents: isHovered ? 'auto' : 'none' }}
             title={item.title}
             loading="lazy"
           />
         ) : (
-          <img 
-            src={item.thumbnail} 
+          <img
+            src={item.thumbnail}
             alt={item.title}
-            className="w-full h-full transition-all duration-[3s] group-hover:scale-[1.04] ease-out object-cover"
+            className="w-full h-full object-cover"
             loading="lazy"
           />
         )}
@@ -166,7 +181,7 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
   };
 
   return (
-    <section className="relative w-full bg-black py-16 md:py-24 overflow-hidden">
+    <section className="relative w-full bg-black py-12 md:py-24 overflow-hidden">
       <div className="section-container relative z-10">
         
         {/* HEADER & TOP NAVIGATION */}
@@ -178,52 +193,56 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
              </h2>
           </div>
 
-          {/* Precision Switcher */}
-          <div className="flex bg-white/[0.02] border border-white/10 p-1.5 rounded-none">
-            {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat as any)}
-                className={`relative px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-700 z-10 ${
-                  activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
-                }`}
-              >
-                {activeCategory === cat && (
-                  <motion.div 
-                    layoutId="activeCategory"
-                    className="absolute inset-0 bg-accent z-[-1]"
-                    transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-                  />
-                )}
-                {cat}
-              </button>
-            ))}
+          {/* Precision Switcher - SCROLLABLE ON MOBILE */}
+          <div className="relative group/tabs flex-1 lg:flex-none max-w-full overflow-hidden">
+            <div className="flex bg-white/[0.02] border border-white/10 p-1.5 rounded-none w-full lg:w-auto overflow-x-auto no-scrollbar scroll-smooth">
+              {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat as any)}
+                  className={`relative px-6 md:px-10 py-4 text-[9px] md:text-[10px] whitespace-nowrap font-bold uppercase tracking-[0.3em] transition-all duration-700 z-10 ${
+                    activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
+                  }`}
+                >
+                  {activeCategory === cat && (
+                    <motion.div 
+                      layoutId="activeCategory"
+                      className="absolute inset-0 bg-accent z-[-1]"
+                      transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                    />
+                  )}
+                  {cat}
+                </button>
+              ))}
+            </div>
+            {/* Visual Queue for Scrolling on mobile */}
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black to-transparent pointer-events-none lg:hidden opacity-40" />
           </div>
         </div>
 
-        {/* SUB-CATEGORIES (Videos Only) - VERTICAL ARCHITECTURAL SYSTEM */}
+        {/* SUB-CATEGORIES (Videos Only) - HORIZONTAL ON MOBILE */}
         <AnimatePresence mode="wait">
           {activeCategory === 'Videos' && (
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
-              className="flex flex-col gap-5 mb-8 border-l border-accent/20 pl-10"
+              className="flex flex-row overflow-x-auto no-scrollbar gap-8 mb-8 border-l border-accent/20 pl-6 md:pl-10"
             >
               {VIDEO_CATEGORIES.map((sub, idx) => (
                 <button
                   key={sub.id}
                   onClick={() => setActiveVideoSub(sub.name)}
-                  className={`relative flex items-center gap-6 group transition-all duration-700 ${
+                  className={`relative flex items-center gap-3 md:gap-6 group whitespace-nowrap transition-all duration-700 ${
                     activeVideoSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
                   }`}
                 >
-                  <span className="text-[9px] font-mono text-accent opacity-40">0{idx + 1} //</span>
-                  <span className="text-[12px] font-bold uppercase tracking-[0.3em]">{sub.name}</span>
+                  <span className="text-[8px] font-mono text-accent opacity-40">0{idx + 1}</span>
+                  <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.3em]">{sub.name}</span>
                   {activeVideoSub === sub.name && (
                     <motion.div 
                       layoutId="activeSubIndicator"
-                      className="absolute -left-[41px] w-0.5 h-5 bg-accent"
+                      className="absolute -bottom-1 left-0 w-full h-[1px] bg-accent"
                     />
                   )}
                 </button>
@@ -254,9 +273,9 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
             className="relative"
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div 
+            <div
               ref={scrollRef}
-              className="flex items-start gap-8 md:gap-12 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth pt-8 pb-12 px-4 md:px-0"
+              className="flex items-start gap-4 md:gap-10 overflow-x-auto no-scrollbar md:snap-x md:snap-mandatory scroll-smooth pt-4 pb-10 px-4 md:px-0"
             >
               <AnimatePresence mode="popLayout">
                 {currentList.length === 0 ? (
@@ -267,75 +286,106 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
                     Archived: Awaiting System Link_
                   </motion.div>
                 ) : (
-                  currentList.map((item) => {
-                    const isVertical = item.width < item.height;
-                    const aspectClass = isVertical ? 'aspect-[9/16] md:w-[380px]' : 'aspect-[16/10] md:w-[620px]';
+                  (() => {
+                    const stacks: any[][] = [];
+                    let tempStack: any[] = [];
                     
-                    return (
-                        <motion.div 
-                        layout
-                        key={item.id} 
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.5 }}
-                        className={`min-w-[320px] ${isVertical ? 'md:min-w-[380px]' : 'md:min-w-[620px]'} snap-start relative`}
-                      >
-                        <motion.div
-                          whileHover={{ y: -12, scale: 1.01 }}
-                          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                          onClick={() => {
-                            if (item.type === 'website') window.open(item.url, '_blank');
-                            else setLightbox(item);
-                          }}
-                          className={`relative ${aspectClass} w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] group cursor-pointer shadow-2xl shadow-black/80`}
-                          style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
+                    currentList.forEach((item, idx) => {
+                      const isVertical = item.width < item.height;
+                      
+                      if (isVertical) {
+                        if (tempStack.length > 0) { stacks.push(tempStack); tempStack = []; }
+                        stacks.push([item]);
+                      } else {
+                        tempStack.push(item);
+                        if (tempStack.length === 2 || idx === currentList.length - 1) {
+                          stacks.push(tempStack);
+                          tempStack = [];
+                        }
+                      }
+                    });
+
+                    return stacks.map((stack, stackIdx) => {
+                      const isVerticalStack = stack.length === 1 && stack[0].width < stack[0].height;
+                      
+                      return (
+                        <div 
+                          key={`stack-${stackIdx}`}
+                          className={`flex flex-col gap-4 ${isVerticalStack ? 'min-w-[85%] md:min-w-[380px]' : 'min-w-[85%] md:min-w-[620px]'} snap-start`}
                         >
-                          {/* INNER GLOW BORDER */}
-                          <div className="absolute inset-0 border border-white/5 rounded-[2rem] z-40 pointer-events-none" />
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none" />
+                          {stack.map((item) => {
+                            const isV = item.width < item.height;
+                            const aspectClass = isV ? 'aspect-[9/16] md:w-[380px]' : 'aspect-[16/10] md:w-[620px]';
+                            
+                            return (
+                              <motion.div
+                                layout
+                                key={item.id}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.5 }}
+                                className="relative w-full"
+                              >
+                                <motion.div
+                                  whileHover={{ y: -8, scale: 1.01 }}
+                                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                  onClick={() => {
+                                    if (item.type === 'website') window.open(item.url, '_blank');
+                                    else setLightbox(item);
+                                  }}
+                                  className={`relative ${aspectClass} w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] group cursor-pointer shadow-2xl shadow-black/80`}
+                                  style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
+                                >
+                                  {/* INNER GLOW BORDER */}
+                                  <div className="absolute inset-0 border border-white/5 rounded-[2rem] z-40 pointer-events-none" />
+                                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none" />
 
-                          <div className="absolute inset-3 md:inset-4 rounded-[1.5rem] overflow-hidden bg-[#0A0A0A] border border-white/5 shadow-inner" style={{ transform: 'translateZ(0)' }}>
-                            {/* BROWSER HEADER FOR WEBSITES */}
-                            {item.type === 'website' && (
-                              <div className="h-8 md:h-10 bg-[#121212] border-b border-white/[0.08] flex items-center px-4 md:px-6 gap-2 z-20 relative">
-                                <div className="flex gap-1.5">
-                                   <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                                   <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                                   <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                                </div>
-                                <div className="ml-4 h-4 w-40 bg-white/[0.03] rounded-[2px]" />
-                              </div>
-                            )}
+                                  <div className="absolute inset-3 md:inset-4 rounded-[1.5rem] overflow-hidden bg-[#0A0A0A] border border-white/5 shadow-inner" style={{ transform: 'translateZ(0)' }}>
+                                    {/* BROWSER HEADER FOR WEBSITES */}
+                                    {item.type === 'website' && (
+                                      <div className="h-8 md:h-10 bg-[#121212] border-b border-white/[0.08] flex items-center px-4 md:px-6 gap-2 z-20 relative">
+                                        <div className="flex gap-1.5">
+                                           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                                           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                                           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                                        </div>
+                                        <div className="ml-4 h-4 w-40 bg-white/[0.03] rounded-[2px]" />
+                                      </div>
+                                    )}
 
-                            {/* MEDIA CONTAINER */}
-                            <div className={`absolute inset-0 ${item.type === 'website' ? 'top-8 md:top-10' : ''}`}>
-                               <OptimizedAsset item={item} />
-                               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-70 transition-opacity" />
-                            </div>
+                                    {/* MEDIA CONTAINER */}
+                                    <div className={`absolute inset-0 ${item.type === 'website' ? 'top-8 md:top-10' : ''}`}>
+                                       <OptimizedAsset item={item} />
+                                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-70 transition-opacity" />
+                                    </div>
 
-                            {/* METADATA OVERLAY */}
-                            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 z-10 flex justify-between items-end">
-                              <div className="flex flex-col gap-2 relative z-20">
-                                <div className="flex items-center gap-3">
-                                   <div className="w-6 h-px bg-accent/40" />
-                                   <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.4em] uppercase drop-shadow-md">
-                                     {item.type === 'website' ? 'UX_INTERFACE' : item.category}
-                                   </span>
-                                </div>
-                                <h3 className="text-base md:text-xl font-bold text-white tracking-tight leading-tight group-hover:text-accent transition-colors duration-500 drop-shadow-lg">
-                                  {item.title}
-                                </h3>
-                              </div>
-                              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] relative z-20">
-                                <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    );
-                  })
+                                    {/* METADATA OVERLAY */}
+                                    <div className="absolute inset-x-0 bottom-0 p-4 md:p-8 z-10 flex justify-between items-end">
+                                      <div className="flex flex-col gap-2 relative z-20">
+                                        <div className="flex items-center gap-3">
+                                           <div className="w-6 h-px bg-accent/40" />
+                                           <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.4em] uppercase drop-shadow-md">
+                                             {item.type === 'website' ? 'UX_INTERFACE' : item.category}
+                                           </span>
+                                        </div>
+                                        <h3 className="text-[12px] md:text-xl font-bold text-white tracking-tight leading-tight group-hover:text-accent transition-colors duration-500 drop-shadow-lg truncate max-w-[150px] md:max-w-none">
+                                          {item.title}
+                                        </h3>
+                                      </div>
+                                      <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] relative z-20">
+                                        <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      );
+                    });
+                  })()
                 )}
               </AnimatePresence>
             </div>
