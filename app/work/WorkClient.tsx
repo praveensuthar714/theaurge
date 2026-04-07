@@ -114,21 +114,23 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
   const isVerticalTab = activeCategory === 'Videos' && activeVideoSub === 'Documentaries';
   const gridClasses = isVerticalTab
     ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
-    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+    : 'grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-12';
   const OptimizedAsset = ({ item }: { item: any }) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const [inView, setInView] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     React.useEffect(() => {
+      setIsMobile(window.innerWidth < 768);
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             setInView(true);
-            observer.disconnect(); // Load once and keep loaded
+            observer.disconnect(); 
           }
         },
-        { threshold: 0.1 }
+        { threshold: 0.1, rootMargin: '200px' }
       );
       if (containerRef.current) observer.observe(containerRef.current);
       return () => observer.disconnect();
@@ -137,34 +139,39 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
     if (item.type === 'video') {
        return (
          <div ref={containerRef} className="w-full h-full">
-           <video 
-             {...(inView ? { src: item.url } : {})} 
-             poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_800/')}
-             autoPlay muted loop playsInline
-             className="w-full h-full object-cover transition-opacity duration-700"
-             style={{ opacity: inView ? 1 : 0.5 }}
-           />
+           {inView ? (
+             <video 
+               src={item.url}
+               poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_800/')}
+               autoPlay={!isMobile}
+               muted
+               loop
+               playsInline
+               preload="none"
+               className="w-full h-full object-cover transition-opacity duration-700"
+               style={{ opacity: 1 }}
+             />
+           ) : (
+             <img src={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_400/')} className="w-full h-full object-cover" alt="" />
+           )}
          </div>
        );
     }
 
     return (
-      <div ref={containerRef} className="w-[100%] h-[100%] relative overflow-hidden bg-white/[0.03] animate-shimmer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-        {item.type === 'website' && inView ? (
-          <div className="w-full h-full absolute inset-0">
-            <iframe 
-              src={item.url}
-              className="w-[400%] h-[400%] border-none origin-top-left transition-transform duration-700"
-              style={{ transform: `scale(0.25) ${isHovered ? 'scale(1.05)' : ''}`, pointerEvents: isHovered ? 'auto' : 'none' }}
-              title={item.title}
-              loading="lazy"
-            />
-          </div>
+      <div ref={containerRef} className="w-full h-full relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        {item.type === 'website' && inView && !isMobile ? (
+          <iframe 
+            src={item.url}
+            className="w-full h-full border-none"
+            style={{ pointerEvents: isHovered ? 'auto' : 'none' }}
+            title={item.title}
+          />
         ) : (
           <img 
             src={item.thumbnail} 
             alt={item.title}
-            className={`w-full h-full transition-all duration-[2s] group-hover:scale-[1.04] ease-out object-cover ${inView ? 'opacity-100' : 'opacity-0'}`}
+            className="w-full h-full object-cover"
             loading="lazy"
           />
         )}
@@ -189,13 +196,13 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
              <h2 className="text-4xl md:text-6xl heading-platinum">Architectural Archive<span className="text-accent">.</span></h2>
           </div>
 
-          {/* Precision Switcher */}
-          <div className="flex bg-white/[0.02] border border-white/10 p-1.5 rounded-none max-w-full overflow-x-auto no-scrollbar">
+          {/* Precision Switcher - WRAPPED FOR FULL VISIBILITY */}
+          <div className="flex flex-wrap justify-center bg-white/[0.02] border border-white/10 p-1 md:p-1.5 rounded-none max-w-full gap-1">
             {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat as any)}
-                className={`relative px-8 md:px-12 py-4 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] transition-all duration-700 z-10 whitespace-nowrap ${
+                className={`relative px-4 md:px-10 py-3 md:py-4 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-700 z-10 flex-1 md:flex-none text-center whitespace-nowrap ${
                   activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
                 }`}
               >

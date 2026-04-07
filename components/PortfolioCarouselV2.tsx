@@ -193,14 +193,14 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
              </h2>
           </div>
 
-          {/* Precision Switcher - SCROLLABLE ON MOBILE */}
-          <div className="relative group/tabs flex-1 lg:flex-none max-w-full overflow-hidden">
-            <div className="flex bg-white/[0.02] border border-white/10 p-1.5 rounded-none w-full lg:w-auto overflow-x-auto no-scrollbar scroll-smooth">
+          {/* Precision Switcher - WRAPPED ON MOBILE FOR FULL VISIBILITY */}
+          <div className="relative flex-1 lg:flex-none max-w-full">
+            <div className="flex flex-wrap justify-center lg:justify-start bg-white/[0.02] border border-white/10 p-1 md:p-1.5 rounded-none w-full lg:w-auto gap-1">
               {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat as any)}
-                  className={`relative px-6 md:px-10 py-4 text-[9px] md:text-[10px] whitespace-nowrap font-bold uppercase tracking-[0.3em] transition-all duration-700 z-10 ${
+                  className={`relative px-4 md:px-10 py-3 md:py-4 text-[8px] md:text-[10px] whitespace-nowrap font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-700 z-10 flex-1 md:flex-none text-center ${
                     activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
                   }`}
                 >
@@ -215,8 +215,6 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
                 </button>
               ))}
             </div>
-            {/* Visual Queue for Scrolling on mobile */}
-            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black to-transparent pointer-events-none lg:hidden opacity-40" />
           </div>
         </div>
 
