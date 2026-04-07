@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 06',
   heroHeading: 'Brand',
   heroSubheading: 'Strategy.',
-  heroDescription: 'Behind every successful brand lies a strong and well-defined strategy. We help businesses navigate complexity with clarity.',
+  heroDescription: 'Behind every successful brand lies a strong and well-defined strategy. We help businesses navigate complexity with clarity by combining deep market insights with practical execution plans.',
   heroBg: '/performance-marketing/imgi_24_3c3942dac14a8ef23083e7c7df01eff6c22b477a-6000x1920.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Strategic Clarity',
   valuePropAccent: 'Long-term Sustainability.|',
   valuePropBody: [
-    "By combining deep market insights with practical execution plans — from understanding your competition to identifying opportunities and defining your unique position — we build strategies that create direction and purpose.",
-    '"Growth doesn't happen by chance — it happens by design. We design systems, funnels, and strategies that align with your business objectives and drive measurable results."',
+    "From understanding your competition to identifying opportunities and defining your unique position, we build strategies that create direction and purpose.",
+    "Our goal is not just short-term growth, but long-term sustainability. We design systems, funnels, and strategies that align with your business objectives and drive measurable results. Because growth doesn't happen by chance — it happens by design.",
   ],
 
   bentoHeading: 'Our Strategy',
@@ -40,12 +40,11 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Target, title: 'Market Research', description: 'Deep analysis of industry trends, consumer behaviour, and opportunities in your market.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
-    { icon: TrendingUp, title: 'Competitor Analysis', description: 'Understanding your competitors' strengths and gaps to identify your strategic advantage.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
-    { icon: BarChart, title: 'Brand Positioning', description: 'Defining your unique place in the market and how your audience should perceive you.', image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png' },
-    { icon: Rocket, title: 'Sales Funnel Design', description: 'Creating structured customer journeys from discovery to conversion and loyalty.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
-    { icon: Shield, title: 'Growth Strategy', description: 'Planning scalable and sustainable business growth aligned with your long-term goals.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
-    { icon: Globe, title: 'Market Expansion', description: 'Strategies to help you reach new customers and enter new markets with confidence.', image: '/performance-marketing/imgi_38_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { icon: Target, title: 'Market Research', description: 'Deep analysis of industry trends and opportunities.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
+    { icon: TrendingUp, title: 'Competitor Analysis', description: 'Understanding strengths and gaps in the market.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
+    { icon: BarChart, title: 'Brand Positioning', description: 'Defining your unique place in the market.', image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png' },
+    { icon: Rocket, title: 'Sales Funnel Design', description: 'Creating structured customer journeys.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
+    { icon: Shield, title: 'Growth Strategy', description: 'Planning scalable and sustainable business growth.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
   ],
 
   processLabel: 'Our Process',
@@ -70,6 +69,7 @@ const data: ServicePageData = {
     author: 'Sam Thorne',
     role: 'Growth Lead @ Nexus',
     avatar: '/performance-marketing/imgi_121_6e3a391a57fd5a5722535b41efcb371b6ba2db58-196x196.png',
+
     metrics: [
       { label: 'Strategic Clarity', value: '100%' },
       { label: 'Growth Lift', value: '2.8x' },

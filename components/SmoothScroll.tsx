@@ -7,31 +7,38 @@ import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1, // Softer momentum for premium feel
+      duration: 1.5,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.1, // Slightly snappier response
       touchMultiplier: 2,
       infinite: false,
     });
 
-    // Sync ScrollTrigger with Lenis
+    // ── SYNC SCROLLTRIGGER WITH LENIS ──
+    // This is the core fix for "glitches": updating ScrollTrigger on every Lenis frame
     lenis.on('scroll', () => {
       ScrollTrigger.update();
     });
 
-    // Use GSAP's ticker for Lenis
+    // ── TICKER SYNC ──
     const update = (time: number) => {
       lenis.raf(time * 1000);
     };
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
+    // Refresh after route transition (Wait for mount delay)
+    const refreshTrigger = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
     return () => {
       lenis.destroy();
       gsap.ticker.remove(update);
+      clearTimeout(refreshTrigger);
     };
   }, []);
 

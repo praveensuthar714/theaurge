@@ -121,25 +121,47 @@ export const Header: React.FC = () => {
         initial={false}
         animate={isMegaMenuOpen ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: -20, pointerEvents: 'none' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 w-full z-[150] h-auto max-h-[85vh] overflow-hidden pt-[100px]"
+        className="fixed inset-0 z-[150] bg-black/95 backdrop-blur-3xl overflow-y-auto pt-[100px] pb-12 px-6"
       >
-        {/* Backdrop / Glass layer - Contained height */}
-        <div className="absolute inset-0 bg-black/90 backdrop-blur-[80px] border-b border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)]" />
-        
-        <div className="relative max-w-[1400px] w-auto mx-auto px-6 lg:px-12 py-12 lg:py-16 overflow-y-auto max-h-[calc(85vh-100px)] flex items-center justify-center min-h-[40vh]">
-          {/* MOBILE MAIN NAVIGATION (Integrated for Mobile Screens) */}
-          <div className="flex flex-col gap-8 text-center">
+        <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+          
+          {/* Main Navigation (Always visible in Mega Menu) */}
+          <div className="lg:col-span-4 flex flex-col gap-6 md:gap-8">
+            <span className="text-accent text-[9px] font-bold tracking-[0.4em] uppercase opacity-40 mb-2">Navigation</span>
             {navItems.map((item) => (
               <Link 
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMegaMenuOpen(false)}
-                className="text-white text-2xl md:text-3xl font-light tracking-[0.3em] uppercase hover:text-[#E6FF00] transition-colors"
+                className="text-white text-3xl md:text-5xl font-medium tracking-tight hover:text-accent transition-colors"
               >
                 {item.name}
               </Link>
             ))}
           </div>
+
+          {/* Service Taxonomy (Visible in Mega Menu) */}
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+            {serviceCategories.map((cat, idx) => (
+              <div key={idx} className="flex flex-col gap-5">
+                <span className="text-white/20 text-[9px] font-bold tracking-[0.4em] uppercase border-l-2 border-accent/20 pl-4">{cat.title}</span>
+                <div className="flex flex-col gap-3">
+                  {cat.items.map((service, sIdx) => (
+                    <Link
+                      key={sIdx}
+                      href={`/services/${service.slug}`}
+                      onClick={() => setIsMegaMenuOpen(false)}
+                      className="text-white/60 hover:text-white text-[13px] md:text-[15px] font-medium transition-colors flex items-center group"
+                    >
+                      {service.name}
+                      <ChevronRight className="w-3 h-3 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-accent" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </motion.div>
     </>

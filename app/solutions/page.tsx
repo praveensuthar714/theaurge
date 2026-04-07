@@ -111,10 +111,17 @@ export default function SolutionsPage() {
                      ))}
                   </div>
                </div>
-               <div className="lg:w-1/2 relative bg-neutral-900 rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-1000 aspect-[16/10]">
-                  <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="The Framework" />
+               <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 0.6, x: 0 }}
+                whileHover={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:w-1/2 relative bg-neutral-900 rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-1000 aspect-[16/10] animate-shimmer"
+               >
+                  <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="The Framework" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-               </div>
+               </motion.div>
             </div>
          </div>
       </section>

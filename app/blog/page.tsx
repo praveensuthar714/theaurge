@@ -34,9 +34,16 @@ export default function JournalPage() {
       <section className="py-24 px-6 border-y border-white/5 bg-[#050505] relative overflow-hidden">
          <div className="container mx-auto max-w-7xl">
             <Link href="/blog/1" className="flex flex-col lg:flex-row gap-20 items-center group">
-               <div className="lg:w-1/2 aspect-[16/10] rounded-[4px] overflow-hidden border border-white/10 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 bg-neutral-900">
-                  <img src={articles[0].image} className="w-full h-full object-cover scale-[1.05] group-hover:scale-100 transition-transform duration-1000" alt="Featured" />
-               </div>
+               <motion.div 
+                 initial={{ opacity: 0, scale: 0.98 }}
+                 whileInView={{ opacity: 0.6, scale: 1 }}
+                 whileHover={{ opacity: 1 }}
+                 viewport={{ once: true }}
+                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                 className="lg:w-1/2 aspect-[16/10] rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-1000 bg-white/[0.03] animate-shimmer"
+               >
+                  <img src={articles[0].image} className="w-full h-full object-cover scale-[1.05] group-hover:scale-100 transition-transform duration-1000" alt="Featured" loading="lazy" />
+               </motion.div>
                <div className="lg:w-1/2">
                   <span className="text-[#E6FF00] text-[9px] font-bold tracking-[0.4em] uppercase mb-8 block">Featured Article</span>
                   <h2 className="text-white text-[28px] md:text-[42px] font-medium tracking-tight mb-8 group-hover:text-[#E6FF00] transition-colors leading-tight">

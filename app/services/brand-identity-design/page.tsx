@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 03',
   heroHeading: 'Brand',
   heroSubheading: 'Identity.',
-  heroDescription: 'A brand is not just seen — it is felt, remembered, and experienced. We build identities that go beyond visuals and create lasting impressions.',
+  heroDescription: 'A brand is not just seen it is felt, remembered, and experienced. We specialize in building identities that go beyond visuals and create a lasting impression in the minds of your audience.',
   heroBg: '/branding/imgi_27_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Beyond Visuals',
   valuePropAccent: 'Long-term Connection.|',
   valuePropBody: [
-    "From crafting distinctive logos to designing complete brand systems, we ensure every element reflects your vision, values, and purpose. Our approach combines strategy with creativity — ensuring your brand stands out in a crowded market while maintaining clarity and consistency.",
-    '"A strong brand identity doesn't just attract attention — it builds trust, recognition, and long-term connection with your audience."',
+    "From crafting distinctive logos to designing complete brand systems, we ensure that every element reflects your vision, values, and purpose. Our approach combines strategy with creativity, ensuring your brand stands out in a crowded market while maintaining clarity and consistency.",
+    "We focus on creating identities that are not only visually appealing but also meaningful and timeless. Because a strong brand identity doesn't just attract attention — it builds trust, recognition, and long-term connection.",
   ],
 
   bentoHeading: 'Our Design',
@@ -40,12 +40,12 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Palette, title: 'Brand Discovery', description: 'Understanding your business, audience, and vision to build a strong, purposeful foundation.', image: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
-    { icon: PenTool, title: 'Logo Design', description: 'Crafting unique, timeless logos that represent your brand identity across every touchpoint.', image: '/branding/imgi_34_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
-    { icon: Layout, title: 'Visual Identity System', description: 'Defining colours, typography, and design elements that create a consistent brand presence.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
-    { icon: Layers, title: 'Stationery Design', description: 'Business cards, letterheads, and brand materials designed professionally for every interaction.', image: '/branding/imgi_29_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png' },
-    { icon: Box, title: 'Brand Positioning', description: 'Shaping how your brand is perceived and remembered in the marketplace.', image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png' },
-    { icon: Sparkles, title: 'Brand Guidelines', description: 'A comprehensive rulebook to maintain brand consistency across all platforms and media.', image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png' },
+    { icon: Palette, title: 'Brand Discovery', description: 'We understand your business, audience, and vision to build a strong foundation.', image: '/branding/imgi_104_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
+    { icon: PenTool, title: 'Logo Design', description: 'We craft unique, timeless logos that represent your brand identity effectively.', image: '/branding/imgi_34_ac3433e8aca5f4b71308bf543d7f1c3fe7d7c421-1091x1180.png' },
+    { icon: Layout, title: 'Visual Identity System', description: 'We define colors, typography, and design elements for consistency.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Layers, title: 'Stationery Design', description: 'Business cards, letterheads, and brand materials designed professionally.', image: '/branding/imgi_29_89d6d74ed1aebdcfdeda25abc653c8baadd38eb0-2739x3902.png' },
+    { icon: Sparkles, title: 'Brand Guidelines', description: 'We create a rulebook to maintain brand consistency across all platforms.', image: '/branding/imgi_14_5e9ab7d8c5dc501821b63b40e00a3655d56fdbab-1040x584.png' },
+    { icon: Box, title: 'Brand Positioning', description: 'We shape how your brand is perceived in the market.', image: '/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png' },
   ],
 
   processLabel: 'Our Process',

@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 04',
   heroHeading: 'Social Media',
   heroSubheading: 'Marketing.',
-  heroDescription: 'In a fast-moving digital world, attention is the most valuable currency. We help brands cut through the noise with strategies that are not just creative, but result-driven.',
+  heroDescription: 'In a fast-moving digital world, attention is the most valuable currency. We help brands cut through the noise with strategies that are not just creative, but also result-driven.',
   heroBg: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Digital Attention',
   valuePropAccent: 'Result-Driven Strategies.|',
   valuePropBody: [
-    "Our focus is not just on reaching people, but on connecting with the right audience at the right time with the right message. We blend creativity, data, and strategy to create campaigns that perform, convert, and build lasting brand relationships.",
-    '"From building a strong presence to leveraging influencer collaborations and scaling e-commerce growth, we craft digital ecosystems that drive visibility and engagement."',
+    "From building a strong presence on social media to leveraging influencer collaborations and scaling e-commerce growth, we craft digital ecosystems that drive visibility and engagement.",
+    "Our focus is not just on reaching people, but on connecting with the right audience at the right time with the right message. We blend creativity, data, and strategy to create campaigns that perform, convert, and build lasting brand relationships in the digital space.",
   ],
 
   bentoHeading: 'Our Social',
@@ -40,12 +40,12 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Target, title: 'Social Strategy', description: 'Planning content and campaigns that align with your brand voice for consistent growth.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
-    { icon: Sparkles, title: 'Content Creation', description: 'Engaging posts, reels, and creatives that capture attention and drive audience recall.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
-    { icon: TrendingUp, title: 'Influencer Marketing', description: 'We collaborate with the right influencers to boost reach and build authentic trust.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
-    { icon: Rocket, title: 'E-commerce Marketing', description: 'Optimizing campaigns to increase direct product sales and digital conversions.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
-    { icon: BarChart, title: 'Ad Campaign Mgmt', description: 'Running targeted ads across platforms for better reach, engagement, and ROI.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
-    { icon: Shield, title: 'Analytics & Optimization', description: 'Continuous tracking and improvement of performance metrics for sustainable growth.', image: '/performance-marketing/imgi_38_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { icon: Target, title: 'Social Media Strategy', description: 'We plan content and campaigns that align with your brand voice.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { icon: Sparkles, title: 'Content Creation', description: 'Engaging posts, reels, and creatives that capture attention.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
+    { icon: TrendingUp, title: 'Influencer Marketing', description: 'We collaborate with the right influencers to boost reach and trust.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
+    { icon: Rocket, title: 'E-commerce Marketing', description: 'We optimize campaigns to increase sales and conversions.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
+    { icon: BarChart, title: 'Ad Campaign Management', description: 'Running targeted ads for better reach and ROI.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { icon: Shield, title: 'Analytics & Optimization', description: 'Continuous tracking and improvement of performance.', image: '/performance-marketing/imgi_38_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
   ],
 
   processLabel: 'Our Process',

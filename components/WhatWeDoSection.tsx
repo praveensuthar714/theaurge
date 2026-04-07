@@ -165,21 +165,27 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
   useEffect(() => {
     if (!containerRef.current) return;
     const ctx = gsap.context(() => {
-      // Don't show content until section is heavily scrolled into view
-      // This allows the yellow icon box from the previous section to clear first
+      // Reveal header and body sequentially
       gsap.fromTo(
-        '.wwd-content',
-        { opacity: 0, y: 50 },
+        ['.wwd-content', '.assembly-card'],
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.98,
+          filter: "blur(4px)"
+        },
         {
           opacity: 1,
           y: 0,
-          duration: 1.2,
-          stagger: 0.15,
-          ease: 'power3.out',
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.5,
+          stagger: 0.1,
+          ease: 'power4.out',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 15%', // Heavily delayed: Waits until the yellow icon box is scrolled almost completely off the screen
-            toggleActions: 'play none none reverse',
+            start: 'top 80%', // Standard reveal position
+            toggleActions: 'play none none none',
           },
         }
       );

@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 05',
   heroHeading: 'Premium',
   heroSubheading: 'Photography.',
-  heroDescription: 'Photography is more than just capturing an image — it is about capturing a feeling, a moment, and a story within a single frame.',
+  heroDescription: "Photography is more than just capturing an image — it's about capturing a feeling, a moment, and a story within a single frame. We create visuals that are not only aesthetically powerful but also purposeful and brand-driven.",
   heroBg: '/video-production/imgi_40_ac7bdf55928d15f333796ec5b6f049cd330536dd-3324x2208.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Soul',
   valuePropAccent: 'of Visual Narrative.|',
   valuePropBody: [
-    "We create visuals that are not only aesthetically powerful but also purposeful and brand-driven. Whether it's showcasing a product, documenting an event, or highlighting architectural brilliance, we focus on every detail that brings the subject to life.",
-    '"With a deep understanding of lighting, composition, and storytelling, we ensure that every image communicates something meaningful — because the right photograph doesn't just look good, it speaks and connects."',
+    "Whether it's showcasing a product, documenting an event, or highlighting architectural brilliance, we focus on every detail that brings the subject to life.",
+    "With a deep understanding of lighting, composition, and storytelling, we ensure that every image communicates something meaningful. Because the right photograph doesn't just look good — it speaks, connects, and leaves a lasting impression.",
   ],
 
   bentoHeading: 'Our Visual',
@@ -40,12 +40,11 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Camera, title: 'Product Photography', description: 'Clean, high-quality visuals that highlight product features and elevate brand value on every platform.', image: '/video-production/imgi_26_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg' },
-    { icon: Image, title: 'Event Photography', description: 'Capturing moments with emotion and authentic storytelling that preserves the energy of the occasion.', image: '/video-production/imgi_30_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png' },
-    { icon: Layers, title: 'Architectural Photography', description: 'Showcasing spaces and structures with focus on spatial composition, perspective, and natural light.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
-    { icon: Sparkles, title: 'Post-Editing', description: 'Refining every image for color balance, skin textures, and cinematicfinished tone.', image: '/video-production/imgi_21_73ca3279a0631316a07443f727af6f7cb0fb106d-132x84.png' },
-    { icon: Zap, title: 'Jewellery Shoots', description: 'Fine detailing, textures, and premium finishes crafted to highlight craftsmanship and elegance.', image: '/video-production/imgi_10_720ce9fb43ee5ce93fbed66e56bfe075aee95760-1000x1000.png' },
-    { icon: Monitor, title: 'Lighting Setup', description: 'Professional lighting designed to enhance visual quality and create the mood of each photograph.', image: '/video-production/imgi_25_8174c6cb21efd19c01df7cddbdcadf03bfbc2477-720x720.png' },
+    { icon: Camera, title: 'Product Photography', description: 'Clean, high-quality visuals that highlight product features.', image: '/video-production/imgi_26_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg' },
+    { icon: Image, title: 'Event Photography', description: 'Capturing moments with emotion and storytelling.', image: '/video-production/imgi_30_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png' },
+    { icon: Layers, title: 'Architectural Photography', description: 'Showcasing spaces with precision and creativity.', image: '/branding/imgi_40_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Monitor, title: 'Lighting Setup', description: 'Professional lighting to enhance visual quality.', image: '/video-production/imgi_25_8174c6cb21efd19c01df7cddbdcadf03bfbc2477-720x720.png' },
+    { icon: Sparkles, title: 'Post Editing', description: 'Refining images to achieve a polished final look.', image: '/video-production/imgi_21_73ca3279a0631316a07443f727af6f7cb0fb106d-132x84.png' },
   ],
 
   processLabel: 'Our Process',
@@ -82,7 +81,7 @@ const data: ServicePageData = {
   },
 
   ctaHeading: 'Ready to capture',
-  ctaSubheading: 'your brand's visual story?',
+  ctaSubheading: "your brand's visual story?",
   ctaCTA: 'Get in Touch',
 
   faqHeading: 'Photography',

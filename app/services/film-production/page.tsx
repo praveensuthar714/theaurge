@@ -29,8 +29,8 @@ const data: ServicePageData = {
   valuePropLabel: 'The Imprint',
   valuePropAccent: 'of Storytelling.|',
   valuePropBody: [
-    "From the first spark of imagination to the final frame on screen, we approach every project with honesty, depth, and a commitment to creating something that truly connects with people. We don't chase visuals alone — we build meaning behind every frame, every silence, and every moment.",
-    '"For us, filmmaking is about leaving an imprint — something the audience carries even after the screen fades to black."',
+    "From the first spark of imagination to the final frame on screen, we approach every project with honesty, depth, and a commitment to creating something that truly connects with people.",
+    "We don't chase visuals alone, we build meaning behind every frame, every silence, and every moment. Because for us, filmmaking is about leaving an imprint something the audience carries even after the screen fades to black.",
   ],
 
   bentoHeading: 'Cinematic',
@@ -167,14 +167,6 @@ const data: ServicePageData = {
         'We enhance the visual tone and mood, giving the film its final cinematic look and emotional texture.',
       image:
         '/video-production/imgi_101_19f70a604ac0ca6b8531e9a7c2fa32f3b23b0358-4230x2418.png',
-    },
-    {
-      icon: Film,
-      title: 'VFX & Post',
-      description:
-        'We integrate visual effects and post-production elements seamlessly into the narrative — ensuring every frame feels intentional, polished, and cinematic.',
-      image:
-        '/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png',
     },
   ],
 

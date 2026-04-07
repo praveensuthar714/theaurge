@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 11',
   heroHeading: 'AI',
   heroSubheading: 'Marketing.',
-  heroDescription: 'The future of marketing is intelligent, automated, and highly personalised. We leverage AI to transform how businesses interact with their audience.',
+  heroDescription: 'The future of marketing is intelligent, automated, and highly personalized. We leverage the power of artificial intelligence to transform the way businesses interact with their audience.',
   heroBg: '/ai-marketing/imgi_2_2af62e5e1db7ef4cc918e482af45be7b71c17e0a-3114x1822.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Neural Growth',
   valuePropAccent: 'Predictive Acquisition.|',
   valuePropBody: [
-    "From AI-driven chatbots to automated workflows and smart calling systems, we create solutions that enhance efficiency and engagement. Our goal is to help you scale faster while reducing manual effort — allowing you to focus on what truly matters.",
-    '"When technology works smarter, your business grows stronger. We build intelligent marketing engines that operate, learn, and improve 24/7."',
+    "From AI-driven chatbots to automated workflows and smart calling systems, we create solutions that enhance efficiency and engagement.",
+    "Our goal is to help you scale faster while reducing manual effort, allowing you to focus on what truly matters — growth and innovation. Because when technology works smarter, your business grows stronger."
   ],
 
   bentoHeading: 'Our AI',
@@ -40,12 +40,10 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Brain, title: 'AI Chatbots', description: 'Automated response systems for customer interaction, lead qualification, and 24/7 engagement.', image: '/ai-marketing/imgi_1_cf43af844d6a97f588b639f2592e3667143f308c-900x1104.png' },
-    { icon: Sparkles, title: 'AI Calling Agents', description: 'Smart calling systems for lead handling, follow-ups, and appointment booking at scale.', image: '/ai-marketing/imgi_12_62d597b44186cfd29aaa3f4df6b0954804fad818-656x920.png' },
-    { icon: Zap, title: 'Marketing Automation', description: 'Reducing manual effort with AI-powered workflows that personalise and scale your outreach.', image: '/ai-marketing/imgi_14_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
-    { icon: Cpu, title: 'Data Analysis', description: 'AI-driven insights from your customer data to make smarter, faster marketing decisions.', image: '/ai-marketing/imgi_15_bb10a1d5a9b2c425ff6639dbf9fcc30dc8bfd4b0-1440x1548.png' },
-    { icon: Rocket, title: 'Scalable Content', description: 'Using AI to personalise brand content for thousands of users at scale simultaneously.', image: '/ai-marketing/imgi_16_e7dfa073272b449ee6e5c880a0f31ea1700dd71b-1440x1548.png' },
-    { icon: BarChart, title: 'Predictive Labs', description: 'A data-led system where your marketing velocity is predicted, tested, and scaled continuously.', image: '/ai-marketing/imgi_18_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png' },
+    { icon: Brain, title: 'AI Chatbots', description: 'Automated responses for customer interaction.', image: '/ai-marketing/imgi_1_cf43af844d6a97f588b639f2592e3667143f308c-900x1104.png' },
+    { icon: Sparkles, title: 'AI Calling Agents', description: 'Smart calling systems for lead handling.', image: '/ai-marketing/imgi_12_62d597b44186cfd29aaa3f4df6b0954804fad818-656x920.png' },
+    { icon: Zap, title: 'Marketing Automation', description: 'Reducing manual effort with AI workflows.', image: '/ai-marketing/imgi_14_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
+    { icon: Cpu, title: 'Data Analysis', description: 'AI-driven insights for better decisions.', image: '/ai-marketing/imgi_15_bb10a1d5a9b2c425ff6639dbf9fcc30dc8bfd4b0-1440x1548.png' },
   ],
 
   processLabel: 'Our Process',

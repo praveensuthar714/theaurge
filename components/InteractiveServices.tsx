@@ -157,7 +157,7 @@ export const InteractiveServices: React.FC = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[110vh] min-h-[850px] overflow-visible z-20"
+      className="relative w-full h-[80vh] md:h-[110vh] min-h-[600px] md:min-h-[850px] overflow-visible z-20"
     >
       {/* ── ATMOSPHERIC SCENE ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">

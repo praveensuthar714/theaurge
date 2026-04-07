@@ -52,13 +52,19 @@ export default function BlogDetailPage() {
         </div>
 
         <div className="container mx-auto max-w-7xl px-6 mb-32">
-          <div className="aspect-[21/9] rounded-[4px] overflow-hidden border border-white/5 bg-neutral-900">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="aspect-[21/9] rounded-[4px] overflow-hidden border border-white/5 bg-white/[0.03] animate-shimmer"
+          >
              <img 
                src="/capabilities/digital-experiences.png" 
                alt="Article Visual" 
-               className="w-full h-full object-cover"
+               className="w-full h-full object-cover transition-all duration-[2s]"
+               loading="eager"
              />
-          </div>
+          </motion.div>
         </div>
 
         {/* Content Section */}

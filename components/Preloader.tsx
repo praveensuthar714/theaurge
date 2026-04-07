@@ -9,7 +9,7 @@ export const Preloader: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200); // Fast but impactful
+    }, 600); // Faster reveal for performance
 
     return () => clearTimeout(timer);
   }, []);
@@ -18,7 +18,7 @@ export const Preloader: React.FC = () => {
     initial: { clipPath: 'inset(0% 0% 0% 0%)' },
     exit: { 
       clipPath: 'inset(100% 0% 0% 0%)',
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } 
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
     }
   } as any;
 

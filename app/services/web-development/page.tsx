@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 01',
   heroHeading: 'Web',
   heroSubheading: 'Development.',
-  heroDescription: 'Your website is often the first interaction people have with your brand. We design and develop digital experiences that are visually appealing and highly functional.',
+  heroDescription: 'Your website is often the first interaction people have with your brand — and first impressions matter. We design and develop digital experiences that are not only visually appealing but also highly functional and user-focused.',
   heroBg: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Experience',
   valuePropAccent: 'Design, Efficiency, Impact.|',
   valuePropBody: [
-    'We focus on performance, scalability, and user behavior to build platforms that don’t just exist online, but actively contribute to your business growth.',
-    '"A great website is not just about design—it’s about experience, efficiency, and impact. We ensure every interaction feels seamless and meaningful."'
+    "From intuitive UI/UX design to robust backend systems, we ensure every interaction feels seamless and meaningful.",
+    "We focus on performance, scalability, and user behavior to build platforms that don't just exist online, but actively contribute to your business growth. Because a great website is not just about design — it's about experience, efficiency, and impact."
   ],
 
   bentoHeading: 'Our Web',
@@ -31,12 +31,11 @@ const data: ServicePageData = {
   bentoCard2Icon: Globe,
 
   modules: [
-    { icon: Code2, title: 'UI/UX Design', description: 'Clean, intuitive, and engaging user interfaces designed for conversion.', image: '/website-development/imgi_26_eff3357620f38b12c5d8bec26b6dd6360cb25c43-2400x2944.png' },
-    { icon: Globe, title: 'Web Development', description: 'Fast, responsive, and scalable websites built for global market reach.', image: '/website-development/imgi_113_52dd44eac93588f55945d184aa59d46dc7806d3a-1440x1548.png' },
-    { icon: Cpu, title: 'CRM Systems', description: 'Custom operational systems designed specifically for your business logic.', image: '/website-development/imgi_110_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
-    { icon: Zap, title: 'Performance Lab', description: 'Optimizing speed and functionality for maximum user retention and results.', image: '/website-development/imgi_108_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png' },
-    { icon: Layers, title: 'Maintenance', description: 'Continuous updates and technical support to ensure 99.9% uptime.', image: '/website-development/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
-    { icon: Sparkles, title: 'Interaction', description: 'Fluid motions and immersive transitions that enhance brand recall.', image: '/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png' },
+    { icon: Code2, title: 'UI/UX Design', description: 'Clean, intuitive, and engaging user interfaces.', image: '/website-development/imgi_26_eff3357620f38b12c5d8bec26b6dd6360cb25c43-2400x2944.png' },
+    { icon: Globe, title: 'Website Development', description: 'Fast, responsive, and scalable websites.', image: '/website-development/imgi_113_52dd44eac93588f55945d184aa59d46dc7806d3a-1440x1548.png' },
+    { icon: Cpu, title: 'CRM Development', description: 'Custom systems to manage your business operations.', image: '/website-development/imgi_110_624e9e9446262a7d38d21a7ef45227d4eba5a1a9-1440x1548.png' },
+    { icon: Zap, title: 'Performance Optimization', description: 'Speed and functionality improvements.', image: '/website-development/imgi_108_30c5b7e76632ac83904bed5fb5697c699f7a39a8-1440x1548.png' },
+    { icon: Layers, title: 'Maintenance & Support', description: 'Continuous updates and technical support.', image: '/website-development/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
   ],
 
   processLabel: 'Our Process',

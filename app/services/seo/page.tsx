@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 08',
   heroHeading: 'Search Engine',
   heroSubheading: 'Optimisation.',
-  heroDescription: 'Being visible is important — but being discoverable at the right moment is what truly matters. We help brands build a strong organic presence.',
+  heroDescription: 'Being visible is important — but being discoverable at the right moment is what truly matters. We help brands build a strong organic presence by optimizing their digital footprint for search engines and evolving user behavior.',
   heroBg: '/performance-marketing/imgi_87_eed97c6479a951f6169af5645730a69694bc058a-768x880.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Organic Dominance',
   valuePropAccent: 'Strategic Visibility.|',
   valuePropBody: [
-    "Our approach goes beyond traditional SEO — focusing on intent, relevance, and long-term visibility. From technical optimisation to content strategy and advanced practices like AEO and GEO, we ensure your brand stays ahead in search rankings.",
-    '"When your audience is looking for answers, your brand should be the one they find first — we make that happen with precision and sustainable strategy."',
+    "Our approach goes beyond traditional SEO, focusing on intent, relevance, and long-term visibility.",
+    "From technical optimization to content strategy and advanced practices like AEO and GEO, we ensure your brand stays ahead in search rankings. Because when your audience is looking for answers, your brand should be the one they find first."
   ],
 
   bentoHeading: 'Our Search',
@@ -40,12 +40,11 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Search, title: 'Keyword Research', description: 'Finding high-impact keywords aligned with user intent and search volume.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
-    { icon: Globe, title: 'On-Page SEO', description: 'Optimising website structure, meta tags, headings, and content for better ranking.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
-    { icon: BarChart, title: 'Local SEO', description: 'Improving visibility in local searches to capture high-intent nearby audiences.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
-    { icon: Rocket, title: 'Technical SEO', description: 'Fixing backend issues — speed, crawlability, and structured data — for better ranking.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
-    { icon: Shield, title: 'Content Authority', description: 'Writing high-value content that ranks for keywords and builds topical authority.', image: '/performance-marketing/imgi_15_891037571e51c30078bf931b3bac1081b95986df-2800x1450.png' },
-    { icon: Zap, title: 'AEO & GEO', description: 'Optimising for Answer Engines and geographic targeting — the next frontier of SEO.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { icon: Search, title: 'Keyword Research', description: 'Finding high-impact keywords.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { icon: Globe, title: 'On-page SEO', description: 'Optimizing website structure and content.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
+    { icon: BarChart, title: 'Local SEO', description: 'Improving visibility in local searches.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
+    { icon: Rocket, title: 'Technical SEO', description: 'Fixing backend issues for better ranking.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
+    { icon: Zap, title: 'AEO & GEO', description: 'Optimizing for answer engines and geographic targeting.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
   ],
 
   processLabel: 'Our Process',

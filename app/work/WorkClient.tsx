@@ -48,7 +48,7 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
   const [lightbox, setLightbox] = useState<any | null>(null);
 
   // Group assets exactly as Carousel
-  const websites = PREMIUM_SITES.map((site, i) => ({
+  const websites = React.useMemo(() => PREMIUM_SITES.map((site, i) => ({
     id: `site-${i}`,
     title: `${String(i + 1).padStart(2, '0')} // ${site.title}`,
     url: site.url,
@@ -60,9 +60,9 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
     category: 'Websites',
     width: 1920,
     height: 1080
-  }));
+  })), []);
 
-  const videoProjects = (portfolioAssets || []).filter(a => a.resource_type === 'video').map((v, i) => {
+  const videoProjects = React.useMemo(() => (portfolioAssets || []).filter(a => a.resource_type === 'video').map((v, i) => {
     const lowerName = v.public_id.toLowerCase();
     let category = 'Brand Films';
     if (/doc|real|estate|property|hospital|health|educational/i.test(lowerName)) category = 'Documentaries';
@@ -78,9 +78,9 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
       width: v.width || 1920,
       height: v.height || 1080
     };
-  });
+  }), [portfolioAssets]);
 
-  const creativeProjects = (portfolioAssets || []).filter(a => a.resource_type === 'image' && !a.public_id.includes('website')).map((img, i) => ({
+  const creativeProjects = React.useMemo(() => (portfolioAssets || []).filter(a => a.resource_type === 'image' && !a.public_id.includes('website')).map((img, i) => ({
     id: img.public_id,
     title: `${String(i + 1).padStart(2, '0')} // ${img.public_id.split('/').pop()?.replace(/-/g, ' ') || 'Untitled'}`,
     url: img.secure_url,
@@ -89,15 +89,14 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
     category: 'Creative',
     width: img.width || 1920,
     height: img.height || 1080
-  }));
+  })), [portfolioAssets]);
 
-  const currentList = activeCategory === 'Websites' 
-    ? websites 
-    : activeCategory === 'Videos' 
-      ? videoProjects.filter(v => v.category === activeVideoSub)
-      : activeCategory === 'Creative'
-        ? creativeProjects
-        : []; // SEO and PPC are currently empty
+  const currentList = React.useMemo(() => {
+    if (activeCategory === 'Websites') return websites;
+    if (activeCategory === 'Videos') return videoProjects.filter(v => v.category === activeVideoSub);
+    if (activeCategory === 'Creative') return creativeProjects;
+    return [];
+  }, [activeCategory, activeVideoSub, websites, videoProjects, creativeProjects]);
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -116,49 +115,56 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
   const gridClasses = isVerticalTab
     ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
     : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
-  // Optimized Component for Lazy Assets
   const OptimizedAsset = ({ item }: { item: any }) => {
-    const videoRef = React.useRef<HTMLVideoElement>(null);
+    const containerRef = React.useRef<HTMLDivElement>(null);
     const [inView, setInView] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
     React.useEffect(() => {
       const observer = new IntersectionObserver(
-        ([entry]) => setInView(entry.isIntersecting),
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect(); // Load once and keep loaded
+          }
+        },
         { threshold: 0.1 }
       );
-      if (videoRef.current) observer.observe(videoRef.current);
+      if (containerRef.current) observer.observe(containerRef.current);
       return () => observer.disconnect();
     }, []);
 
     if (item.type === 'video') {
        return (
-         <video 
-           ref={videoRef}
-           {...(inView ? { src: item.url } : {})} 
-           poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_800/')}
-           autoPlay muted loop playsInline
-           className="w-full h-full object-cover transition-opacity duration-700"
-           style={{ opacity: inView ? 1 : 0.5 }}
-         />
+         <div ref={containerRef} className="w-full h-full">
+           <video 
+             {...(inView ? { src: item.url } : {})} 
+             poster={item.thumbnail.replace('/upload/', '/upload/f_auto,q_auto,w_800/')}
+             autoPlay muted loop playsInline
+             className="w-full h-full object-cover transition-opacity duration-700"
+             style={{ opacity: inView ? 1 : 0.5 }}
+           />
+         </div>
        );
     }
 
     return (
-      <div className="w-full h-full relative" onMouseEnter={() => setIsHovered(true)}>
+      <div ref={containerRef} className="w-[100%] h-[100%] relative overflow-hidden bg-white/[0.03] animate-shimmer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         {item.type === 'website' && inView ? (
-          <iframe 
-            src={item.url}
-            className="w-full h-full border-none transform origin-top transition-transform duration-700 hover:scale-[1.02]"
-            style={{ width: '100%', height: '100%', pointerEvents: isHovered ? 'auto' : 'none' }}
-            title={item.title}
-            loading="lazy"
-          />
+          <div className="w-full h-full absolute inset-0">
+            <iframe 
+              src={item.url}
+              className="w-[400%] h-[400%] border-none origin-top-left transition-transform duration-700"
+              style={{ transform: `scale(0.25) ${isHovered ? 'scale(1.05)' : ''}`, pointerEvents: isHovered ? 'auto' : 'none' }}
+              title={item.title}
+              loading="lazy"
+            />
+          </div>
         ) : (
           <img 
             src={item.thumbnail} 
             alt={item.title}
-            className="w-full h-full transition-all duration-[3s] group-hover:scale-[1.04] ease-out object-cover"
+            className={`w-full h-full transition-all duration-[2s] group-hover:scale-[1.04] ease-out object-cover ${inView ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
           />
         )}
@@ -376,22 +382,232 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
         )}
       </section>
 
+      {/* FEATURED PORTFOLIO DETAILS */}
+      <section className="py-32 px-4 md:px-8 border-t border-white/5 bg-[#050505]">
+        <div className="max-w-[1920px] mx-auto">
+          <div className="text-center mb-20 md:mb-24">
+            <span className="text-accent text-[10px] font-bold tracking-[0.6em] uppercase mb-4 block">Case Studies</span>
+            <h2 className="text-4xl md:text-5xl heading-platinum">Featured Productions<span className="text-accent">.</span></h2>
+          </div>
+
+          <div className="flex flex-col gap-24 md:gap-32 max-w-7xl mx-auto">
+            
+            {/* FILMS */}
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-widest text-[#EBEBEB] uppercase mb-10 md:mb-12 border-l-4 border-accent pl-6">Films</h3>
+              <div className="bg-[#0A0A0A] border border-white/10 p-8 md:p-12 hover:border-[#E6FF00]/30 transition-colors duration-500">
+                <div className="mb-8">
+                  <h4 className="text-3xl font-bold text-white tracking-tighter mb-2">Pages Of deception</h4>
+                  <p className="text-accent font-mono text-[10px] md:text-[11px] uppercase tracking-widest">Short Film | Marathi Language | 26 min</p>
+                </div>
+                <p className="text-white/60 leading-relaxed max-w-4xl mb-12 text-[13px] md:text-[15px]">
+                  A Marathi short film produced by The Aurge, Pages of Deception explores layered human emotions through a tightly woven narrative. We were responsible for end-to-end film execution, focusing on cinematic storytelling, strong performances, and atmospheric visuals. The film reflects our commitment to meaningful narratives that leave a lasting emotional impact.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-[12px] md:text-[13px] text-white/50 font-medium">
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Written & Directed by :</span> Prathamesh Savekar</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Cinematography :</span> Zaid Mulani</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Screenplay :</span> Prathamesh Savekar, Digmbar Patil</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Cast :</span> Satish Tandale, Akshay Polake, Anil Rabade, Pramod Kulkarni.</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Creative Director & Edit :</span> Digambar Patil</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Art Direction :</span> Shubham Wadikar, Devyani Shinde, Aditi lalit, Abhinav B.</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Music :</span> Mohit Kulkarni</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Sound :</span> Aditya chavan</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Assistant Cinematographer :</span> Akshay Sutar</p>
+                  <p><span className="text-white/80 block md:inline mb-1 md:mb-0">Sound Recordist :</span> Akash Bhosale</p>
+                  <p className="md:col-span-2"><span className="text-white/80 block md:inline mb-1 md:mb-0">Executive Producer :</span> Kaustubh Bhosale, Piyush Bhosale</p>
+                </div>
+              </div>
+            </div>
+
+            {/* DOCUMENTARIES */}
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-widest text-[#EBEBEB] uppercase mb-10 md:mb-12 border-l-4 border-accent pl-6">Documentaries</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {/* 1 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">KPT Industries</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Industrial</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We collaborated on this project by handling the shoot and supporting scripting and story development. Our focus was on presenting the industrial process with clarity, authenticity, and a cinematic visual language that communicates scale and precision.
+                  </p>
+                </div>
+                {/* 2 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Nisarg Resort</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Hospitality</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    we contributed to story development and production, capturing the essence of nature, hospitality, and guest experience. The film blends calm visuals with thoughtful storytelling to reflect the resort's philosophy and ambience.
+                  </p>
+                </div>
+                {/* 3 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Nourishing Farm</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Nutrition & Lifestyle</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We worked closely on concept, story, and shoot, highlighting the farm-to-fork journey and the brand's focus on healthy living. The documentary uses warm visuals and grounded storytelling to build trust and emotional connection with the audience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* TV COMMERCIALS & AD FILMS */}
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-widest text-[#EBEBEB] uppercase mb-10 md:mb-12 border-l-4 border-accent pl-6">Ad Films & Commercials</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {/* 1 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Suvarndeep</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Product</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Boomrang Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    A fully managed project where we handled concept, scripting, production, and post-production. The film focuses on premium presentation, product detailing, and strong visual storytelling to elevate the brand presence.
+                  </p>
+                </div>
+                {/* 2 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Nourishing Farm</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Nutrition & Lifestyle</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We were involved in both shooting and script support, ensuring the brand's philosophy of healthy living and authenticity was communicated clearly and emotionally.
+                  </p>
+                </div>
+                {/* 3 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Brixton</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Automobile</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We independently managed concept, shoot, and post-production, focusing on bold visuals and attitude-driven storytelling to match Brixton's premium motorcycle image.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* SOCIAL MEDIA */}
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-widest text-[#EBEBEB] uppercase mb-10 md:mb-12 border-l-4 border-accent pl-6">Social Media</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {/* 1 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Royal Enfield</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Automobile</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We manage end-to-end social media marketing, including content strategy, creatives, and campaign execution. Our focus is on storytelling-driven visuals, consistent brand voice, and high-impact content that strengthens community engagement and brand recall.
+                  </p>
+                </div>
+                {/* 2 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Yamaha</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Automobile</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    Complete social media handling with a strong emphasis on performance-oriented content and visual consistency. We create engaging posts, reels, and campaigns that reflect Yamaha's energy, speed, and innovation.
+                  </p>
+                </div>
+                {/* 3 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Brixton</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Automobile</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    End-to-end social media marketing handled by our team. Bold visuals, attitude-driven creatives, and sharp messaging are used to match Brixton's distinctive brand personality.
+                  </p>
+                </div>
+                {/* 4 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Heera Panna</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Retail</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We handle full-scale social media management, from content planning to execution. The approach blends premium aesthetics with strategic storytelling to enhance visibility, trust, and audience engagement.
+                  </p>
+                </div>
+                {/* 5 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Nisarg Resort</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Hospitality</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We provide video content editing and creative design support for social media platforms. Our work enhances visual storytelling while maintaining the calm, nature-driven identity of the brand.
+                  </p>
+                </div>
+                {/* 6 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Nourishing Farm</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-6">Nutrition & Lifestyle</p>
+                  <div className="bg-white/5 py-3 px-4 border border-white/5 mb-8 text-[11px] text-[#EBEBEB] tracking-wide">
+                    In Associate with Devs Media
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We support the brand with video editing and design creatives for social media. The content focuses on healthy living, authenticity, and visually communicating the farm-to-fork philosophy.
+                  </p>
+                </div>
+                {/* 7 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Suprito</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Fashion</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    Full social media marketing execution including content creation, visual design, and storytelling. The focus is on clean aesthetics, brand consistency, and content that drives engagement and recognition.
+                  </p>
+                </div>
+                {/* 8 */}
+                <div className="bg-[#0A0A0A] border border-white/10 p-8 flex flex-col hover:border-[#E6FF00]/30 transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-white tracking-tighter mb-1">Marvelous Hair Studio</h4>
+                  <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-8">Fashion</p>
+                  <p className="text-white/60 leading-relaxed text-[13px]">
+                    We manage complete social media presence, focusing on trend-led visuals, reels, and brand storytelling. Our content strategy highlights transformation, style, and personality to connect strongly with the target audience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="pb-40 pt-20 text-center border-t border-white/5">
-         <div className="section-container">
-            <span className="text-accent text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Next Steps</span>
-            <h2 className="text-4xl md:text-6xl heading-platinum mb-12">
-               Ready to architect <br /> your <span className="italic text-white/30">vision?</span>
+      <section className="relative w-full py-24 md:py-32 flex items-center border-t border-white/5 overflow-hidden">
+        {/* Background Image & Overlay */}
+        <div className="absolute inset-0 z-0 bg-[#050505]">
+          <img 
+            src="/bgimagectaservice.png" 
+            alt="CTA Background" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-transparent z-10" />
+        </div>
+
+        <div className="section-container relative z-20 w-full px-6 md:px-12 flex items-center">
+          <div className="max-w-[600px] pt-10 pb-10">
+            <h2 className="text-[40px] md:text-[56px] font-[600] tracking-[-0.02em] text-white mb-6 leading-[1.1] font-sans">
+              Ready to create your <br /> next project?<span className="text-[#E6FF00] align-baseline ml-2">●</span>
             </h2>
+            <p className="text-white/80 text-[16px] md:text-[18px] font-normal mb-10 max-w-[480px] leading-[1.6] font-sans">
+              Systematic execution is the engine; creative power is the soul. Secure your spot in our execution pipeline today.
+            </p>
             <motion.a
                href="/contact"
                whileHover={{ scale: 1.05 }}
-               className="inline-flex items-center gap-4 px-12 py-5 bg-accent text-black text-[11px] font-bold uppercase tracking-[0.3em] rounded-none group/btn"
+               className="inline-flex items-center justify-center gap-4 px-7 py-4 bg-[#E6FF00] text-black text-[13px] font-[700] uppercase tracking-[0.1em] rounded-none group/btn w-fit"
              >
-               Start A Project
-               <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+               GET IN TOUCH
+               <ArrowRight className="w-4 h-4 text-black group-hover/btn:translate-x-1 transition-transform stroke-[2.5]" />
             </motion.a>
-         </div>
+          </div>
+        </div>
       </section>
 
       <Footer />

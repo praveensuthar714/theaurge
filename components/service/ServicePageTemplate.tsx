@@ -126,7 +126,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               trigger: timelineRef.current,
               start: 'top 40%',
               end: 'bottom 60%',
-              scrub: 1,
+              scrub: 0.5,
             },
           }
         );
@@ -140,11 +140,11 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
             borderColor: '#E6FF00',
             color: '#E6FF00',
             boxShadow: '0 0 25px rgba(230,255,0,0.2)',
-            duration: 0.6,
+            duration: 0.1,
             scrollTrigger: {
               trigger: node,
-              start: 'top 50%',
-              toggleActions: 'play none none reverse', // Stay on when scrolled past, off when scrolled up
+              start: 'top 45%',
+              toggleActions: 'play none none reverse',
             }
           });
 
@@ -152,13 +152,13 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
             gsap.to(labels[i], {
               opacity: 1,
               color: '#E6FF00',
-              duration: 0.6,
-              scrollTrigger: {
-                trigger: node,
-                start: 'top 50%',
-                toggleActions: 'play none none reverse',
-              }
-            });
+            duration: 0.1,
+            scrollTrigger: {
+              trigger: node,
+              start: 'top 45%',
+              toggleActions: 'play none none reverse',
+            }
+          });
           }
         });
       }
@@ -187,6 +187,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
             src={data.heroBg} 
             className="w-full h-full object-cover transform scale-105 opacity-70"
             alt="Hero Background"
+            loading="eager"
           />
           {/* Cinematic Left Shadow Overlay - Replicated for all pages */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
@@ -240,6 +241,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                           src={`${mod.image}?v=1`} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-100" 
                           alt={mod.title}
+                          loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-black/5">
@@ -328,6 +330,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                       src={data.results.avatar} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" 
                       alt="" 
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -385,6 +388,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                           src={`${data.results.caseStudy.image}?v=1`} 
                           className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" 
                           alt="" 
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
@@ -431,6 +435,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 src={`${data.bentoMainImage}?v=1`}
                 className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-[2s]"
                 alt=""
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
               <div className="absolute inset-x-6 md:inset-x-10 bottom-6 md:bottom-10 z-10">

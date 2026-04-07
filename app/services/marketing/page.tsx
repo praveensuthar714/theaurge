@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 09',
   heroHeading: 'Performance',
   heroSubheading: 'Marketing.',
-  heroDescription: 'Marketing is more than just spending; it’s about results. We build data-backed systems that help you turn every dollar into measurable business growth.',
+  heroDescription: 'In today’s competitive landscape, marketing needs to do more than just reach — it needs to perform. We specialize in data-driven marketing strategies that are focused on delivering real, measurable results.',
   heroBg: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Growth Engine',
   valuePropAccent: 'Attention Based Marketing.|',
   valuePropBody: [
-    'We focus on ROI-driven campaigns, using advanced analytics and consumer psychology to reach the right audience at the right time. Our goal is to scale your brand with efficiency and precision.',
-    '"A great marketing strategy is one that pays for itself. We design high-conversion funnels that drive attention and transform it into revenue."'
+    'Every campaign we create is backed by insights, optimized continuously, and aligned with clear business objectives.',
+    'From precise audience targeting to conversion optimization, we ensure that every effort contributes to growth and ROI. Because true marketing success is not measured by impressions alone, but by the impact it creates and the results it delivers.'
   ],
 
   bentoHeading: 'Our Growth',
@@ -40,12 +40,11 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Target, title: 'Paid Search (SEM)', description: 'Expertly managed campaigns that maximize your brand visibility on Google.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
-    { icon: TrendingUp, title: 'Social Ads', description: 'Meta, LinkedIn, and TikTok campaigns designed to capture high-value leads.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
-    { icon: BarChart, title: 'Conversion Funnels', description: 'Optimizing the customer journey from the first click to the final purchase.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
-    { icon: Rocket, title: 'Email Marketing', description: 'Building high-fidelity retention systems to maximize lifetime user value.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
-    { icon: Shield, title: 'Marketing Ops', description: 'Setting up the backend technical stack for scaling your ads and data.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
-    { icon: Zap, title: 'Growth Creative', description: 'High-end visual assets designed specifically for performance and click-rate.', image: '/performance-marketing/imgi_38_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
+    { icon: Target, title: 'Campaign Strategy', description: 'Planning result-oriented marketing campaigns.', image: '/performance-marketing/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
+    { icon: TrendingUp, title: 'Audience Targeting', description: 'Reaching the right audience with precision.', image: '/performance-marketing/imgi_20_cc6f0b992c22f151d0f139dd516cd3b7979d49e4-2800x1450.png' },
+    { icon: BarChart, title: 'Ad Optimization', description: 'Improving performance through data analysis.', image: '/performance-marketing/imgi_23_79e575aed58775b9f7c0faa23c1874718728a1ad-2800x1450.png' },
+    { icon: Rocket, title: 'Conversion Tracking', description: 'Monitoring and improving results.', image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png' },
+    { icon: Shield, title: 'ROI Growth', description: 'Ensuring every rupee spent delivers value.', image: '/performance-marketing/imgi_2_b6e053d53b36b8503efab763689f64199d89af34-2160x1223.png' },
   ],
 
   processLabel: 'Our Process',

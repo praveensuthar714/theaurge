@@ -44,7 +44,7 @@ export function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[1.5/0.8] bg-black rounded-none relative font-sans">
+    <div className="w-full aspect-[1/1] md:aspect-[1.5/0.8] bg-black rounded-none relative font-sans">
       <div
         className="absolute inset-x-0 h-full w-full"
         style={{

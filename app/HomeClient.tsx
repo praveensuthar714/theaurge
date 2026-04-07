@@ -9,9 +9,9 @@ import { useState, useEffect } from 'react';
 
 // Dynamic imports with SSR disabled to prevent hydration 'insertBefore' errors
 import { ServicesAssembly } from "@/components/ServicesAssembly";
+import { HeroVideo } from "@/components/HeroVideo";
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
-const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false });
 const TrustedBrands = dynamic(() => import("@/components/TrustedBrands"), { ssr: false });
 const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
 const PortfolioCarouselV2 = dynamic(() => import("@/components/PortfolioCarouselV2"), { ssr: false });
@@ -28,8 +28,6 @@ export default function HomeClient({ portfolioAssets }: { portfolioAssets: any[]
       module.initScrollAnimations();
     });
   }, []);
-
-  if (!mounted) return <div className="bg-black min-h-screen" />;
 
   return (
     <main className="relative bg-black min-h-screen flex flex-col pt-0">

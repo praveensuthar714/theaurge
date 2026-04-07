@@ -17,10 +17,10 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({ title, tagline, image 
       <motion.div 
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.15 }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
+        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-x-0 inset-y-0 z-0 pointer-events-none"
       >
-         <img src={image} className="w-full h-full object-cover grayscale brightness-125" alt="Background" />
+         <img src={image} className="w-full h-full object-cover grayscale brightness-125" alt="Background" loading="eager" />
          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
       </motion.div>

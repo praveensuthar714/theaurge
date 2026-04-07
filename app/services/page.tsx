@@ -24,7 +24,7 @@ const allServices = [
   { id: "05", name: "Photography", slug: "photography", image: '/branding/imgi_17_7ca29b913ed150d2a1287cb616600d5802078d10-1920x1468.jpg', desc: 'Capturing moments and stories within a single frame.' },
   { id: "06", name: "Brand Strategy", slug: "brand-strategy", image: '/performance-marketing/imgi_17_2e6b344e7fb7c169cdbedc5e992ea7368676f16b-2800x1450.png', desc: 'Deep market insights combined with practical execution plans.' },
   { id: "07", name: "Web Development", slug: "web-development", image: '/scene2.png', desc: 'Highly functional, user-focused digital experiences.' },
-  { id: "08", name: "Performance Marketing", slug: "performance-marketing", image: '/performance-marketing/imgi_14_10b6468101169b5d6a5739cf9952e8313827ac03-2787x1457.png', desc: 'Data-driven strategies focused on measurable results.' },
+  { id: "08", name: "Performance Marketing", slug: "marketing", image: '/performance-marketing/imgi_14_10b6468101169b5d6a5739cf9952e8313827ac03-2787x1457.png', desc: 'Data-driven strategies focused on measurable results.' },
   { id: "09", name: "SEO", slug: "seo", image: '/performance-marketing/imgi_36_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png', desc: 'Building organic presence through intent and relevance.' },
   { id: "10", name: "AI Marketing", slug: "ai-marketing", image: '/ai-automation/imgi_89_e6990dc1feabda8b14b5f855f6e0c65783366fd0-1080x1080.png', desc: 'Intelligent, automated, and highly personalized future marketing.' },
   { id: "11", name: "Event Marketing", slug: "event-marketing", image: '/video-production/imgi_15_c04d7f33b7555728ba75e83de4d85a4a45e47333-2800x1450.png', desc: 'Creating real human connections through memorable moments.' },
@@ -100,6 +100,7 @@ export default function ServicesPage() {
                       src={`${service.image}?v=1`} 
                       alt={service.name} 
                       className="w-full h-full object-cover opacity-100 transition-all duration-[2s] ease-out group-hover:scale-105"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-700" />
                   </div>

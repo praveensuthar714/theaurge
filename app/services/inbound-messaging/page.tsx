@@ -7,15 +7,15 @@ const data: ServicePageData = {
   moduleLabel: 'Service Module / 12',
   heroHeading: 'Inbound',
   heroSubheading: 'Messaging.',
-  heroDescription: 'Communication is at the heart of every successful brand. We help businesses build meaningful relationships through direct and personalised messaging strategies.',
+  heroDescription: 'Communication is at the heart of every successful brand. We help businesses build meaningful relationships with their audience through direct and personalized messaging strategies.',
   heroBg: '/inbound-messaging/imgi_88_30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'Conversation Ops',
   valuePropAccent: 'Frictionless Acquisition.|',
   valuePropBody: [
-    "From WhatsApp and email campaigns to community-driven platforms like Telegram, we create systems that keep your audience engaged and connected. Our focus is on delivering the right message at the right time, using automation and smart workflows.",
-    '"When communication feels personal, it builds trust — and trust drives growth. We build messaging ecosystems that feel human at scale."',
+    "From WhatsApp and email campaigns to community-driven platforms like Telegram, we create systems that keep your audience engaged and connected.",
+    "Our focus is on delivering the right message at the right time, using automation and smart workflows to maximize efficiency and response. Because when communication feels personal, it builds trust — and trust drives growth."
   ],
 
   bentoHeading: 'Our Messaging',
@@ -40,12 +40,10 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: MessageSquare, title: 'WhatsApp Marketing', description: 'Direct, engaging communication that feels personal and drives immediate action from your audience.', image: '/inbound-messaging/imgi_13_81b6522f52cc241b6bd7218483f140be359dd2b6-2400x1260.png' },
-    { icon: Smartphone, title: 'Email Marketing', description: 'Structured email campaigns designed for conversions, retention, and brand awareness.', image: '/inbound-messaging/imgi_26_acd5f4256d06d3edb5f23cd3e1078fa13b07137a-1200x1472.png' },
-    { icon: Zap, title: 'Telegram Marketing', description: 'Community-based engagement that builds loyal, connected audiences around your brand.', image: '/inbound-messaging/imgi_28_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
-    { icon: Layout, title: 'Automation Flows', description: 'Smart messaging sequences that respond, nurture, and convert leads without manual input.', image: '/inbound-messaging/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
-    { icon: Monitor, title: 'CRM Integration', description: 'Connecting your messaging hub directly into your CRM for seamless pipeline management.', image: '/inbound-messaging/imgi_72_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png' },
-    { icon: Sparkles, title: 'Campaign Analytics', description: 'Tracking open rates, click-through, and conversions to optimise every messaging campaign.', image: '/inbound-messaging/imgi_21_39ea31c2e790762ccd4c267eedac6ea28aa192c4-72x56.png' },
+    { icon: MessageSquare, title: 'WhatsApp Marketing', description: 'Direct and engaging communication.', image: '/inbound-messaging/imgi_13_81b6522f52cc241b6bd7218483f140be359dd2b6-2400x1260.png' },
+    { icon: Smartphone, title: 'Email Marketing', description: 'Structured campaigns for conversions.', image: '/inbound-messaging/imgi_26_acd5f4256d06d3edb5f23cd3e1078fa13b07137a-1200x1472.png' },
+    { icon: Zap, title: 'Telegram Marketing', description: 'Community-based engagement.', image: '/inbound-messaging/imgi_28_430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png' },
+    { icon: Layout, title: 'Automation Flows', description: 'Smart messaging sequences for better response.', image: '/inbound-messaging/imgi_67_6683f94d9ba03478837244d4333b1188a75808dd-1536x1760.avif' },
   ],
 
   processLabel: 'Our Process',

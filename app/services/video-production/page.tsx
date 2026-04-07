@@ -1,21 +1,21 @@
 'use client';
 
 import ServicePageTemplate, { ServicePageData } from '@/components/service/ServicePageTemplate';
-import { Camera, Zap, Sparkles, Monitor } from 'lucide-react';
+import { Camera, Zap, Sparkles, Monitor, Aperture, PenTool, Layers, Users, MapPin, Clapperboard, Mic2, Palette } from 'lucide-react';
 
 const data: ServicePageData = {
   moduleLabel: 'Service Module / 02',
   heroHeading: 'Video',
   heroSubheading: 'Production.',
-  heroDescription: 'We believe every story holds the power to move people — it just needs to be told the right way. We are visual storytellers driven by emotion, detail, and cinematic excellence.',
+  heroDescription: 'We believe every story holds the power to move people — it just needs to be told the right way. At our core, we are visual storytellers driven by emotion, detail, and cinematic excellence.',
   heroBg: '/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png',
   primaryCTA: 'Get in Touch',
 
   valuePropLabel: 'The Power',
   valuePropAccent: 'to Move People.|',
   valuePropBody: [
-    "Whether it's an ad film crafted to influence decisions, a documentary that captures truth and depth, or a corporate video that defines your brand voice — we approach every project with purpose and precision.",
-    '"We don't just create videos — we create experiences that connect, inspire, and stay with the audience long after the screen fades to black. Every frame carries intention. Every cut has meaning."',
+    "Whether it's an ad film crafted to influence decisions, a documentary that captures truth and depth, or a corporate video that defines your brand voice, we approach every project with purpose and precision. From the first spark of an idea to the final frame on screen, we build narratives that are not only visually stunning but emotionally engaging.",
+    "We don't just create videos — we create experiences that connect, inspire, and stay with the audience long after the screen fades to black. Every frame we design carries intention, every cut has meaning, and every story leaves an impact.",
   ],
 
   bentoHeading: 'Our Video',
@@ -41,12 +41,83 @@ const data: ServicePageData = {
   ],
 
   modules: [
-    { icon: Camera, title: 'Ad Films & TVCs', description: 'High-energy, sharp-edited TV commercials that capture brand spirit and drive viewer emotion.', image: '/video-production/imgi_88_4d7ea09d8090f2712df671b9aa0528cff04fd377-768x880.png' },
-    { icon: Zap, title: 'Brand Films', description: 'Attitude-driven visual storytelling that matches a brand personality with bold cinematic execution.', image: '/video-production/imgi_94_27fd1dbb1002c4a4c250ce5c7b12e8007cb6788c-176x112.png' },
-    { icon: Sparkles, title: 'Documentaries', description: 'Warm visuals and grounded storytelling that build trust and emotional connection with the audience.', image: '/video-production/imgi_95_ee39160c7f7d77c2a9231edb89ee3720226de881-132x84.png' },
-    { icon: Monitor, title: 'Corporate Videos', description: 'Professional films defining your brand voice with clarity, purpose, and visual precision.', image: '/video-production/imgi_93_14889faec37d0518e063b9be7b252973365178fe-132x84.png' },
-    { icon: Camera, title: 'Product Films', description: 'Premium presentation, product detailing, and strong visual storytelling to elevate brand presence.', image: '/video-production/imgi_97_c6bcc2d726ce736fecee2796a146aab4574660e6-132x84.png' },
-    { icon: Zap, title: 'Industrial Films', description: 'Presenting industrial processes with clarity, authenticity, and a cinematic visual language that communicates scale.', image: '/video-production/imgi_101_19f70a604ac0ca6b8531e9a7c2fa32f3b23b0358-4230x2418.png' },
+    {
+      icon: Aperture,
+      title: 'Concept Development',
+      description:
+        "We shape your idea into a strong, clear vision. Whether it's a rough thought or a blank slate, we build concepts that are original, engaging, and emotionally driven.",
+      image: '/video-production/imgi_1_1cb520cacdc4f2243bc2b93ee2f2e272b7485229-1200x1472.png',
+    },
+    {
+      icon: PenTool,
+      title: 'Scriptwriting',
+      description:
+        'We turn ideas into compelling narratives with structured storytelling, impactful dialogues, and a flow that keeps the audience invested till the end.',
+      image: '/video-production/imgi_101_19f70a604ac0ca6b8531e9a7c2fa32f3b23b0358-4230x2418.png',
+    },
+    {
+      icon: Layers,
+      title: 'Story boarding',
+      description:
+        'Before the shoot begins, we design the visual language — references, tones, colors, and frames — so the entire project has a clear and consistent cinematic direction.',
+      image: '/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png',
+    },
+    {
+      icon: Users,
+      title: 'Casting',
+      description:
+        'We find the right faces and performances that truly fit the story, ensuring authenticity and emotional depth in every character.',
+      image: '/video-production/imgi_88_4d7ea09d8090f2712df671b9aa0528cff04fd377-768x880.png',
+    },
+    {
+      icon: MapPin,
+      title: 'Location Scouting',
+      description:
+        'We search and finalize locations that enhance the story visually and practically, adding realism and cinematic value to each scene.',
+      image: '/video-production/imgi_15_c04d7f33b7555728ba75e83de4d85a4a45e47333-2800x1450.png',
+    },
+    {
+      icon: Sparkles,
+      title: 'Production Design',
+      description:
+        'From sets to props, every detail is crafted to match the world of the story, creating an immersive and believable environment.',
+      image: '/video-production/imgi_90_804da7ef513c8dd50a21df24b897e76f21745bd1-1024x1024.png',
+    },
+    {
+      icon: Clapperboard,
+      title: 'Direction',
+      description:
+        'We guide the entire creative process on set, aligning performances, visuals, and storytelling to bring the vision to life exactly as intended.',
+      image: '/video-production/imgi_16_39f583a882f8a533bf2247a41deec0179788356e-2800x1450.jpg',
+    },
+    {
+      icon: Camera,
+      title: 'Cinematography',
+      description:
+        'We capture visuals with intention — using light, framing, and movement to elevate emotions and make every frame visually striking.',
+      image: '/video-production/imgi_17_6fbff2d882bd9e9c9a6c2bfddbf70608c7758339-2787x1457.png',
+    },
+    {
+      icon: Mic2,
+      title: 'Sound Design',
+      description:
+        'We build the sonic world of the film — from subtle ambient layers to impactful sound elements that enhance emotion and realism.',
+      image: '/video-production/imgi_95_ee39160c7f7d77c2a9231edb89ee3720226de881-132x84.png',
+    },
+    {
+      icon: Monitor,
+      title: 'Editing',
+      description:
+        'We shape the story in post-production, controlling pace, rhythm, and narrative flow to create a seamless and engaging experience.',
+      image: '/video-production/imgi_100_226be715409b0d808df20bfb96176d7b0bd0d97e-768x768.jpg',
+    },
+    {
+      icon: Palette,
+      title: 'Color Grading',
+      description:
+        'We enhance the visual tone and mood, giving the film its final cinematic look and emotional texture.',
+      image: '/video-production/imgi_101_19f70a604ac0ca6b8531e9a7c2fa32f3b23b0358-4230x2418.png',
+    },
   ],
 
   processLabel: 'Our Process',
