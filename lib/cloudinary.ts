@@ -6,28 +6,36 @@ export interface CloudinaryAsset {
   height: number;
 }
 
+const STATIC_FALLBACK_ASSETS: CloudinaryAsset[] = [
+  { public_id: 'sample/scene1', secure_url: '/scene1.png', resource_type: 'image', width: 1920, height: 1080 },
+  { public_id: 'sample/scene2', secure_url: '/scene2.png', resource_type: 'image', width: 1920, height: 1080 },
+  { public_id: 'sample/scene3', secure_url: '/scene3.png', resource_type: 'image', width: 1920, height: 1080 },
+  { public_id: 'sample/scene4', secure_url: '/scene4.png', resource_type: 'image', width: 1920, height: 1080 },
+  // Adding placeholder videos (generic/public URLs or local paths if available)
+  { public_id: 'sample/video1', secure_url: 'https://res.cloudinary.com/demo/video/upload/dog.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  { public_id: 'sample/video2', secure_url: 'https://res.cloudinary.com/demo/video/upload/elephants.mp4', resource_type: 'video', width: 1920, height: 1080 },
+];
+
 export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
   const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
   if (!cloudName || !apiKey || !apiSecret) {
-    console.error('Missing Cloudinary Environment Variables. Check .env.local');
-    return [];
+    console.error('⚠️ [Cloudinary] Missing Environment Variables. Using Fallback Assets.');
+    return STATIC_FALLBACK_ASSETS;
   }
 
   const auth = 'Basic ' + Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
 
   try {
-    // 1. Fetch Images
-    const imagesRes = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/resources/image/upload?max_results=500&tags=true`,
-      {
-        headers: { Authorization: auth },
-        cache: 'no-store'
-      }
-    );
-    const imagesData = await imagesRes.json();
+    const [imagesRes, videosRes] = await Promise.all([
+      fetch(`https://api.cloudinary.com/v1_1/${cloudName}/resources/image/upload?max_results=500`, { headers: { Authorization: auth }, cache: 'no-store' }),
+      fetch(`https://api.cloudinary.com/v1_1/${cloudName}/resources/video/upload?max_results=500`, { headers: { Authorization: auth }, cache: 'no-store' })
+    ]);
+
+    const [imagesData, videosData] = await Promise.all([imagesRes.json(), videosRes.json()]);
+
     const images: CloudinaryAsset[] = (imagesData.resources || []).map((res: any) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
@@ -36,15 +44,6 @@ export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
       height: res.height,
     }));
 
-    // 2. Fetch Videos
-    const videosRes = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/resources/video/upload?max_results=500&tags=true`,
-      {
-        headers: { Authorization: auth },
-        cache: 'no-store'
-      }
-    );
-    const videosData = await videosRes.json();
     const videos: CloudinaryAsset[] = (videosData.resources || []).map((res: any) => ({
       public_id: res.public_id,
       secure_url: res.secure_url,
@@ -53,19 +52,18 @@ export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
       height: res.height,
     }));
 
-    // Combine both and return
     const allAssets = [...images, ...videos];
 
-    // Logging requirements:
-    console.log(`✅ [Cloudinary] Fetch Complete.`);
-    console.log(`📸 Images fetched: ${images.length}`);
-    console.log(`🎥 Videos fetched: ${videos.length}`);
-    console.log(`📦 Total Assets: ${allAssets.length}`);
+    if (allAssets.length === 0) {
+      console.warn('⚠️ [Cloudinary] No assets found in account. Using Fallback.');
+      return STATIC_FALLBACK_ASSETS;
+    }
 
+    console.log(`✅ [Cloudinary] Fetch Success. Assets: ${allAssets.length}`);
     return allAssets;
   } catch (error) {
-    console.error('Failed to fetch Cloudinary assets:', error);
-    return [];
+    console.error('❌ [Cloudinary] Fetch Error:', error);
+    return STATIC_FALLBACK_ASSETS;
   }
 }
 

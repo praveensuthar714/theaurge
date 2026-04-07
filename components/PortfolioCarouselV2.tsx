@@ -49,7 +49,8 @@ const VIDEO_CATEGORIES = [
 ];
 
 export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] }) => {
-  const [activeCategory, setActiveCategory] = useState<'Videos' | 'Creative' | 'Websites' | 'SEO' | 'PPC'>('Videos');
+  const hasVideos = (assets || []).some(a => a.resource_type === 'video');
+  const [activeCategory, setActiveCategory] = useState<'Videos' | 'Creative' | 'Websites' | 'SEO' | 'PPC'>(hasVideos ? 'Videos' : 'Websites');
   const [activeVideoSub, setActiveVideoSub] = useState('Ad Films');
   const scrollRef = useRef<HTMLDivElement>(null);
   const [lightbox, setLightbox] = useState<any | null>(null);
