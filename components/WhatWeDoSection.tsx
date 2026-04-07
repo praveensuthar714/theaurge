@@ -112,7 +112,7 @@ const GlowCard: React.FC<GlowCardProps> = ({ item }) => {
     <div
       ref={cardRef}
       onPointerMove={handlePointerMove}
-      className="assembly-card border-glow-card group relative aspect-square rounded-none overflow-hidden bg-secondary transition-all duration-700 active:scale-[0.98] cursor-pointer"
+      className="assembly-card border-glow-card group relative aspect-square rounded-none overflow-hidden bg-secondary transition-all duration-300 active:scale-[0.98] cursor-pointer"
       style={{
         border: `1.5px solid rgba(230, 255, 0, 0.15)`,
         ...GLOW_VARS
@@ -122,20 +122,20 @@ const GlowCard: React.FC<GlowCardProps> = ({ item }) => {
       <span className="edge-light" />
 
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110">
+      <div className="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-1000"
+          className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
       </div>
 
       {/* Icon */}
       <div className="absolute top-8 left-8 z-50">
-        <div className="w-10 h-10 rounded-none border border-white/10 flex items-center justify-center bg-black/60 backdrop-blur-3xl transition-all duration-700 group-hover:border-accent/40 group-hover:bg-black">
-          <item.icon className="w-4 h-4 text-white/40 group-hover:text-accent transition-all duration-700" />
+        <div className="w-10 h-10 rounded-none border border-white/10 flex items-center justify-center bg-black/60 backdrop-blur-3xl transition-all duration-300 group-hover:border-accent/40 group-hover:bg-black">
+          <item.icon className="w-4 h-4 text-white/40 group-hover:text-accent transition-all duration-300" />
         </div>
       </div>
 
@@ -150,7 +150,7 @@ const GlowCard: React.FC<GlowCardProps> = ({ item }) => {
       </div>
 
       {/* Cinematic Reflection Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </div>
   );
 };
@@ -179,12 +179,12 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
           y: 0,
           scale: 1,
           filter: "blur(0px)",
-          duration: 1.5,
-          stagger: 0.1,
-          ease: 'power4.out',
+          duration: 0.8,
+          stagger: 0.05,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 80%', // Standard reveal position
+            start: 'top 85%', // Slightly earlier start for perceived speed
             toggleActions: 'play none none none',
           },
         }

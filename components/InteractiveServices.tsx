@@ -75,7 +75,7 @@ export const InteractiveServices: React.FC = () => {
       gsap.set(centerNodeRef.current, { xPercent: -50, yPercent: 15 });
       tl.fromTo(centerNodeRef.current,
         { opacity: 0, scale: 0.8 },
-        { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.7)" }
+        { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.2)" }
       );
 
       // 2. Animate wire reveal sequence
@@ -87,9 +87,9 @@ export const InteractiveServices: React.FC = () => {
         tl.to(line, {
           strokeDashoffset: 0,
           opacity: 0.6,
-          duration: 1.5,
-          ease: "power2.inOut"
-        }, "-=0.8");
+          duration: 0.7,
+          ease: "power2.out"
+        }, "-=0.4");
       });
 
       // 3. Reveal junction points
@@ -108,8 +108,8 @@ export const InteractiveServices: React.FC = () => {
         gsap.set(node, { xPercent: -50, yPercent: -50 });
         tl.fromTo(node,
           { opacity: 0, scale: 0.9, y: 15 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" },
-          "-=0.8"
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "expo.out" },
+          "-=0.4"
         );
       });
 
@@ -302,17 +302,17 @@ export const InteractiveServices: React.FC = () => {
                 opacity: 0
               }}
             >
-              <div className="flex items-center gap-2 md:gap-3 py-2 md:py-3 px-3 md:pl-5 md:pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-500 hover:bg-black/80 hover:border-white/20">
-                <div 
-                  ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
-                  className="shrink-0 transition-transform duration-300"
-                >
-                  <service.icon className="w-4 h-4 md:w-5 md:h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-300" />
-                </div>
-                <span className="text-[10px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-500 whitespace-nowrap text-center">
-                  {service.name}
-                </span>
+            <div className="flex items-center gap-2 md:gap-3 py-2 md:py-3 px-3 md:pl-5 md:pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-300 hover:bg-black/80 hover:border-white/20">
+              <div 
+                ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
+                className="shrink-0 transition-transform duration-200"
+              >
+                <service.icon className="w-4 h-4 md:w-5 md:h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-200" />
               </div>
+              <span className="text-[10px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-300 whitespace-nowrap text-center">
+                {service.name}
+              </span>
+            </div>
             </div>
           );
         })}
@@ -323,15 +323,15 @@ export const InteractiveServices: React.FC = () => {
           className="absolute z-[100] left-1/2 bottom-0 group cursor-pointer"
           style={{ opacity: 0 }}
         >
-          <div className="relative p-2.5 rounded-none glass-panel shadow-[0_40px_120px_rgba(0,0,0,0.9)] transition-all duration-700 hover:border-white/20">
+          <div className="relative p-2.5 rounded-none glass-panel shadow-[0_40px_120px_rgba(0,0,0,0.9)] transition-all duration-400 hover:border-white/20">
              <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-none bg-[#080808] border border-white/5 relative overflow-hidden">
                 <img 
                   src="/favicon.png" 
                   alt="" 
-                  className="w-14 h-14 md:w-22 md:h-22 object-contain z-10 transition-transform duration-700 group-hover:scale-110" 
+                  className="w-14 h-14 md:w-22 md:h-22 object-contain z-10 transition-transform duration-400 group-hover:scale-110" 
                 />
              </div>
-             <div className="absolute inset-0 -m-4 rounded-[4px] border border-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
+             <div className="absolute inset-0 -m-4 rounded-[4px] border border-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400 animate-pulse" />
           </div>
         </div>
 

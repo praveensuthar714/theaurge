@@ -2,9 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import NextImage from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, ChevronRight, Sparkles, Monitor, Video, Layers } from 'lucide-react';
 import { PremiumButton } from '@/components/ui/PremiumButton';
+
+const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight));
+const ChevronDown = dynamic(() => import('lucide-react').then(mod => mod.ChevronDown));
+const ChevronRight = dynamic(() => import('lucide-react').then(mod => mod.ChevronRight));
+const Sparkles = dynamic(() => import('lucide-react').then(mod => mod.Sparkles));
+const Monitor = dynamic(() => import('lucide-react').then(mod => mod.Monitor));
+const Video = dynamic(() => import('lucide-react').then(mod => mod.Video));
+const Layers = dynamic(() => import('lucide-react').then(mod => mod.Layers));
 
 const navItems = [
   { name: 'Portfolio', href: '/work' },
@@ -77,9 +86,12 @@ export const Header: React.FC = () => {
         <div className="max-w-[1700px] mx-auto flex items-center justify-between pointer-events-auto">
           
           <Link href="/" className="shrink-0 flex items-center group overflow-hidden">
-            <img 
+            <NextImage 
               src="/the-Aurge-e1754069744650.png" 
               alt="theAurge Logo" 
+              width={160}
+              height={42}
+              priority
               className="h-8 md:h-[35px] lg:h-[42px] w-auto object-contain transition-all duration-700 group-hover:scale-[1.03] origin-left opacity-95 group-hover:opacity-100"
               style={{ filter: isMegaMenuOpen ? 'invert(0)' : 'none' }}
             />

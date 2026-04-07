@@ -60,9 +60,7 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
     id: `site-${i}`,
     title: `${String(i + 1).padStart(2, '0')} // ${site.title}`,
     url: site.url,
-    // Optimization: Using a static high-res placeholder initially
     thumbnail: `https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop`,
-    // Real dynamic thumbnail used for hover
     liveThumbnail: `https://api.microlink.io?url=${encodeURIComponent(site.url)}&screenshot=true&embed=screenshot.url&meta=false&waitFor=3000`,
     type: 'website',
     category: 'Websites',
@@ -105,9 +103,8 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
       ? videoProjects.filter(v => v.category === activeVideoSub)
       : activeCategory === 'Creative'
         ? creativeProjects
-        : []; // SEO and PPC are currently empty
+        : [];
 
-  // Optimized Component for Lazy Assets - Mobile-first
   const OptimizedAsset = ({ item }: { item: any }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [inView, setInView] = useState(false);
@@ -149,7 +146,6 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
       );
     }
 
-    // For websites: never load iframes on mobile (kills scroll performance)
     return (
       <div ref={containerRef} className="w-full h-full relative" onMouseEnter={() => setIsHovered(true)}>
         {item.type === 'website' && inView && !isMobile ? (
@@ -177,7 +173,7 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
       const container = scrollRef.current;
       const firstStack = container.querySelector('.snap-start');
       if (firstStack) {
-        const stackWidth = firstStack.clientWidth + 20; // width + gap
+        const stackWidth = firstStack.clientWidth + 20;
         const scrollTo = direction === 'left' ? container.scrollLeft - stackWidth : container.scrollLeft + stackWidth;
         container.scrollTo({ left: scrollTo, behavior: 'smooth' });
       } else {
@@ -201,7 +197,6 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
              </h2>
           </div>
 
-          {/* Precision Switcher - WRAPPED ON MOBILE FOR FULL VISIBILITY */}
           <div className="relative flex-1 lg:flex-none max-w-full">
             <div className="flex flex-wrap justify-center lg:justify-start bg-white/[0.02] border border-white/10 p-1 md:p-1.5 rounded-none w-full lg:w-auto gap-1">
               {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
@@ -257,9 +252,7 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
           )}
         </AnimatePresence>
 
-        {/* CAROUSEL TRACK - ADAPTIVE HEIGHT SYSTEM */}
         <div className="relative group/track mt-4 md:mt-8">
-          {/* NAV TRIGGER TEXT - PREMIUM ICON ARROWS */}
           <div className="flex justify-end gap-3 mb-2 md:mb-4 pr-2 md:pr-0 z-20 relative">
              <button 
                onClick={() => scroll('left')}
@@ -343,12 +336,10 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
                                   className={`relative ${aspectClass} w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] group cursor-pointer shadow-2xl shadow-black/80`}
                                   style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
                                 >
-                                  {/* INNER GLOW BORDER */}
                                   <div className="absolute inset-0 border border-white/5 rounded-[2rem] z-40 pointer-events-none" />
                                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none" />
 
                                   <div className="absolute inset-3 md:inset-4 rounded-[1.5rem] overflow-hidden bg-[#0A0A0A] border border-white/5 shadow-inner" style={{ transform: 'translateZ(0)' }}>
-                                    {/* BROWSER HEADER FOR WEBSITES */}
                                     {item.type === 'website' && (
                                       <div className="h-8 md:h-10 bg-[#121212] border-b border-white/[0.08] flex items-center px-4 md:px-6 gap-2 z-20 relative">
                                         <div className="flex gap-1.5">
@@ -360,13 +351,11 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
                                       </div>
                                     )}
 
-                                    {/* MEDIA CONTAINER */}
                                     <div className={`absolute inset-0 ${item.type === 'website' ? 'top-8 md:top-10' : ''}`}>
                                        <OptimizedAsset item={item} />
                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-70 transition-opacity" />
                                     </div>
 
-                                    {/* METADATA OVERLAY */}
                                     <div className="absolute inset-x-0 bottom-0 p-4 md:p-8 z-10 flex justify-between items-end">
                                       <div className="flex flex-col gap-2 relative z-20">
                                         <div className="flex items-center gap-3">
@@ -399,7 +388,6 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
         </div>
       </div>
 
-      {/* LIGHTBOX */}
       <AnimatePresence>
         {lightbox && (
           <motion.div 

@@ -2,7 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, ArrowRight, Instagram, Linkedin, Twitter, Mail } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import NextImage from 'next/image';
+
+const Instagram = dynamic(() => import('lucide-react').then(mod => mod.Instagram));
+const Linkedin = dynamic(() => import('lucide-react').then(mod => mod.Linkedin));
+const Twitter = dynamic(() => import('lucide-react').then(mod => mod.Twitter));
+const Mail = dynamic(() => import('lucide-react').then(mod => mod.Mail));
+const ArrowUpRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowUpRight));
+const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight));
 
 const footerData = {
   solutions: [
@@ -30,11 +38,13 @@ export const Footer: React.FC = () => {
     <footer className="relative bg-[#050505] pt-32 pb-12 overflow-hidden">
       
       {/* ── SAFETY BACKGROUND LAYER (UNMISSABLE) ── */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <img 
+      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
+        <NextImage 
           src="/Footerbg.png" 
           alt="" 
-          className="w-full h-full object-cover"
+          fill
+          sizes="100vw"
+          className="object-cover opacity-50"
         />
         {/* TOP BLEND: Gradient patch to merge with body */}
         <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#050505] to-transparent" />
@@ -46,9 +56,11 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-24">
           <div className="max-w-xl">
              <Link href="/" className="inline-block mb-8">
-               <img 
+               <NextImage 
                  src="/the-Aurge-e1754069744650.png" 
                  alt="theAurge" 
+                 width={180}
+                 height={44}
                  className="h-9 md:h-11 w-auto object-contain brightness-110"
                />
              </Link>
