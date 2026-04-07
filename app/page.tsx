@@ -2,6 +2,7 @@ import HomeClient from './HomeClient';
 import { getPortfolioAssets } from '@/lib/cloudinary';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import Footer from '@/components/Footer';
 
 export const revalidate = 300; // Cache and revalidate every 5 minutes
 
@@ -11,8 +12,6 @@ async function PortfolioLoader() {
   const PortfolioCarouselV2 = (await import('@/components/PortfolioCarouselV2')).default;
   return <PortfolioCarouselV2 assets={assets} />;
 }
-
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 export default function Page() {
   return (
