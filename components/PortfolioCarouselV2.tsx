@@ -174,9 +174,17 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+      const container = scrollRef.current;
+      const firstStack = container.querySelector('.snap-start');
+      if (firstStack) {
+        const stackWidth = firstStack.clientWidth + 20; // width + gap
+        const scrollTo = direction === 'left' ? container.scrollLeft - stackWidth : container.scrollLeft + stackWidth;
+        container.scrollTo({ left: scrollTo, behavior: 'smooth' });
+      } else {
+        const { scrollLeft, clientWidth } = container;
+        const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+        container.scrollTo({ left: scrollTo, behavior: 'smooth' });
+      }
     }
   };
 
@@ -218,14 +226,14 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
           </div>
         </div>
 
-        {/* SUB-CATEGORIES (Videos Only) - HORIZONTAL ON MOBILE */}
+        {/* SUB-CATEGORIES (Videos Only) - WRAPPED ON MOBILE */}
         <AnimatePresence mode="wait">
           {activeCategory === 'Videos' && (
             <motion.div 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              className="flex flex-row overflow-x-auto no-scrollbar gap-8 mb-8 border-l border-accent/20 pl-6 md:pl-10"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-10 border-l border-accent/20 pl-6 md:pl-10"
             >
               {VIDEO_CATEGORIES.map((sub, idx) => (
                 <button

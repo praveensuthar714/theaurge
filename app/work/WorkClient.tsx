@@ -218,14 +218,14 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
             ))}
           </div>
 
-          {/* Sub Filters (Videos Only) */}
+          {/* Sub Filters (Videos Only) - WRAPPED FOR FULL VISIBILITY */}
           <AnimatePresence mode="wait">
             {activeCategory === 'Videos' && (
               <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="flex flex-wrap items-center justify-center gap-6 md:gap-12"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-12"
               >
                 {VIDEO_CATEGORIES.map((sub) => (
                   <button
