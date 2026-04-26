@@ -11,31 +11,38 @@ import { formatCloudinaryTitle } from '@/lib/cloudinary';
 
 const workCategories = [
   { 
-    id: 'creative', 
-    name: 'Creative Production', 
+    id: 'production', 
+    name: 'Production', 
     label: '01',
     description: 'Cinematic visual storytelling and high-fidelity production.',
     projects: []
   },
   { 
-    id: 'branding', 
-    name: 'Brand Identity', 
+    id: 'design', 
+    name: 'Design', 
     label: '02',
     description: 'Architecting visual DNA and strategy-led brand systems.',
     projects: []
   },
   { 
-    id: 'digital', 
-    name: 'Digital Products', 
+    id: 'website', 
+    name: 'Website', 
     label: '03',
     description: 'High-performance interactive experiences and digital ecosystems.',
     projects: []
   },
   { 
     id: 'marketing', 
-    name: 'Growth & Strategy', 
+    name: 'Marketing', 
     label: '04',
     description: 'Data-driven performance and exponential market positioning.',
+    projects: []
+  },
+  { 
+    id: 'events', 
+    name: 'Events', 
+    label: '05',
+    description: 'End-to-end event planning, management, and execution.',
     projects: []
   }
 ];

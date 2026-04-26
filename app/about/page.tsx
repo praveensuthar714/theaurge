@@ -22,45 +22,8 @@ export default function StudioPage() {
 
       {/* 2. MANIFESTO (Shifted from Home) */}
       <ManifestoSection />
-
-      {/* SECTION 1 — THE ORIGIN (Institutional Scale) */}
-      <section className="pt-56 pb-44 px-6">
-        <div className="container mx-auto max-w-7xl">
-           <motion.div
-             initial={{ opacity: 0, y: 30 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-           >
-              <span className="subtitle-premium">Establishing the Studio</span>
-              <h1 className="text-[42px] md:text-[92px] font-medium leading-[1] tracking-tighter text-white max-w-5xl mb-16 md:mb-24 px-1">
-                 Impact through <br /> 
-                 <span className="text-white/20">Institutional Scale.</span>
-              </h1>
-           </motion.div>
-
-           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 items-end">
-              <div className="lg:col-span-7">
-                 <p className="body-text text-[17px] md:text-[24px] leading-tight text-white/50 max-w-3xl">
-                    The Aurge is a creative production and strategy house specializing in high-fidelity cinematic storytelling, integrated TV commercials, and performance-driven marketing architectures.
-                 </p>
-              </div>
-              <div className="lg:col-span-5 flex justify-start lg:justify-end gap-16 border-l lg:border-l-0 lg:border-r border-white/10 pl-12 lg:pr-12 opacity-30 h-fit pb-2">
-                 <div className="flex flex-col gap-1">
-                    <span className="text-accent text-[18px] font-bold tracking-tighter">100%</span>
-                    <span className="text-[9px] uppercase font-bold tracking-[0.4em] font-mono whitespace-nowrap">Commitment</span>
-                 </div>
-                 <div className="flex flex-col gap-1">
-                    <span className="text-accent text-[18px] font-bold tracking-tighter">24/7</span>
-                    <span className="text-[9px] uppercase font-bold tracking-[0.4em] font-mono whitespace-nowrap">Execution</span>
-                 </div>
-              </div>
-           </div>
-        </div>
-      </section>
-
       {/* SECTION 2 — THE SPECIALISTS (Nodes of Integrity) */}
-      <section className="py-24 md:py-44 px-6 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
+      <section className="pb-24 md:pb-44 pt-12 md:pt-20 px-6 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
          <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-end gap-12">
                <div className="max-w-2xl">

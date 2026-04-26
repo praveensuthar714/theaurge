@@ -42,16 +42,31 @@ const MagicSparkles = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const VIDEO_CATEGORIES = [
-  { id: 'ads', name: 'Ad Films', icon: Play },
-  { id: 'brand', name: 'Brand Films', icon: MagicSparkles },
+const PRODUCTION_CATEGORIES = [
+  { id: 'film', name: 'Film', icon: Play },
+  { id: 'tvc', name: 'TVC', icon: Monitor },
   { id: 'docs', name: 'Documentaries', icon: Camera },
+  { id: 'brand', name: 'Brand Films', icon: MagicSparkles },
+  { id: 'political', name: 'Political', icon: Globe },
+];
+
+const DESIGN_CATEGORIES = [
+  { id: 'branding', name: 'Branding', icon: Layers },
+  { id: 'flyers', name: 'Flyers', icon: Layers },
+  { id: 'brochures', name: 'Brochures', icon: Layers },
+];
+
+const MARKETING_CATEGORIES = [
+  { id: 'social', name: 'Social Media Marketing', icon: Globe },
+  { id: 'performance', name: 'Performance Marketing', icon: MagicSparkles },
+  { id: 'seo', name: 'SEO', icon: Monitor },
+  { id: 'offline', name: 'Offline', icon: Layers },
 ];
 
 export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] }) => {
-  const hasVideos = (assets || []).some(a => a.resource_type === 'video');
-  const [activeCategory, setActiveCategory] = useState<'Videos' | 'Creative' | 'Websites' | 'SEO' | 'PPC'>(hasVideos ? 'Videos' : 'Websites');
-  const [activeVideoSub, setActiveVideoSub] = useState('Ad Films');
+  const hasProduction = (assets || []).some(a => a.resource_type === 'video');
+  const [activeCategory, setActiveCategory] = useState<'Production' | 'Design' | 'Website' | 'Marketing' | 'Events'>(hasProduction ? 'Production' : 'Website');
+  const [activeSub, setActiveSub] = useState('Brand Films');
   const scrollRef = useRef<HTMLDivElement>(null);
   const [lightbox, setLightbox] = useState<any | null>(null);
 
@@ -63,7 +78,7 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
     thumbnail: `https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop`,
     liveThumbnail: `https://api.microlink.io?url=${encodeURIComponent(site.url)}&screenshot=true&embed=screenshot.url&meta=false&waitFor=3000`,
     type: 'website',
-    category: 'Websites',
+    category: 'Website',
     width: 1920,
     height: 1080
   }));
@@ -71,8 +86,10 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
   const videoProjects: Project[] = (assets || []).filter(a => a.resource_type === 'video').map((v, i) => {
     const lowerName = v.public_id.toLowerCase();
     let category = 'Brand Films';
-    if (/doc|real|estate|property|hospital|health|educational/i.test(lowerName)) category = 'Documentaries';
-    else if (/ad|commercial|promo|launch|marketing/i.test(lowerName)) category = 'Ad Films';
+    if (/tvc|commercial/i.test(lowerName)) category = 'TVC';
+    else if (/doc|documentary/i.test(lowerName)) category = 'Documentaries';
+    else if (/film/i.test(lowerName) && !/brand|tvc/i.test(lowerName)) category = 'Film';
+    else if (/political/i.test(lowerName)) category = 'Political';
     
     return {
       id: v.public_id,
@@ -86,24 +103,52 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
     };
   });
 
-  const creativeProjects: Project[] = (assets || []).filter(a => a.resource_type === 'image' && !a.public_id.includes('website')).map((img, i) => ({
-    id: img.public_id,
-    title: `${String(i + 1).padStart(2, '0')} // ${img.public_id.split('/').pop()?.replace(/-/g, ' ') || 'Untitled'}`,
-    url: img.secure_url,
-    thumbnail: img.secure_url.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/'),
-    type: 'image',
-    category: 'Creative',
-    width: img.width || 1920,
-    height: img.height || 1080
-  }));
+  const creativeProjects: Project[] = (assets || []).filter(a => a.public_id.includes('design')).map((img, i) => {
+    const lowerName = img.public_id.toLowerCase();
+    let category = 'Branding';
+    if (/flyer/i.test(lowerName)) category = 'Flyers';
+    else if (/brochure/i.test(lowerName)) category = 'Brochures';
 
-  const currentList = activeCategory === 'Websites' 
+    return {
+      id: img.public_id,
+      title: `${String(i + 1).padStart(2, '0')} // ${img.public_id.split('/').pop()?.replace(/-/g, ' ') || 'Untitled'}`,
+      url: img.secure_url,
+      thumbnail: img.secure_url.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/'),
+      type: 'image',
+      category: category,
+      width: img.width || 1920,
+      height: img.height || 1080
+    };
+  });
+
+  const marketingProjects: Project[] = (assets || []).filter(a => a.public_id.includes('marketing')).map((img, i) => {
+    const lowerName = img.public_id.toLowerCase();
+    let category = 'Social Media Marketing';
+    if (/performance/i.test(lowerName)) category = 'Performance Marketing';
+    else if (/seo/i.test(lowerName)) category = 'SEO';
+    else if (/offline/i.test(lowerName)) category = 'Offline';
+
+    return {
+      id: img.public_id,
+      title: `${String(i + 1).padStart(2, '0')} // ${img.public_id.split('/').pop()?.replace(/-/g, ' ') || 'Untitled'}`,
+      url: img.secure_url,
+      thumbnail: img.resource_type === 'video' ? img.secure_url.replace(/\.[^/.]+$/, ".jpg") : img.secure_url.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/'),
+      type: img.resource_type,
+      category: category,
+      width: img.width || 1920,
+      height: img.height || 1080
+    };
+  });
+
+  const currentList = activeCategory === 'Website' 
     ? websites 
-    : activeCategory === 'Videos' 
-      ? videoProjects.filter(v => v.category === activeVideoSub)
-      : activeCategory === 'Creative'
-        ? creativeProjects
-        : [];
+    : activeCategory === 'Production' 
+      ? videoProjects.filter(v => v.category === activeSub || activeSub === 'All')
+      : activeCategory === 'Design'
+        ? creativeProjects.filter(v => v.category === activeSub || activeSub === 'All')
+        : activeCategory === 'Marketing'
+          ? marketingProjects.filter(v => v.category === activeSub || activeSub === 'All')
+          : [];
 
   const OptimizedAsset = ({ item }: { item: any }) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -199,19 +244,24 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
 
           <div className="relative flex-1 lg:flex-none max-w-full">
             <div className="flex flex-wrap justify-center lg:justify-start bg-white/[0.02] border border-white/10 p-1 md:p-1.5 rounded-none w-full lg:w-auto gap-1">
-              {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
+              {['Production', 'Design', 'Website', 'Marketing', 'Events'].map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat as any)}
-                  className={`relative px-4 md:px-10 py-3 md:py-4 text-[8px] md:text-[10px] whitespace-nowrap font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-700 z-10 flex-1 md:flex-none text-center ${
-                    activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
+                  onClick={() => {
+                    setActiveCategory(cat as any);
+                    if (cat === 'Production') setActiveSub('Brand Films');
+                    else if (cat === 'Design') setActiveSub('Branding');
+                    else if (cat === 'Marketing') setActiveSub('Social Media Marketing');
+                  }}
+                  className={`relative px-4 md:px-10 py-3 md:py-4 text-[9px] md:text-[11px] whitespace-nowrap font-[800] uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-300 z-10 flex-1 md:flex-none text-center ${
+                    activeCategory === cat ? 'text-black' : 'text-white/30 hover:text-white/60'
                   }`}
                 >
                   {activeCategory === cat && (
                     <motion.div 
                       layoutId="activeCategory"
-                      className="absolute inset-0 bg-accent z-[-1]"
-                      transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                      className="absolute inset-0 bg-[#E6FF00] z-[-1]"
+                      transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                     />
                   )}
                   {cat}
@@ -223,27 +273,83 @@ export const PortfolioCarouselV2: React.FC<{ assets?: any[] }> = ({ assets = [] 
 
         {/* SUB-CATEGORIES (Videos Only) - WRAPPED ON MOBILE */}
         <AnimatePresence mode="wait">
-          {activeCategory === 'Videos' && (
+          {activeCategory === 'Production' && (
             <motion.div 
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-10 border-l border-accent/20 pl-6 md:pl-10"
             >
-              {VIDEO_CATEGORIES.map((sub, idx) => (
+              {PRODUCTION_CATEGORIES.map((sub, idx) => (
                 <button
                   key={sub.id}
-                  onClick={() => setActiveVideoSub(sub.name)}
+                  onClick={() => setActiveSub(sub.name)}
                   className={`relative flex items-center gap-3 md:gap-6 group whitespace-nowrap transition-all duration-700 ${
-                    activeVideoSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                    activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
                   }`}
                 >
-                  <span className="text-[8px] font-mono text-accent opacity-40">0{idx + 1}</span>
-                  <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.3em]">{sub.name}</span>
-                  {activeVideoSub === sub.name && (
+                  <span className="text-[9px] font-mono text-accent/60">0{idx + 1}</span>
+                  <span className="text-[11px] md:text-[13px] font-[800] uppercase tracking-[0.3em]">{sub.name}</span>
+                  {activeSub === sub.name && (
                     <motion.div 
                       layoutId="activeSubIndicator"
-                      className="absolute -bottom-1 left-0 w-full h-[1px] bg-accent"
+                      className="absolute -bottom-2 left-0 w-full h-[3px] bg-accent"
+                    />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+          )}
+
+          {activeCategory === 'Design' && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-10 border-l border-accent/20 pl-6 md:pl-10"
+            >
+              {DESIGN_CATEGORIES.map((sub, idx) => (
+                <button
+                  key={sub.id}
+                  onClick={() => setActiveSub(sub.name)}
+                  className={`relative flex items-center gap-3 md:gap-6 group whitespace-nowrap transition-all duration-700 ${
+                    activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                  }`}
+                >
+                  <span className="text-[9px] font-mono text-accent/60">0{idx + 1}</span>
+                  <span className="text-[11px] md:text-[13px] font-[800] uppercase tracking-[0.3em]">{sub.name}</span>
+                  {activeSub === sub.name && (
+                    <motion.div 
+                      layoutId="activeSubIndicator"
+                      className="absolute -bottom-2 left-0 w-full h-[3px] bg-accent"
+                    />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+          )}
+
+          {activeCategory === 'Marketing' && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-10 border-l border-accent/20 pl-6 md:pl-10"
+            >
+              {MARKETING_CATEGORIES.map((sub, idx) => (
+                <button
+                  key={sub.id}
+                  onClick={() => setActiveSub(sub.name)}
+                  className={`relative flex items-center gap-3 md:gap-6 group whitespace-nowrap transition-all duration-700 ${
+                    activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                  }`}
+                >
+                  <span className="text-[9px] font-mono text-accent/60">0{idx + 1}</span>
+                  <span className="text-[11px] md:text-[13px] font-[800] uppercase tracking-[0.3em]">{sub.name}</span>
+                  {activeSub === sub.name && (
+                    <motion.div 
+                      layoutId="activeSubIndicator"
+                      className="absolute -bottom-2 left-0 w-full h-[3px] bg-accent"
                     />
                   )}
                 </button>

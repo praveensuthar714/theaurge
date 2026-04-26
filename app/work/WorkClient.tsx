@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, Play, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, Play, X, Monitor, Globe, Layers } from 'lucide-react';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
@@ -15,10 +15,25 @@ const MagicSparkles = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const VIDEO_CATEGORIES = [
-  { id: 'ads', name: 'Ad Films', icon: Play },
-  { id: 'brand', name: 'Brand Films', icon: MagicSparkles },
+const PRODUCTION_CATEGORIES = [
+  { id: 'film', name: 'Film', icon: Play },
+  { id: 'tvc', name: 'TVC', icon: Monitor },
   { id: 'docs', name: 'Documentaries', icon: Camera },
+  { id: 'brand', name: 'Brand Films', icon: MagicSparkles },
+  { id: 'political', name: 'Political', icon: Globe },
+];
+
+const DESIGN_CATEGORIES = [
+  { id: 'branding', name: 'Branding', icon: Layers },
+  { id: 'flyers', name: 'Flyers', icon: Layers },
+  { id: 'brochures', name: 'Brochures', icon: Layers },
+];
+
+const MARKETING_CATEGORIES = [
+  { id: 'social', name: 'Social Media Marketing', icon: Globe },
+  { id: 'performance', name: 'Performance Marketing', icon: MagicSparkles },
+  { id: 'seo', name: 'SEO', icon: Monitor },
+  { id: 'offline', name: 'Offline', icon: Layers },
 ];
 
 const PREMIUM_SITES = [
@@ -43,8 +58,8 @@ const PREMIUM_SITES = [
 ];
 
 export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[] }) {
-  const [activeCategory, setActiveCategory] = useState<'Videos' | 'Creative' | 'Websites' | 'SEO' | 'PPC'>('Videos');
-  const [activeVideoSub, setActiveVideoSub] = useState('Ad Films');
+  const [activeCategory, setActiveCategory] = useState<'Production' | 'Design' | 'Website' | 'Marketing' | 'Events'>('Production');
+  const [activeSub, setActiveSub] = useState('Brand Films');
   const [lightbox, setLightbox] = useState<any | null>(null);
 
   // Group assets exactly as Carousel
@@ -57,7 +72,7 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
     // Real dynamic thumbnail used for hover or lazy load
     liveThumbnail: `https://api.microlink.io?url=${encodeURIComponent(site.url)}&screenshot=true&embed=screenshot.url&meta=false&waitFor=3000`,
     type: 'website',
-    category: 'Websites',
+    category: 'Website',
     width: 1920,
     height: 1080
   })), []);
@@ -65,8 +80,10 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
   const videoProjects = React.useMemo(() => (portfolioAssets || []).filter(a => a.resource_type === 'video').map((v, i) => {
     const lowerName = v.public_id.toLowerCase();
     let category = 'Brand Films';
-    if (/doc|real|estate|property|hospital|health|educational/i.test(lowerName)) category = 'Documentaries';
-    else if (/ad|commercial|promo|launch|marketing/i.test(lowerName)) category = 'Ad Films';
+    if (/tvc|commercial/i.test(lowerName)) category = 'TVC';
+    else if (/doc|documentary/i.test(lowerName)) category = 'Documentaries';
+    else if (/film/i.test(lowerName) && !/brand|tvc/i.test(lowerName)) category = 'Film';
+    else if (/political/i.test(lowerName)) category = 'Political';
     
     return {
       id: v.public_id,
@@ -86,17 +103,17 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
     url: img.secure_url,
     thumbnail: img.secure_url.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/'),
     type: 'image',
-    category: 'Creative',
+    category: 'Design',
     width: img.width || 1920,
     height: img.height || 1080
   })), [portfolioAssets]);
 
   const currentList = React.useMemo(() => {
-    if (activeCategory === 'Websites') return websites;
-    if (activeCategory === 'Videos') return videoProjects.filter(v => v.category === activeVideoSub);
-    if (activeCategory === 'Creative') return creativeProjects;
+    if (activeCategory === 'Website') return websites;
+    if (activeCategory === 'Production') return videoProjects.filter(v => v.category === activeSub || activeSub === 'All');
+    if (activeCategory === 'Design') return creativeProjects;
     return [];
-  }, [activeCategory, activeVideoSub, websites, videoProjects, creativeProjects]);
+  }, [activeCategory, activeSub, websites, videoProjects, creativeProjects]);
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,7 +125,7 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
   // Reset pagination when category changes
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [activeCategory, activeVideoSub]);
+  }, [activeCategory, activeSub]);
 
   // Grid classes based on active state
   const isVerticalTab = activeCategory === 'Videos' && activeVideoSub === 'Documentaries';
@@ -198,19 +215,24 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
 
           {/* Precision Switcher - WRAPPED FOR FULL VISIBILITY */}
           <div className="flex flex-wrap justify-center bg-white/[0.02] border border-white/10 p-1 md:p-1.5 rounded-none max-w-full gap-1">
-            {['Videos', 'Creative', 'Websites', 'SEO', 'PPC'].map((cat) => (
+            {['Production', 'Design', 'Website', 'Marketing', 'Events'].map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat as any)}
-                className={`relative px-4 md:px-10 py-3 md:py-4 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-700 z-10 flex-1 md:flex-none text-center whitespace-nowrap ${
-                  activeCategory === cat ? 'text-black' : 'text-white/20 hover:text-white/50'
+                onClick={() => {
+                  setActiveCategory(cat as any);
+                  if (cat === 'Production') setActiveSub('Brand Films');
+                  else if (cat === 'Design') setActiveSub('Branding');
+                  else if (cat === 'Marketing') setActiveSub('Social Media Marketing');
+                }}
+                className={`relative px-4 md:px-10 py-3 md:py-4 text-[9px] md:text-[11px] font-[800] uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-300 z-10 flex-1 md:flex-none text-center whitespace-nowrap ${
+                  activeCategory === cat ? 'text-black' : 'text-white/30 hover:text-white/60'
                 }`}
               >
                 {activeCategory === cat && (
                   <motion.div 
                     layoutId="activeCategoryGrid"
-                    className="absolute inset-0 bg-accent z-[-1]"
-                    transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                    className="absolute inset-0 bg-[#E6FF00] z-[-1]"
+                    transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                   />
                 )}
                 {cat}
@@ -220,26 +242,80 @@ export default function WorkClient({ portfolioAssets }: { portfolioAssets: any[]
 
           {/* Sub Filters (Videos Only) - WRAPPED FOR FULL VISIBILITY */}
           <AnimatePresence mode="wait">
-            {activeCategory === 'Videos' && (
+            {activeCategory === 'Production' && (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-12"
               >
-                {VIDEO_CATEGORIES.map((sub) => (
+                {PRODUCTION_CATEGORIES.map((sub) => (
                   <button
                     key={sub.id}
-                    onClick={() => setActiveVideoSub(sub.name)}
+                    onClick={() => setActiveSub(sub.name)}
                     className={`relative flex items-center gap-4 group transition-all duration-700 ${
-                      activeVideoSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                      activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
                     }`}
                   >
-                    <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em]">{sub.name}</span>
-                    {activeVideoSub === sub.name && (
+                    <span className="text-[10px] md:text-[11px] font-[800] uppercase tracking-[0.2em]">{sub.name}</span>
+                    {activeSub === sub.name && (
                       <motion.div 
                         layoutId="activeSubIndicatorGrid"
-                        className="absolute -bottom-3 left-0 right-0 h-0.5 bg-accent"
+                        className="absolute -bottom-3 left-0 right-0 h-1 bg-accent"
+                      />
+                    )}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+
+            {activeCategory === 'Design' && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-12"
+              >
+                {DESIGN_CATEGORIES.map((sub) => (
+                  <button
+                    key={sub.id}
+                    onClick={() => setActiveSub(sub.name)}
+                    className={`relative flex items-center gap-4 group transition-all duration-700 ${
+                      activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                    }`}
+                  >
+                    <span className="text-[10px] md:text-[11px] font-[800] uppercase tracking-[0.2em]">{sub.name}</span>
+                    {activeSub === sub.name && (
+                      <motion.div 
+                        layoutId="activeSubIndicatorGrid"
+                        className="absolute -bottom-3 left-0 right-0 h-1 bg-accent"
+                      />
+                    )}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+
+            {activeCategory === 'Marketing' && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-12"
+              >
+                {MARKETING_CATEGORIES.map((sub) => (
+                  <button
+                    key={sub.id}
+                    onClick={() => setActiveSub(sub.name)}
+                    className={`relative flex items-center gap-4 group transition-all duration-700 ${
+                      activeSub === sub.name ? 'opacity-100' : 'opacity-20 hover:opacity-50'
+                    }`}
+                  >
+                    <span className="text-[10px] md:text-[11px] font-[800] uppercase tracking-[0.2em]">{sub.name}</span>
+                    {activeSub === sub.name && (
+                      <motion.div 
+                        layoutId="activeSubIndicatorGrid"
+                        className="absolute -bottom-3 left-0 right-0 h-1 bg-accent"
                       />
                     )}
                   </button>

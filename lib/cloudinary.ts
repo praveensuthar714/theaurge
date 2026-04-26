@@ -7,13 +7,21 @@ export interface CloudinaryAsset {
 }
 
 const STATIC_FALLBACK_ASSETS: CloudinaryAsset[] = [
-  { public_id: 'sample/scene1', secure_url: '/scene1.png', resource_type: 'image', width: 1920, height: 1080 },
-  { public_id: 'sample/scene2', secure_url: '/scene2.png', resource_type: 'image', width: 1920, height: 1080 },
-  { public_id: 'sample/scene3', secure_url: '/scene3.png', resource_type: 'image', width: 1920, height: 1080 },
-  { public_id: 'sample/scene4', secure_url: '/scene4.png', resource_type: 'image', width: 1920, height: 1080 },
-  // Adding placeholder videos (generic/public URLs or local paths if available)
-  { public_id: 'sample/video1', secure_url: 'https://res.cloudinary.com/demo/video/upload/dog.mp4', resource_type: 'video', width: 1920, height: 1080 },
-  { public_id: 'sample/video2', secure_url: 'https://res.cloudinary.com/demo/video/upload/elephants.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  // Production (Videos)
+  { public_id: 'production/film-1', secure_url: 'https://res.cloudinary.com/demo/video/upload/dog.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  { public_id: 'production/tvc-1', secure_url: 'https://res.cloudinary.com/demo/video/upload/elephants.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  { public_id: 'production/brand-1', secure_url: 'https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  { public_id: 'production/doc-1', secure_url: 'https://res.cloudinary.com/demo/video/upload/finished_video.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  { public_id: 'production/political-1', secure_url: 'https://res.cloudinary.com/demo/video/upload/snow_deer.mp4', resource_type: 'video', width: 1920, height: 1080 },
+  
+  // Design (Images)
+  { public_id: 'design/branding-1', secure_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800', resource_type: 'image', width: 800, height: 1000 },
+  { public_id: 'design/flyer-1', secure_url: 'https://images.unsplash.com/photo-1541746972996-4e0b0f43e03a?q=80&w=800', resource_type: 'image', width: 800, height: 1200 },
+  { public_id: 'design/brochure-1', secure_url: 'https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=800', resource_type: 'image', width: 1200, height: 800 },
+  
+  // Marketing (Images/Videos)
+  { public_id: 'marketing/social-1', secure_url: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800', resource_type: 'image', width: 800, height: 800 },
+  { public_id: 'marketing/performance-1', secure_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800', resource_type: 'image', width: 1200, height: 800 },
 ];
 
 export async function getPortfolioAssets(): Promise<CloudinaryAsset[]> {
@@ -90,11 +98,13 @@ export function inferCategories(publicId: string, type: 'image' | 'video', tags:
   const lowerName = publicId.toLowerCase();
   const searchStr = lowerName + ' ' + (tags || []).join(' ');
 
-  let service = type === 'video' ? 'Videos' : 'Creative & Design';
-  if (/social|reel|insta|whatsapp|tiktok|poster|creative|design|art/i.test(searchStr)) service = 'Creative & Design';
-  else if (/seo|blog|article|web|site/i.test(searchStr)) service = 'Websites';
-  else if (/brand|logo|identity/i.test(searchStr)) service = 'Brand Identity';
-  else if (/ppc|ads|campaign|google|meta|marketing/i.test(searchStr)) service = 'PPC';
+  let service = type === 'video' ? 'Production' : 'Design';
+  
+  if (/film|tvc|doc|brand|political|production/i.test(searchStr)) service = 'Production';
+  else if (/design|branding|flyer|brochure|logo/i.test(searchStr)) service = 'Design';
+  else if (/web|site|dev/i.test(searchStr)) service = 'Website';
+  else if (/marketing|seo|social|ads|performance|ppc/i.test(searchStr)) service = 'Marketing';
+  else if (/event|venue|show|concert/i.test(searchStr)) service = 'Events';
 
   let industry = 'Corporate';
   if (/real|estate|home|property|build|arch/i.test(searchStr)) industry = 'Real Estate';

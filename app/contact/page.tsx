@@ -11,6 +11,16 @@ const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 export default function ContactPage() {
+  const [selectedServices, setSelectedServices] = React.useState<string[]>([]);
+  
+  const toggleService = (service: string) => {
+    setSelectedServices(prev => 
+      prev.includes(service) 
+        ? prev.filter(s => s !== service) 
+        : [...prev, service]
+    );
+  };
+
   return (
     <main className="min-h-screen selection:bg-[#E6FF00] selection:text-black">
       <Header />
@@ -31,35 +41,56 @@ export default function ContactPage() {
             
             {/* Form Column */}
             <div className="lg:col-span-7">
-               <div className="p-10 md:p-14 glass-panel">
-                  <form className="flex flex-col gap-10">
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div className="flex flex-col gap-3">
-                           <label className="text-[9px] uppercase font-bold tracking-[0.4em] text-white/20">Identity</label>
-                           <input type="text" placeholder="Your Name" className="bg-transparent border-b border-white/10 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all placeholder:text-white/5" />
-                        </div>
-                        <div className="flex flex-col gap-3">
-                           <label className="text-[9px] uppercase font-bold tracking-[0.4em] text-white/20">Digital Coordinates</label>
-                           <input type="email" placeholder="Email@ecosystem.com" className="bg-transparent border-b border-white/10 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all placeholder:text-white/5" />
-                        </div>
-                     </div>
-                     <div className="flex flex-col gap-4">
-                        <label className="text-[9px] uppercase font-bold tracking-[0.4em] text-white/20">Primary Objective</label>
-                        <div className="flex flex-wrap gap-3">
-                           {['Brand Identity', 'Video Production', 'Web Systems', 'Growth Strategy', 'AI Synthesis'].map(cat => (
-                             <button key={cat} type="button" className="px-6 py-2 rounded-full border border-white/10 text-[10px] uppercase tracking-widest text-white/20 hover:border-[#E6FF00] hover:text-[#E6FF00] transition-all">{cat}</button>
-                           ))}
-                        </div>
-                     </div>
-                     <div className="flex flex-col gap-3">
-                        <label className="text-[9px] uppercase font-bold tracking-[0.4em] text-white/20">Requirement Log</label>
-                        <textarea placeholder="Briefly describe your vision..." rows={4} className="bg-transparent border-b border-white/10 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all resize-none placeholder:text-white/5" />
-                     </div>
-                     <PremiumButton type="submit" className="!pl-10 mt-10 w-full md:w-fit">
-                        Deploy Inquiry
-                     </PremiumButton>
-                  </form>
-               </div>
+                <div className="p-10 md:p-14 glass-panel bg-white/[0.02]">
+                   <form className="flex flex-col gap-10">
+                      <div className="flex flex-col gap-10">
+                         {/* Name - Full Row */}
+                         <div className="flex flex-col gap-3">
+                            <label className="text-[11px] uppercase font-bold tracking-[0.2em] text-white/70">Full Name</label>
+                            <input type="text" placeholder="Your Name" className="bg-white/5 border border-white/10 px-6 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all placeholder:text-white/30" />
+                         </div>
+
+                         {/* Email & Phone - Half Row */}
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div className="flex flex-col gap-3">
+                               <label className="text-[11px] uppercase font-bold tracking-[0.2em] text-white/70">Email Address</label>
+                               <input type="email" placeholder="Email@example.com" className="bg-white/5 border border-white/10 px-6 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all placeholder:text-white/30" />
+                            </div>
+                            <div className="flex flex-col gap-3">
+                               <label className="text-[11px] uppercase font-bold tracking-[0.2em] text-white/70">Phone Number</label>
+                               <input type="tel" placeholder="+91 00000 00000" className="bg-white/5 border border-white/10 px-6 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all placeholder:text-white/30" />
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="flex flex-col gap-4">
+                         <label className="text-[11px] uppercase font-bold tracking-[0.2em] text-white/70">Service Needed</label>
+                         <div className="flex flex-wrap gap-3">
+                            {['Brand Identity', 'Video Production', 'Web Systems', 'Growth Strategy', 'AI Synthesis'].map(cat => (
+                              <button 
+                                key={cat} 
+                                type="button" 
+                                onClick={() => toggleService(cat)}
+                                className={`px-6 py-3 rounded-none border transition-all text-[10px] uppercase tracking-widest ${
+                                  selectedServices.includes(cat) 
+                                    ? 'bg-[#E6FF00] border-[#E6FF00] text-black font-bold' 
+                                    : 'bg-white/5 border-white/20 text-white/60 hover:border-[#E6FF00] hover:text-[#E6FF00]'
+                                }`}
+                              >
+                                {cat}
+                              </button>
+                            ))}
+                         </div>
+                      </div>
+                      <div className="flex flex-col gap-3">
+                         <label className="text-[11px] uppercase font-bold tracking-[0.2em] text-white/70">Message</label>
+                         <textarea placeholder="Tell us about your project..." rows={4} className="bg-white/5 border border-white/10 px-6 py-4 text-white text-[16px] focus:border-[#E6FF00] focus:outline-none transition-all resize-none placeholder:text-white/30" />
+                      </div>
+                      <PremiumButton type="submit" className="!pl-10 mt-10 w-full md:w-fit">
+                         Send Message
+                      </PremiumButton>
+                   </form>
+                </div>
             </div>
 
             {/* Info Column */}

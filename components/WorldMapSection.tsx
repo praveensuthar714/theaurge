@@ -18,7 +18,7 @@ export const WorldMapSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative z-10 bg-black pt-16 md:pt-24 pb-12 md:pb-16 overflow-hidden"
+      className="relative z-10 bg-black pt-8 md:pt-12 pb-8 md:pb-12 overflow-hidden w-full"
     >
       {/* Dynamic Global Atmosphere */}
       <motion.div 
@@ -38,17 +38,16 @@ export const WorldMapSection = () => {
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
 
-      <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+      <div className="w-full relative z-10">
 
         <motion.div
-           initial={{ opacity: 0, scale: 0.99, filter: "blur(4px)" }}
-           whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 1.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-           className="max-w-5xl mx-auto relative group"
+           initial={{ opacity: 0, filter: "blur(10px)" }}
+           whileInView={{ opacity: 1, filter: "blur(0px)" }}
+           viewport={{ once: true }}
+           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+           className="w-full relative"
         >
-           {/* Adaptive Mask Reveal Hint */}
-           <div className="absolute -inset-px bg-gradient-to-r from-black via-transparent to-black z-[5] pointer-events-none" />
+
            
            <WorldMap 
              lineColor="#E6FF00"

@@ -97,7 +97,7 @@ export const ManifestoSection: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative z-10 bg-black min-h-[180vh] w-full">
+    <div ref={containerRef} className="relative z-10 bg-black min-h-[140vh] w-full">
       <section 
         ref={stickyRef} 
         className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden"
