@@ -302,16 +302,28 @@ export const InteractiveServices: React.FC = () => {
                 opacity: 0
               }}
             >
-            <div className="flex items-center gap-2 md:gap-3 py-2 md:py-3 px-3 md:pl-5 md:pr-6 rounded-none glass-panel group cursor-pointer transition-all duration-300 hover:bg-black/80 hover:border-white/20">
-              <div 
-                ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
-                className="shrink-0 transition-transform duration-200"
-              >
-                <service.icon className="w-4 h-4 md:w-5 md:h-5 text-[#B0B0B0] group-hover:text-accent transition-colors duration-200" />
+            <div className="flex flex-col-reverse items-center gap-3 group">
+              {/* Square Image Box at BOTTOM to clear lines */}
+              <div className="relative w-20 h-20 md:w-32 md:h-32 bg-[#0A0A0A] border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-accent/40 group-hover:shadow-[0_0_20px_rgba(230,255,0,0.1)] cursor-pointer">
+                <img 
+                  src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop`} 
+                  alt="" 
+                  className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-40 group-hover:opacity-80" 
+                />
               </div>
-              <span className="text-[10px] md:text-[14px] font-bold tracking-[0.12em] text-[#EBEBEB] group-hover:text-white uppercase transition-colors duration-300 whitespace-nowrap text-center">
-                {service.name}
-              </span>
+
+              {/* Label & Icon - NOW ON TOP */}
+              <div className="flex flex-col items-center gap-2 text-center pointer-events-none mb-1">
+                <div 
+                  ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
+                  className="transition-transform duration-300 group-hover:translate-y-[-2px]"
+                >
+                  <service.icon className="w-4 h-4 md:w-6 md:h-6 text-white/30 group-hover:text-accent transition-colors duration-300" />
+                </div>
+                <span className="text-[9px] md:text-[11px] font-[800] uppercase tracking-[0.2em] text-white/50 group-hover:text-white leading-tight transition-colors duration-300">
+                  {service.name}
+                </span>
+              </div>
             </div>
             </div>
           );

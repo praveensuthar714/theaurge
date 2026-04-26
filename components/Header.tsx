@@ -79,8 +79,8 @@ export const Header: React.FC = () => {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 w-full z-[200] pt-4 px-4 md:px-6 lg:px-12 transition-all duration-700 pointer-events-none ${
-          isScrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10 py-3 md:py-5' : ''
+        className={`fixed top-0 left-0 w-full z-[200] pt-5 pb-5 px-4 md:px-6 lg:px-12 transition-all duration-700 pointer-events-none ${
+          isScrolled ? 'bg-black/60 backdrop-blur-xl shadow-2xl' : ''
         }`}
       >
         <div className="max-w-[1700px] mx-auto flex items-center justify-between pointer-events-auto">
