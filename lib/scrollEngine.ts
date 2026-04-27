@@ -4,13 +4,6 @@ import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-  
-  // GLOBAL PERFORMANCE OPTIMIZATIONS
-  ScrollTrigger.normalizeScroll(true); // Prevents address bar jumps & jitter
-  ScrollTrigger.config({ 
-    ignoreMobileResize: true, 
-    limitCallbacks: true 
-  });
 }
 
 export const initScrollAnimations = () => {

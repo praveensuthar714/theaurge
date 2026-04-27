@@ -17,7 +17,6 @@ export default function RootLayout({
         <SmoothScroll>
           <Preloader />
           <GlobalBackground />
-          <div className="noise-overlay" />
           <CustomCursor />
           <PageWrapper>
             {children}

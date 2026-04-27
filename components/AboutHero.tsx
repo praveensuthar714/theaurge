@@ -72,10 +72,10 @@ export const AboutHero: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Direct window escape for the fallback script
-    (window as any).setVideoReadyFallback = () => {
+    // Video fallback timer
+    const fallbackTimer = setTimeout(() => {
       setVideoReady(true);
-    };
+    }, 3000);
 
     const st = ScrollTrigger.create({
       trigger: container,
@@ -87,7 +87,10 @@ export const AboutHero: React.FC = () => {
       },
     });
 
-    return () => st.kill();
+    return () => {
+      st.kill();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
 
@@ -190,12 +193,7 @@ export const AboutHero: React.FC = () => {
           />
         )}
 
-        {/* --- VIDEO LOAD FALLBACK --- */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          setTimeout(() => {
-            if (window.setVideoReadyFallback) window.setVideoReadyFallback();
-          }, 3000);
-        `}} />
+
 
 
         {/* Subtle vignette */}
