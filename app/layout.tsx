@@ -2,7 +2,7 @@ import React from "react";
 import "./globals.css";
 import PageWrapper from "@/components/PageWrapper";
 import { metadata, inter } from "./layout-metadata";
-import { Preloader, GlobalBackground, CustomCursor, SmoothScroll } from "@/components/ClientComponents";
+import { Preloader, GlobalBackground, CustomCursor, SmoothScroll, AnimatedFavicon } from "@/components/ClientComponents";
 
 export { metadata };
 
@@ -16,6 +16,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-black text-white antialiased`} suppressHydrationWarning>
         <SmoothScroll>
           <Preloader />
+          <AnimatedFavicon />
           <GlobalBackground />
           <CustomCursor />
           <PageWrapper>
