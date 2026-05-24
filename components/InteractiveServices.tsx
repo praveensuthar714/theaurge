@@ -107,7 +107,7 @@ export const InteractiveServices: React.FC = () => {
       // 4. Reveal service nodes (no fade — keep them visible, animate subtle position/scale)
       serviceNodesRef.current.forEach((node, i) => {
         if (!node) return;
-        gsap.set(node, { xPercent: -50, yPercent: -100 });
+        gsap.set(node, { transformOrigin: "center bottom" });
         tl.fromTo(node,
           { scale: 0.96, y: 8 },
           { scale: 1, y: 0, duration: 0.45, ease: "expo.out" },
@@ -328,7 +328,6 @@ export const InteractiveServices: React.FC = () => {
           return (
             <div
               key={service.id}
-              ref={(el) => { serviceNodesRef.current[i] = el; }}
               style={{ 
                 position: 'absolute', 
                 left: `${targetX}px`, 
@@ -338,7 +337,10 @@ export const InteractiveServices: React.FC = () => {
                 marginTop: '-16px'
               }}
             >
-              <div className="group">
+              <div 
+                ref={(el) => { serviceNodesRef.current[i] = el; }}
+                className="group"
+              >
                 {/* Modern Glassmorphic Chip with lime glow borders & reflection */}
                 <div
                   ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
