@@ -1,10 +1,12 @@
 import WorkClient from './WorkClient';
-import { getPortfolioAssets } from '@/lib/cloudinary';
+import { getPortfolioCatalog } from '@/lib/drivePortfolio';
 
 export const revalidate = 300; // Cache and revalidate every 5 minutes
 
 export default async function Page() {
-  const assets = await getPortfolioAssets();
+  const portfolio = await getPortfolioCatalog();
 
-  return <WorkClient portfolioAssets={assets} />;
+  return (
+    <WorkClient portfolioAssets={portfolio.items} folderTree={portfolio.folderTree} />
+  );
 }

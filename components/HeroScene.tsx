@@ -38,14 +38,13 @@ export const HeroScene: React.FC = () => {
     if (video && video.duration > 0 && !video.seeking) {
       const diff = targetTimeRef.current - currentTimeRef.current;
       
-      // OPTIMIZATION: High-Efficiency Decoder Protection
-      // We limit 'currentTime' updates to ~30fps (33ms) to avoid overloading 
-      // the hardware decoder on mobile devices. This is the #1 fix for 'lag'.
+      // OPTIMIZATION: 60fps target for smooth playback
+      // Update at ~16ms intervals (60fps) for smooth performance
       const now = performance.now();
-      if (now - lastUpdateRef.current > 33) {
-        if (Math.abs(diff) > 0.02) { 
-          // Damping factor of 0.06 is extremely smooth/premium
-          currentTimeRef.current += diff * 0.06;
+      if (now - lastUpdateRef.current > 16) {
+        if (Math.abs(diff) > 0.01) { 
+          // Increased damping factor from 0.06 to 0.08 for faster response
+          currentTimeRef.current += diff * 0.08;
           
           try {
             video.currentTime = currentTimeRef.current;
@@ -198,7 +197,7 @@ export const HeroScene: React.FC = () => {
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
+              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.15) 100%)',
           }}
         />
 

@@ -2,16 +2,22 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Play, Maximize2, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
-import { formatCloudinaryTitle } from '@/lib/cloudinary';
+import { PortfolioThumbnail } from '@/components/portfolio/PortfolioThumbnail';
+import { PortfolioLightbox } from '@/components/portfolio/PortfolioLightbox';
 
 interface Project {
   id: string;
   title: string;
   image: string;
   poster?: string;
+  previewUrl?: string;
+  thumbnailUrl?: string;
+  thumbnailFallback?: string;
+  driveFileId?: string;
+  mimeType?: string;
   type: string;
   category: string;
 }
@@ -35,30 +41,25 @@ export const PortfolioCarousel: React.FC<{ assets?: any[] }> = ({ assets = [] })
   
   if (assets && assets.length > 0) {
     workCategories.forEach((cat, catIdx) => {
-      // Find assets for this category or just slice them if we don't have enough meta
-      // For now, we slice them proportionally
       const itemsPerCategory = 5;
       const startIdx = catIdx * itemsPerCategory;
       const catAssets = assets.slice(startIdx, startIdx + itemsPerCategory);
 
       catAssets.forEach((asset, i) => {
-        let optimizedUrl = asset.secure_url;
-        let posterUrl = undefined;
-        
-        if (optimizedUrl.includes('/upload/')) {
-          optimizedUrl = optimizedUrl.replace('/upload/', '/upload/q_auto,f_auto,w_1000,c_limit/');
-          if (asset.resource_type === 'video') {
-             optimizedUrl = optimizedUrl.replace(/\.[^/.]+$/, ".mp4");
-             posterUrl = optimizedUrl.replace(/\.mp4$/, ".jpg");
-          }
-        }
+        const assetUrl = asset.thumbnailUrl || asset.previewUrl || '';
+        const type = asset.mimeType?.startsWith('video/') ? 'video' : 'image';
 
         categorizedProjects.push({
-          id: asset.public_id,
-          title: formatCloudinaryTitle(asset.public_id, startIdx + i),
-          image: optimizedUrl,
-          poster: posterUrl,
-          type: asset.resource_type,
+          id: asset.id || `${asset.driveFileId}-${startIdx}-${i}`,
+          title: asset.title || asset.originalFilename || `Portfolio Item ${startIdx + i + 1}`,
+          image: assetUrl,
+          poster: type === 'video' ? asset.thumbnailUrl || asset.previewUrl : assetUrl,
+          previewUrl: asset.previewUrl,
+          thumbnailUrl: asset.thumbnailUrl,
+          thumbnailFallback: asset.thumbnailFallback,
+          driveFileId: asset.driveFileId,
+          mimeType: asset.mimeType,
+          type,
           category: cat.name
         });
       });
@@ -153,28 +154,18 @@ export const PortfolioCarousel: React.FC<{ assets?: any[] }> = ({ assets = [] })
                     className="relative w-[340px] md:w-[420px] aspect-[16/10] bg-[#0A0A0A] border border-white/5 overflow-hidden group cursor-pointer"
                     onClick={() => setLightbox(project)}
                   >
-                    {project.type === 'video' ? (
-                      <div className="absolute inset-0">
-                         <video
-                           src={project.image}
-                           poster={project.poster}
-                           className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                           autoPlay
-                           muted
-                           loop
-                           playsInline
-                         />
-                         <div className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Play className="w-3 h-3 text-white fill-white" />
-                         </div>
-                      </div>
-                    ) : (
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                      />
-                    )}
+                    <PortfolioThumbnail
+                      item={{
+                        thumbnailUrl: project.thumbnailUrl || project.image,
+                        thumbnailFallback: project.thumbnailFallback,
+                        driveFileId: project.driveFileId,
+                        previewUrl: project.previewUrl,
+                        mimeType: project.mimeType || (project.type === 'video' ? 'video/mp4' : undefined),
+                      }}
+                      alt={project.title}
+                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-110"
+                      className="absolute inset-0"
+                    />
                     
                     {/* FULL COLOR OVERLAY WITH CLEAN GRADIENT */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
@@ -218,44 +209,22 @@ export const PortfolioCarousel: React.FC<{ assets?: any[] }> = ({ assets = [] })
         </div>
       </div>
 
-      {/* LIGHTBOX OVERLAY */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-4 md:p-12 cursor-pointer"
-            onClick={() => setLightbox(null)}
-          >
-            <button 
-              className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors z-[10000]"
-              onClick={() => setLightbox(null)}
-            >
-              <X className="w-10 h-10" strokeWidth={1.5} />
-            </button>
-            
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-6xl max-h-[85vh] aspect-video bg-black rounded-sm overflow-hidden shadow-[0_0_120px_rgba(0,0,0,0.9)]"
-              onClick={e => e.stopPropagation()}
-            >
-              {lightbox.type === 'video' ? (
-                <video src={lightbox.image} controls autoPlay className="w-full h-full object-contain" />
-              ) : (
-                <img src={lightbox.image} className="w-full h-full object-contain" alt="" />
-              )}
-              
-              <div className="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-black to-transparent pointer-events-none">
-                 <span className="text-accent text-[10px] font-bold uppercase tracking-widest mb-2 block">{lightbox.category}</span>
-                 <h2 className="text-3xl font-bold text-white tracking-tighter">{lightbox.title}</h2>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <PortfolioLightbox
+        item={
+          lightbox
+            ? {
+                title: lightbox.title,
+                previewUrl: lightbox.previewUrl,
+                thumbnailUrl: lightbox.thumbnailUrl || lightbox.image,
+                thumbnailFallback: lightbox.thumbnailFallback,
+                driveFileId: lightbox.driveFileId,
+                mimeType: lightbox.mimeType || (lightbox.type === 'video' ? 'video/mp4' : 'image/*'),
+              }
+            : null
+        }
+        onClose={() => setLightbox(null)}
+        subtitle={lightbox?.category}
+      />
     </section>
   );
 };

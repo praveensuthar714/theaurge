@@ -18,24 +18,25 @@ export const WorldMapSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative z-10 bg-black pt-8 md:pt-12 pb-8 md:pb-12 overflow-hidden w-full"
+      className="relative z-10 bg-black pt-16 md:pt-20 pb-0 overflow-hidden w-full"
     >
       {/* Dynamic Global Atmosphere */}
       <motion.div 
         animate={{
           scale: [1, 1.1, 1],
-          opacity: [0.03, 0.08, 0.03]
+          opacity: [0.15, 0.25, 0.15]
         }}
         transition={{
           duration: 12,
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-[#E6FF00]/[0.08] blur-[180px] rounded-full pointer-events-none" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-[#E6FF00]/[0.20] blur-[180px] rounded-full pointer-events-none"
+        style={{ willChange: 'transform, opacity' }}
       />
       
       {/* Subtle Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
+      <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-overlay" 
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
 
       <div className="w-full relative z-10">
@@ -46,6 +47,7 @@ export const WorldMapSection = () => {
            viewport={{ once: true }}
            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
            className="w-full relative"
+           style={{ willChange: 'opacity, filter' }}
         >
 
            

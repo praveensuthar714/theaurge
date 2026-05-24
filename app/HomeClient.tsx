@@ -1,12 +1,12 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 
 // Optimized Dynamic Imports for Performance
 const HeroVideo = dynamic(() => import("@/components/HeroVideo").then(mod => mod.HeroVideo), {
   ssr: false,
-  loading: () => <div className="h-screen w-full bg-black animate-pulse" />
+  loading: () => <div className="h-screen w-full bg-black" />
 });
 
 const WorldMapSection = dynamic(() => import("@/components/WorldMapSection").then(mod => mod.WorldMapSection), {
@@ -17,25 +17,12 @@ const WorldMapSection = dynamic(() => import("@/components/WorldMapSection").the
 const ServicesAssembly = dynamic(() => import("@/components/ServicesAssembly").then(mod => mod.ServicesAssembly), {
   ssr: false
 });
-
-const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
 const TrustedBrands = dynamic(() => import("@/components/TrustedBrands"), { ssr: false });
+const ComparisonSection = dynamic(() => import("@/components/ComparisonSection"), { ssr: false });
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
-export default function HomeClient() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    // CRITICAL: Initialize high-perf scroll engine after mount
-    import('@/lib/scrollEngine').then((module) => {
-      if (module.initScrollAnimations) module.initScrollAnimations();
-    });
-  }, []);
-
-  if (!mounted) return <div className="min-h-screen bg-black" />;
-
+function HomeClientContent() {
   return (
     <main className="relative bg-black min-h-screen flex flex-col pt-0">
       <Header />
@@ -53,4 +40,20 @@ export default function HomeClient() {
       {/* FOOTER will follow from Page.tsx context */}
     </main>
   );
+}
+
+export default function HomeClient() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // CRITICAL: Initialize high-perf scroll engine after mount
+    import('@/lib/scrollEngine').then((module) => {
+      if (module.initScrollAnimations) module.initScrollAnimations();
+    });
+  }, []);
+
+  if (!mounted) return <div className="min-h-screen bg-black" />;
+
+  return <HomeClientContent />;
 }

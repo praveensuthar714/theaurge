@@ -162,6 +162,10 @@ interface WhatWeDoProps {
 export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false }) => {
   const containerRef = useRef<HTMLElement>(null);
 
+  const sectionClass = isAssembly
+    ? 'relative py-12 overflow-hidden z-30 transition-all duration-1000'
+    : 'relative min-h-screen flex flex-col justify-center pb-24 pt-20 overflow-hidden z-30 transition-all duration-1000';
+
   useEffect(() => {
     if (!containerRef.current) return;
     const ctx = gsap.context(() => {
@@ -196,7 +200,7 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center pb-24 pt-20 overflow-hidden z-30 transition-all duration-1000"
+      className={sectionClass}
     >
       {/* Fade-in from transparent so the Services diagram above stays visible */}
       <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent to-black pointer-events-none z-0" />
@@ -209,28 +213,9 @@ export const WhatWeDoSection: React.FC<WhatWeDoProps> = ({ isAssembly = false })
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/[0.012] rounded-full blur-[200px] pointer-events-none translate-x-1/2 -translate-y-1/2 opacity-50" />
 
       <div className="container mx-auto max-w-7xl relative z-10 px-6">
-        <div className="text-center mb-12">
-          <span className="wwd-content subtitle-premium block mb-4" style={{ opacity: 0 }}>The Workflow</span>
+        {/* Blueprint header removed per request - keeping capabilities grid only */}
 
-          <h2 className="wwd-content h-lg mb-6" style={{ opacity: 0 }}>
-            Our Blueprint<span className="text-accent">.</span>
-          </h2>
-
-          <div className="wwd-content flex flex-col items-center gap-1" style={{ opacity: 0 }}>
-            <p className="body-text !text-white/35 text-[14px]">
-              A precise, high-fidelity methodology engineered to take your brand from
-            </p>
-            <p className="text-white text-[15px] md:text-[16px] font-semibold tracking-[0.08em] uppercase">
-              Vision to Reality<span className="text-accent">.</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="wwd-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-5" style={{ opacity: 0 }}>
-          {capabilities.map((item, index) => (
-            <GlowCard key={index} item={item} />
-          ))}
-        </div>
+        {/* Capabilities grid removed per user request */}
       </div>
 
       {/* Removed Subtle Bottom Separation Line as requested */}

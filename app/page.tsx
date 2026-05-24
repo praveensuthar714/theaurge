@@ -1,31 +1,43 @@
 import HomeClient from './HomeClient';
-import { getPortfolioAssets } from '@/lib/cloudinary';
+import { getPortfolioCatalog } from '@/lib/drivePortfolio';
 import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 import Footer from '@/components/Footer';
+import { PortfolioShowcase } from '@/components/portfolio/PortfolioShowcase';
 
-export const revalidate = 300; // Cache and revalidate every 5 minutes
+export const revalidate = 300;
 
-// BRIDGE COMPONENT: To handle async fetching while streaming the rest of the page
-async function PortfolioLoader() {
-  const assets = await getPortfolioAssets();
-  const PortfolioCarouselV2 = (await import('@/components/PortfolioCarouselV2')).default;
-  return <PortfolioCarouselV2 assets={assets} />;
+async function HomePortfolioSection() {
+  const portfolio = await getPortfolioCatalog();
+
+  return (
+    <PortfolioShowcase
+      driveItems={portfolio.items}
+      folderTree={portfolio.folderTree}
+      mode="featured"
+      featuredLimit={6}
+      showViewAllLink
+      sectionId="work"
+      layout="home"
+    />
+  );
 }
 
 export default function Page() {
   return (
     <>
       <HomeClient />
-      
-      {/* Portfolio Section with Suspense to resolve 'Slow Fetching' concerns */}
-      <div id="work" className="bg-black min-h-[600px]">
-        <Suspense fallback={
-          <div className="w-full py-64 text-center text-white/5 font-mono text-[9px] tracking-[0.6em] uppercase animate-pulse">
-            System Synchronizing Archive_
-          </div>
-        }>
-          <PortfolioLoader />
+
+      <div className="bg-black">
+        <Suspense
+          fallback={
+            <div className="flex min-h-[480px] items-center justify-center px-6 py-24">
+              <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/25 animate-pulse">
+                Loading portfolio…
+              </p>
+            </div>
+          }
+        >
+          <HomePortfolioSection />
         </Suspense>
       </div>
 

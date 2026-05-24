@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 import { PremiumButton } from '@/components/ui/PremiumButton';
+import { PortfolioThumbnail } from '@/components/portfolio/PortfolioThumbnail';
+import { PortfolioLightbox } from '@/components/portfolio/PortfolioLightbox';
 
-import { formatCloudinaryTitle } from '@/lib/cloudinary';
 
 const workCategories = [
   { 
@@ -62,23 +63,21 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
     return {
       ...cat,
       projects: catAssets.map((asset, i) => {
-        let optimizedUrl = asset.secure_url;
-        let posterUrl = undefined;
-        
-        if (optimizedUrl.includes('/upload/')) {
-          optimizedUrl = optimizedUrl.replace('/upload/', '/upload/q_auto,f_auto,w_800,c_limit/');
-          if (asset.resource_type === 'video') {
-             optimizedUrl = optimizedUrl.replace(/\.[^/.]+$/, ".mp4");
-             posterUrl = optimizedUrl.replace(/\.mp4$/, ".jpg");
-          }
-        }
+        const assetUrl = asset.thumbnailUrl || asset.previewUrl || '';
+        const type = asset.mimeType?.startsWith('video/') ? 'video' : 'image';
+        const posterUrl = type === 'video' ? asset.thumbnailUrl || asset.previewUrl : undefined;
 
         return {
-          id: asset.public_id,
-          title: formatCloudinaryTitle(asset.public_id, index * itemsPerCategory + i),
-          image: optimizedUrl,
+          id: asset.id || `${asset.driveFileId}-${index}-${i}`,
+          title: asset.title || asset.originalFilename || `Portfolio Item ${index * itemsPerCategory + i + 1}`,
+          image: assetUrl,
           poster: posterUrl,
-          type: asset.resource_type,
+          previewUrl: asset.previewUrl,
+          type,
+          mimeType: asset.mimeType,
+          driveFileId: asset.driveFileId,
+          thumbnailUrl: asset.thumbnailUrl,
+          thumbnailFallback: asset.thumbnailFallback,
           href: '#'
         };
       })
@@ -190,7 +189,7 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
               <div className="pt-10">
                 <div className="flex flex-col items-center justify-center p-20 border border-white/5 bg-white/[0.02] rounded-2xl w-full">
                   <p className="text-white/40 tracking-widest text-[11px] uppercase font-bold">No portfolio items found</p>
-                  <p className="text-white/20 text-xs mt-3">Upload media to your Cloudinary `portfolio/` folder.</p>
+                  <p className="text-white/20 text-xs mt-3">Regenerate `public/portfolio.json` from your Google Drive portfolio folder.</p>
                 </div>
               </div>
             ) : (
@@ -209,24 +208,19 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
                         onClick={() => setLightbox(project)}
                         className={`card-${cat.id} group relative overflow-hidden aspect-[4/5] rounded-none bg-neutral-900 border border-white/5 transition-all duration-700 hover:border-accent/30 cursor-pointer`}
                       >
-                        {project.type === 'video' ? (
-                          <video
-                            src={project.image}
-                            poster={project.poster}
-                            className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                          />
-                        ) : (
-                          <img 
-                            src={project.image} 
-                            alt={project.title}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[1s] group-hover:scale-110"
-                          />
-                        )}
+                        <PortfolioThumbnail
+                          item={{
+                            thumbnailUrl: project.thumbnailUrl || project.image,
+                            thumbnailFallback: project.thumbnailFallback,
+                            driveFileId: project.driveFileId,
+                            previewUrl: project.previewUrl,
+                            mimeType: project.mimeType,
+                          }}
+                          alt={project.title}
+                          variant="cinematic"
+                          imageClassName="group-hover:scale-110 duration-[1s]"
+                          className="absolute inset-0"
+                        />
                         <div className="absolute inset-x-0 bottom-0 p-8 pt-20 bg-gradient-to-t from-black via-black/40 to-transparent">
                           <div className="flex items-end justify-between">
                             <div>
@@ -258,32 +252,21 @@ export const PortfolioGrid: React.FC<{ assets?: any[] }> = ({ assets = [] }) => 
 
         </div>
       </div>
-{/* LIGHTBOX OVERLAY */}
-      <motion.div>
-        {lightbox && (
-          <div 
-            onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/98 backdrop-blur-md p-4 md:p-12 cursor-pointer"
-          >
-            <button 
-              onClick={() => setLightbox(null)}
-              className="absolute top-6 right-6 text-white hover:text-accent z-[10000] p-4 font-bold tracking-widest uppercase text-xs"
-            >
-              [ Close ]
-            </button>
-            <div 
-              className="relative w-full max-w-7xl max-h-[85vh] aspect-video bg-black/50 rounded-lg overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)]"
-              onClick={e => e.stopPropagation()}
-            >
-              {lightbox.type === 'video' ? (
-                <video src={lightbox.image} controls autoPlay className="w-full h-full object-contain" />
-              ) : (
-                <img src={lightbox.image} className="w-full h-full object-contain" alt="" />
-              )}
-            </div>
-          </div>
-        )}
-      </motion.div>
+      <PortfolioLightbox
+        item={
+          lightbox
+            ? {
+                title: lightbox.title,
+                previewUrl: lightbox.previewUrl,
+                thumbnailUrl: lightbox.thumbnailUrl || lightbox.image,
+                thumbnailFallback: lightbox.thumbnailFallback,
+                driveFileId: lightbox.driveFileId,
+                mimeType: lightbox.mimeType || (lightbox.type === 'video' ? 'video/mp4' : 'image/*'),
+              }
+            : null
+        }
+        onClose={() => setLightbox(null)}
+      />
     </section>
   );
 };

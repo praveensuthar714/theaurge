@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import {
   ComposableMap,
@@ -28,18 +28,32 @@ export function WorldMap({
   
   // Responsive Projection Logic
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  // Track which destination is currently highlighted
+  const [activeDestination, setActiveDestination] = useState(0);
+  
+  // Cycle through destinations with 3-second intervals
+  useEffect(() => {
+    if (!dots || dots.length === 0) return;
+    
+    const interval = setInterval(() => {
+      setActiveDestination((prev) => (prev + 1) % (dots.length - 1));
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [dots]);
 
   const projection = useMemo(() => {
     return geoMercator()
-      .scale(isMobile ? 85 : 120) // Tighten scale for mobile visibility
-      .translate(isMobile ? [400, 310] : [400, 280]); 
+      .scale(isMobile ? 100 : 135) // Balanced scale for proper fit
+      .translate(isMobile ? [400, 310] : [420, 300]); 
   }, [isMobile]);
 
   return (
-    <div className="w-full aspect-[1/1] sm:aspect-[2/1] md:aspect-[2.5/1] bg-black relative overflow-hidden flex items-center justify-center p-4">
+    <div className="w-full aspect-[1/1] sm:aspect-[1.8/1] md:aspect-[2.3/1] bg-black relative overflow-hidden flex items-center justify-center p-4 md:p-6">
 
       {/* Deep Space Atmosphere */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(230,255,0,0.03)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_65%,rgba(230,255,0,0.08)_0%,transparent_75%)] pointer-events-none" />
       
       <ComposableMap
         projection={projection}
@@ -65,7 +79,19 @@ export function WorldMap({
             height="2.5"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="1" cy="1" r="0.6" fill="#FFFFFF25" />
+            <circle cx="1" cy="1" r="0.6" fill="#FFFFFF45" />
+          </pattern>
+
+          {/* Highlighted Land Pattern */}
+          <pattern
+            id="highlighted-land"
+            x="0"
+            y="0"
+            width="2.5"
+            height="2.5"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="1" cy="1" r="0.6" fill="#FFFFFF" />
           </pattern>
 
           <linearGradient id="arc-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -78,20 +104,48 @@ export function WorldMap({
         {/* ── CONTINENTS ── */}
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
-            geographies.map((geo) => (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill="url(#dotted-land)"
-                stroke="#FFFFFF05"
-                strokeWidth={0.2}
-                style={{
-                  default: { outline: "none" },
-                  hover: { fill: "#FFFFFF15", outline: "none" },
-                  pressed: { outline: "none" },
-                }}
-              />
-            ))
+            geographies.map((geo) => {
+              // Helper function to determine if this country is highlighted (India + current destination)
+              const getIsHighlighted = () => {
+                const geoName = geo.properties.name;
+                
+                // Always highlight India
+                if (geoName === "India") return true;
+                
+                // Also highlight the current destination
+                if (dots.length === 0) return false;
+                const destinationCountry = dots[activeDestination + 1];
+                if (!destinationCountry) return false;
+                
+                const countryNames: { [key: number]: string[] } = {
+                  0: ["United States of America", "USA"], // New York
+                  1: ["United Kingdom"], // London
+                  2: ["United Arab Emirates"], // Dubai
+                  3: ["Japan"], // Tokyo
+                  4: ["Australia"], // Sydney
+                };
+                
+                const activeCountryNames = countryNames[activeDestination];
+                return activeCountryNames && activeCountryNames.includes(geoName);
+              };
+              
+              const isHighlighted = getIsHighlighted();
+              
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={isHighlighted ? "url(#highlighted-land)" : "url(#dotted-land)"}
+                  stroke={isHighlighted ? "#FFFFFF" : "#FFFFFF15"}
+                  strokeWidth={isHighlighted ? 0.5 : 0.2}
+                  style={{
+                    default: { outline: "none" },
+                    hover: { fill: "#FFFFFF55", outline: "none", cursor: "pointer" },
+                    pressed: { outline: "none" },
+                  }}
+                />
+              );
+            })
           }
         </Geographies>
 
@@ -114,7 +168,7 @@ export function WorldMap({
                 fill="none"
                 stroke={lineColor}
                 strokeWidth={0.5}
-                className="opacity-[0.08]"
+                className="opacity-[0.4]"
               />
 
               {/* Data Pulse Segment */}
@@ -127,7 +181,7 @@ export function WorldMap({
                 initial={{ pathLength: 0.1, pathOffset: 0, opacity: 0 }}
                 animate={{
                   pathOffset: [0, 1.1],
-                  opacity: [0, 0.8, 0.8, 0],
+                  opacity: [0, 1, 1, 0],
                 }}
                 transition={{
                   duration: 4,
@@ -144,6 +198,7 @@ export function WorldMap({
         {/* ── HUB & NODES ── */}
         {dots.map((dot, i) => {
           const isMainHub = i === 0 || dot.start.label === "India Center";
+          const isActiveDestination = i - 1 === activeDestination;
           
           return (
             <React.Fragment key={`node-${i}`}>
@@ -151,31 +206,68 @@ export function WorldMap({
               {isMainHub && (
                 <Marker coordinates={[dot.start.lng, dot.start.lat]}>
                   <g filter="url(#arc-glow)">
-                    <circle r={isMobile ? 2 : 3} fill={lineColor} />
-                    <circle r={isMobile ? 2 : 3} fill={lineColor} className="opacity-40">
-                      <animate attributeName="r" from="2" to={isMobile ? 10 : 12} dur="4s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" from="0.5" to="0" dur="4s" repeatCount="indefinite" />
-                    </circle>
+                    <circle r={isMobile ? 2 : 3} fill="#FFFFFF" />
+                    <motion.circle
+                      r={isMobile ? 2 : 3}
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth={0.5}
+                      initial={{ opacity: 0.6 }}
+                      animate={{ 
+                        opacity: [0.8, 0.2, 0.8],
+                        r: [isMobile ? 2 : 3, isMobile ? 12 : 15, isMobile ? 2 : 3]
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
                   </g>
                 </Marker>
               )}
 
-              {/* Distant Operational Nodes */}
+              {/* Distant Operational Nodes - All Destinations */}
               <Marker coordinates={[dot.end.lng, dot.end.lat]}>
-                <circle r={isMobile ? 1 : 1.5} fill="white" className="opacity-30" />
+                {isActiveDestination ? (
+                  <g filter="url(#arc-glow)">
+                    <circle r={isMobile ? 1.5 : 2} fill="#FFFFFF" />
+                    <motion.circle
+                      r={isMobile ? 2 : 3}
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth={0.5}
+                      initial={{ opacity: 0.6 }}
+                      animate={{ 
+                        opacity: [0.8, 0.2, 0.8],
+                        r: [isMobile ? 2 : 3, isMobile ? 12 : 15, isMobile ? 2 : 3]
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  </g>
+                ) : (
+                  <circle r={isMobile ? 1 : 1.5} fill="white" className="opacity-30" />
+                )}
+                
                 <motion.g
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + i * 0.1 }}
                 >
-                  <text
+                  <motion.text
                     textAnchor="middle"
                     y={isMobile ? -8 : -10}
-                    className={`font-bold fill-white/40 tracking-[0.2em] uppercase pointer-events-none`}
+                    animate={{ 
+                      fill: isActiveDestination ? "#FFFFFF" : "rgba(255,255,255,0.4)"
+                    }}
+                    className={`font-bold tracking-[0.2em] uppercase pointer-events-none transition-colors`}
                     style={{ fontSize: isMobile ? '5px' : '7px' }}
                   >
                     {dot.end.label}
-                  </text>
+                  </motion.text>
                 </motion.g>
               </Marker>
             </React.Fragment>
@@ -193,3 +285,5 @@ export function WorldMap({
     </div>
   );
 }
+
+export default memo(WorldMap);

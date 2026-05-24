@@ -60,3 +60,7 @@
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .perspective-container { perspective: 1200px; }
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}

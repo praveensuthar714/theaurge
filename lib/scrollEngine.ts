@@ -4,6 +4,8 @@ import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+  // Performance: Optimize ScrollTrigger throttle
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 export const initScrollAnimations = () => {
@@ -11,7 +13,7 @@ export const initScrollAnimations = () => {
   if (typeof window !== 'undefined') {
     setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 1500);
+    }, 800); // Reduced from 1500ms for faster initialization
   }
 };
 

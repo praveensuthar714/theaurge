@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger, MotionPathPlugin } from '@/lib/scrollEngine';
 import { Palette, Globe, Film, Cpu, Target, LucideIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Service {
   id: string;
@@ -22,6 +23,7 @@ const services: Service[] = [
 
 export const InteractiveServices: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const contentContainerRef = useRef<HTMLDivElement>(null);
   const centerNodeRef = useRef<HTMLDivElement>(null);
   const serviceNodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const serviceIconsRef = useRef<(SVGSVGElement | null)[]>([]);
@@ -34,10 +36,10 @@ export const InteractiveServices: React.FC = () => {
     let timeoutId: NodeJS.Timeout;
 
     const updateDimensions = () => {
-      if (containerRef.current) {
+      if (contentContainerRef.current) {
         setDimensions({
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
+          width: contentContainerRef.current.offsetWidth,
+          height: contentContainerRef.current.offsetHeight,
         });
         // REFRESH SCROLLTRIGGER AFTER LAYOUT UPDATE
         ScrollTrigger.refresh();
@@ -50,7 +52,7 @@ export const InteractiveServices: React.FC = () => {
     };
 
     const resizeObserver = new ResizeObserver(handleResize);
-    if (containerRef.current) resizeObserver.observe(containerRef.current);
+    if (contentContainerRef.current) resizeObserver.observe(contentContainerRef.current);
     updateDimensions();
 
     return () => {
@@ -60,7 +62,7 @@ export const InteractiveServices: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current || !centerNodeRef.current || dimensions.width === 0) return;
+    if (!contentContainerRef.current || !centerNodeRef.current || dimensions.width === 0) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -102,13 +104,13 @@ export const InteractiveServices: React.FC = () => {
         );
       });
 
-      // 4. Reveal service nodes
+      // 4. Reveal service nodes (no fade — keep them visible, animate subtle position/scale)
       serviceNodesRef.current.forEach((node, i) => {
         if (!node) return;
-        gsap.set(node, { xPercent: -50, yPercent: -50 });
+        gsap.set(node, { xPercent: -50, yPercent: -100 });
         tl.fromTo(node,
-          { opacity: 0, scale: 0.9, y: 15 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "expo.out" },
+          { scale: 0.96, y: 8 },
+          { scale: 1, y: 0, duration: 0.45, ease: "expo.out" },
           "-=0.4"
         );
       });
@@ -120,11 +122,8 @@ export const InteractiveServices: React.FC = () => {
         gsap.to(pulse, {
           motionPath: {
             path: linesRef.current[i]!,
-            align: linesRef.current[i]!,
-            autoRotate: true,
             start: 0,
             end: 1,
-            alignOrigin: [0.5, 0.5]
           },
           duration: 4,
           repeat: -1,
@@ -142,13 +141,13 @@ export const InteractiveServices: React.FC = () => {
         gsap.to(pulse, { opacity: 1, duration: 0.4, repeat: -1, yoyo: true });
       });
 
-    }, containerRef);
+    }, contentContainerRef);
 
     return () => ctx.revert();
   }, [dimensions]);
 
   // Calculations for safe dimensions
-  const actualContWidth = Math.min(dimensions.width, 1240);
+  const actualContWidth = dimensions.width;
   const localCenterX = actualContWidth / 2;
   const localCenterY = dimensions.height;
   const junctionYValue = localCenterY * 0.75; // Balanced junction point
@@ -170,7 +169,10 @@ export const InteractiveServices: React.FC = () => {
         <div className="absolute inset-x-0 top-0 h-[40vh] bg-gradient-to-b from-black via-black/40 to-transparent" />
       </div>
 
-      <div className="relative w-full h-full max-w-[1240px] mx-auto z-10 px-6 scale-[0.85] sm:scale-90 md:scale-100 origin-bottom">
+      <div 
+        ref={contentContainerRef}
+        className="relative w-full h-full max-w-[1240px] mx-auto z-10 px-6 scale-[0.85] sm:scale-90 md:scale-100 origin-bottom"
+      >
         
         {/* NETWORK TOPOLOGY SYSTEM */}
         <svg 
@@ -239,6 +241,7 @@ export const InteractiveServices: React.FC = () => {
                       r="3.5"
                       fill="var(--accent)"
                       opacity="0"
+                      filter="url(#network-glow)"
                     />
                   </g>
                 );
@@ -273,6 +276,35 @@ export const InteractiveServices: React.FC = () => {
                   />
                 );
               })}
+
+              {/* PERMANENT TERMINAL ENDPOINT DOTS */}
+              {services.map((service) => {
+                const isMobile = dimensions.width < 768;
+                let xPerc = service.x;
+                let yPerc = service.y;
+
+                if (isMobile) {
+                  if (service.id === '2') { xPerc = 25; yPerc = 38; }
+                  if (service.id === '3') { xPerc = 75; yPerc = 38; }
+                  if (service.id === '4') { xPerc = 25; yPerc = 62; }
+                  if (service.id === '5') { xPerc = 75; yPerc = 62; }
+                }
+
+                const targetX = (xPerc / 100) * actualContWidth;
+                const targetY = (yPerc / 100) * dimensions.height;
+
+                return (
+                  <circle
+                    key={`endpoint-dot-${service.id}`}
+                    cx={targetX}
+                    cy={targetY}
+                    r="3.5"
+                    fill="var(--accent)"
+                    className="opacity-90"
+                    filter="url(#network-glow)"
+                  />
+                );
+              })}
             </g>
           )}
         </svg>
@@ -290,41 +322,37 @@ export const InteractiveServices: React.FC = () => {
             if (service.id === '5') { xPerc = 75; yPerc = 62; }
           }
 
+          const targetX = (xPerc / 100) * actualContWidth;
+          const targetY = (yPerc / 100) * dimensions.height;
+
           return (
             <div
               key={service.id}
               ref={(el) => { serviceNodesRef.current[i] = el; }}
               style={{ 
                 position: 'absolute', 
-                left: `${xPerc}%`, 
-                top: `${yPerc}%`, 
+                left: `${targetX}px`, 
+                top: `${targetY}px`, 
                 zIndex: 30,
-                opacity: 0
+                transform: 'translate(-50%, -100%)',
+                marginTop: '-16px'
               }}
             >
-            <div className="flex flex-col-reverse items-center gap-3 group">
-              {/* Square Image Box at BOTTOM to clear lines */}
-              <div className="relative w-20 h-20 md:w-32 md:h-32 bg-[#0A0A0A] border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-accent/40 group-hover:shadow-[0_0_20px_rgba(230,255,0,0.1)] cursor-pointer">
-                <img 
-                  src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop`} 
-                  alt="" 
-                  className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-40 group-hover:opacity-80" 
-                />
-              </div>
-
-              {/* Label & Icon - NOW ON TOP */}
-              <div className="flex flex-col items-center gap-2 text-center pointer-events-none mb-1">
-                <div 
+              <div className="group">
+                {/* Modern Glassmorphic Chip with lime glow borders & reflection */}
+                <div
                   ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
-                  className="transition-transform duration-300 group-hover:translate-y-[-2px]"
+                  className="inline-flex items-center gap-4 px-5 py-3 md:px-6 md:py-3 rounded-full bg-[#0a0a0c]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-xl cursor-pointer hover:scale-[1.03] hover:border-[#D9FF00]/40 hover:shadow-[0_0_30px_rgba(217,255,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all duration-300 ease-out z-40"
+                  style={{ minWidth: 190 }}
                 >
-                  <service.icon className="w-4 h-4 md:w-6 md:h-6 text-white/30 group-hover:text-accent transition-colors duration-300" />
+                  <div className="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/[0.03] border border-white/5 transition-all duration-300 group-hover:bg-[#D9FF00]/10 group-hover:border-[#D9FF00]/30">
+                    <service.icon className="w-4 h-4 md:w-5 md:h-5 text-white/60 transition-colors duration-300 group-hover:text-[#D9FF00]" />
+                  </div>
+                  <span className="text-[13px] md:text-[15px] font-semibold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white whitespace-nowrap">
+                    {service.name}
+                  </span>
                 </div>
-                <span className="text-[9px] md:text-[11px] font-[800] uppercase tracking-[0.2em] text-white/50 group-hover:text-white leading-tight transition-colors duration-300">
-                  {service.name}
-                </span>
               </div>
-            </div>
             </div>
           );
         })}

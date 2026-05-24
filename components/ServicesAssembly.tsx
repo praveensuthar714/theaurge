@@ -16,10 +16,10 @@ export const ServicesAssembly: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-black w-full overflow-visible">
+    <div ref={containerRef} className="relative bg-black w-full overflow-visible -mt-0">
       
       {/* 4.1 THE ORIGIN STAGE: Services Diagram */}
-      <div className="relative z-40">
+      <div className="relative z-40 pt-0">
         <InteractiveServices />
       </div>
 
