@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Play, Terminal, LineChart, Layers, Zap, Sparkles, Globe, Cpu } from 'lucide-react';
+import Image from 'next/image';
 import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
@@ -41,11 +42,14 @@ export default function ServicesPage() {
       <section className="relative pt-44 pb-32 overflow-hidden bg-black border-b border-white/5">
         {/* Cinematic Backdrop */}
         <div className="absolute inset-0 z-0 scale-110 pointer-events-none">
-          <img 
-            src="/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png?v=1" 
-            alt="" 
-            className="w-full h-full object-cover opacity-30" 
-          />
+          <Image 
+             src="/video-production/imgi_2_e800e1c7193e1240c0ff286d0e202e1d05f812e9-3489x1310.png" 
+             alt="" 
+             className="object-cover opacity-30" 
+             fill
+             sizes="100vw"
+             priority
+           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
         </div>
 
@@ -96,12 +100,13 @@ export default function ServicesPage() {
                 >
                   {/* Card Background - Direct Visibility with color images */}
                   <div className="absolute inset-0 z-0">
-                    <img 
-                      src={`${service.image}?v=1`} 
-                      alt={service.name} 
-                      className="w-full h-full object-cover opacity-100 transition-all duration-[2s] ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <Image 
+                       src={service.image} 
+                       alt={service.name} 
+                       className="object-cover opacity-100 transition-all duration-[2s] ease-out group-hover:scale-105"
+                       fill
+                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-700" />
                   </div>
 
@@ -163,11 +168,13 @@ export default function ServicesPage() {
       {/* ── SECTION 5: FINAL DEPLOYMENT ─────────────────────────────── */}
       <section className="relative h-[70vh] md:h-[80vh] min-h-[500px] md:min-h-[600px] w-full flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/bgimagectaservice.png" 
-            className="w-full h-full object-cover scale-105" 
-            alt="CTA Background" 
-          />
+          <Image 
+             src="/bgimagectaservice.png" 
+             className="object-cover scale-105" 
+             alt="CTA Background" 
+             fill
+             sizes="100vw"
+           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />
           <div className="absolute inset-x-0 md:inset-0 bg-black/30 z-10" />
         </div>

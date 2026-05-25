@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 interface ServiceHeroProps {
@@ -20,7 +21,7 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({ title, tagline, image 
         transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-x-0 inset-y-0 z-0 pointer-events-none"
       >
-         <img src={image} className="w-full h-full object-cover grayscale brightness-125" alt="Background" loading="eager" />
+         <Image src={image} className="object-cover grayscale brightness-125" alt="Background" fill sizes="100vw" priority />
          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
       </motion.div>

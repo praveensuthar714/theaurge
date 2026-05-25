@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Zap, Target, Layers, Play, Cpu, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
@@ -119,7 +120,7 @@ export default function SolutionsPage() {
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 className="lg:w-1/2 relative bg-neutral-900 rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-1000 aspect-[16/10] animate-shimmer"
                >
-                  <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="The Framework" loading="lazy" />
+                  <Image src="/capabilities/digital-experiences.png" className="object-cover" alt="The Framework" fill sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                </motion.div>
             </div>

@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, BookOpen, Quote, Sparkles, Target } from 'lucide-react';
+import Image from 'next/image';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
@@ -42,7 +43,7 @@ export default function JournalPage() {
                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                  className="lg:w-1/2 aspect-[16/10] rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-1000 bg-white/[0.03] animate-shimmer"
                >
-                  <img src={articles[0].image} className="w-full h-full object-cover scale-[1.05] group-hover:scale-100 transition-transform duration-1000" alt="Featured" loading="lazy" />
+                  <Image src={articles[0].image} className="object-cover scale-[1.05] group-hover:scale-100 transition-transform duration-1000" alt="Featured" fill sizes="(max-width: 1024px) 100vw, 50vw" />
                </motion.div>
                <div className="lg:w-1/2">
                   <span className="text-[#E6FF00] text-[9px] font-bold tracking-[0.4em] uppercase mb-8 block">Featured Article</span>

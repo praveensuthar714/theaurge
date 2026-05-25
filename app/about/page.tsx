@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Target, Palette, Cpu, Zap, Globe, Sparkles, Award, Film } from 'lucide-react';
+import Image from 'next/image';
 import { PremiumButton } from '@/components/ui/PremiumButton';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
@@ -74,7 +75,7 @@ export default function StudioPage() {
                   viewport={{ once: true }}
                   className="lg:col-span-7 aspect-[16/10] rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-[2s] bg-white/[0.03]"
                 >
-                   <img src="/scene2.png" className="w-full h-full object-cover" alt="The Vision" loading="lazy" />
+                   <Image src="/scene2.png" className="object-cover" alt="The Vision" fill sizes="(max-width: 1024px) 100vw, 58vw" />
                 </motion.div>
                 <div className="lg:col-span-5 flex flex-col gap-8">
                    <motion.div 
@@ -85,7 +86,7 @@ export default function StudioPage() {
                      viewport={{ once: true }}
                      className="aspect-[4/3] rounded-[4px] overflow-hidden border border-white/10 grayscale transition-all duration-[2s] bg-white/[0.03]"
                    >
-                      <img src="/scene1.png" className="w-full h-full object-cover" alt="The Vision" loading="lazy" />
+                      <Image src="/scene1.png" className="object-cover" alt="The Vision" fill sizes="(max-width: 1024px) 100vw, 42vw" />
                    </motion.div>
                    <div className="p-8 border border-white/5 rounded-[4px]">
                       <span className="text-[10px] text-accent font-bold uppercase tracking-[0.4em] mb-4 block">Our Standard</span>
@@ -102,10 +103,12 @@ export default function StudioPage() {
       <section className="relative h-[60vh] md:h-[80vh] min-h-[450px] md:min-h-[650px] w-full flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0 px-4 md:px-0">
           <div className="absolute inset-4 md:inset-0 rounded-[4px] md:rounded-none overflow-hidden">
-            <img 
+            <Image 
               src="/bgimagectaservice.png" 
-              className="w-full h-full object-cover scale-105" 
+              className="object-cover scale-105" 
               alt="CTA Background" 
+              fill
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />

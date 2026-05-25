@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { gsap } from '@/lib/scrollEngine';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -90,11 +91,13 @@ export const CapabilitiesSection: React.FC = () => {
                   }}
                   transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <img 
-                    src={cap.image} 
-                    alt={cap.title}
-                    className="w-full h-full object-cover transition-all duration-[1.5s]"
-                  />
+                  <Image 
+                     src={cap.image} 
+                     alt={cap.title}
+                     fill
+                     sizes="(max-width: 768px) 100vw, 33vw"
+                     className="object-cover transition-all duration-[1.5s]"
+                   />
                 </motion.div>
                 
                 {/* Overlay for description reveal */}

@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, ArrowRight, Play, ExternalLink, Share2, ChevronRight, Zap } from 'lucide-react';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { PremiumButton } from '@/components/ui/PremiumButton';
 
@@ -84,7 +85,7 @@ export default function CaseStudyPage() {
                 viewport={{ once: true }}
                 className="aspect-[16/11] rounded-[4px] overflow-hidden border border-white/10 group grayscale transition-all duration-1000 bg-white/[0.03] animate-shimmer"
               >
-                 <img src="/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png" className="w-full h-full object-cover" alt="Execution" loading="lazy" />
+                 <Image src="/branding/imgi_16_5eb51c831faf8bd7ded910ee22f08f1909fb1c89-2800x1450.png" className="object-cover" alt="Execution" fill sizes="(max-width: 768px) 100vw, 50vw" />
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -94,7 +95,7 @@ export default function CaseStudyPage() {
                 transition={{ delay: 0.1 }}
                 className="aspect-[16/11] rounded-[4px] overflow-hidden border border-white/10 group grayscale transition-all duration-1000 bg-white/[0.03] animate-shimmer"
               >
-                 <img src="/capabilities/digital-experiences.png" className="w-full h-full object-cover" alt="Execution" loading="lazy" />
+                 <Image src="/capabilities/digital-experiences.png" className="object-cover" alt="Execution" fill sizes="(max-width: 768px) 100vw, 50vw" />
               </motion.div>
            </div>
            
@@ -106,7 +107,7 @@ export default function CaseStudyPage() {
              transition={{ duration: 1.5 }}
              className="aspect-[21/9] rounded-[4px] overflow-hidden border border-white/10 bg-black group relative cursor-pointer"
            >
-              <img src="/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png" className="w-full h-full object-cover grayscale transition-all duration-[2s]" alt="Full Width Display" loading="lazy" />
+              <Image src="/website-development/imgi_14_0e0c17f606edac86bc6c518d5a9cbad76721533a-2800x1450.png" className="object-cover grayscale transition-all duration-[2s]" alt="Full Width Display" fill sizes="100vw" />
               <div className="absolute inset-0 flex items-center justify-center">
                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-black group-hover:scale-110 transition-transform">
                     <Play className="w-8 h-8 ml-1 fill-black" />

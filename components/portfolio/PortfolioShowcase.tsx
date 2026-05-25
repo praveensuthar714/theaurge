@@ -88,7 +88,7 @@ function PortfolioGrid({
                 >
                   <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/11]">
                     <PortfolioCardMedia item={item} />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+
                     <div className="absolute inset-x-0 bottom-0 z-10 p-5">
                       <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
                         {formatPortfolioCategoryLine(item.driveRoot, item.subCategory) ||
@@ -370,7 +370,7 @@ export function PortfolioShowcase({
           </p>
         </header>
 
-        <div className="sticky top-[88px] z-40 -mx-4 border-b border-white/[0.06] bg-black/95 backdrop-blur-lg md:-mx-10">
+        <div className="sticky top-[56px] md:top-[67px] lg:top-[74px] z-40 -mx-4 border-b border-white/[0.06] bg-black/95 backdrop-blur-lg md:-mx-10">
           <div className="space-y-0 px-4 pb-3 pt-0 md:px-10 md:pb-4">
             <PortfolioFilters
               variant="category-bar"

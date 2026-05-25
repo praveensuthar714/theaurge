@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Plus, ChevronDown, ChevronRight, Zap } from 'lucide-react';
 import { gsap } from '@/lib/scrollEngine';
@@ -183,11 +184,13 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
         
         {/* BG Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img 
+          <Image 
             src={data.heroBg} 
-            className="w-full h-full object-cover transform scale-105 opacity-70"
+            className="object-cover transform scale-105 opacity-70"
             alt="Hero Background"
-            loading="eager"
+            fill
+            priority
+            sizes="100vw"
           />
           {/* Cinematic Left Shadow Overlay - Replicated for all pages */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
@@ -237,11 +240,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                  >
                    <div className="w-20 h-16 md:w-24 md:h-20 bg-neutral-100 relative">
                       {mod.image ? (
-                        <img 
+                        <Image 
                           src={`${mod.image}?v=1`} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-100" 
                           alt={mod.title}
-                          loading="lazy"
+                          fill
+                          sizes="(max-width: 768px) 80px, 96px"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-black/5">
@@ -326,11 +330,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 <div className="relative w-48 h-48 md:w-80 md:h-80 grayscale hover:grayscale-0 transition-all duration-[1s] group">
                   <div className="absolute inset-0 rounded-full border border-white/10 group-hover:border-[#E6FF00]/40 transition-all duration-700" />
                   <div className="absolute inset-3 md:inset-4 rounded-full overflow-hidden border border-white/5">
-                    <img 
+                    <Image 
                       src={data.results.avatar} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" 
-                      alt="" 
-                      loading="lazy"
+                      className="object-cover group-hover:scale-110 transition-transform duration-[2s]" 
+                      alt="Testimonial author avatar" 
+                      fill
+                      sizes="(max-width: 768px) 192px, 320px"
                     />
                   </div>
                 </div>
@@ -383,12 +388,13 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                       href="/work" 
                       className="ml-auto group flex items-center bg-white/5 border border-white/10 p-4 gap-4 hover:bg-white/10 hover:border-[#E6FF00]/40 transition-all duration-500 max-w-[320px]"
                     >
-                      <div className="w-16 h-12 overflow-hidden bg-black/40">
-                        <img 
-                          src={`${data.results.caseStudy.image}?v=1`} 
-                          className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" 
-                          alt="" 
-                          loading="lazy"
+                      <div className="w-16 h-12 overflow-hidden bg-black/40 relative">
+                        <Image 
+                          src={data.results.caseStudy.image} 
+                          className="object-cover opacity-50 group-hover:opacity-100 transition-opacity" 
+                          alt="Case study thumbnail" 
+                          fill
+                          sizes="64px"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
@@ -431,11 +437,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               viewport={{ once: true }}
               className="md:col-span-12 lg:col-span-8 group relative overflow-hidden bg-black border border-white/5 hover:border-[#E6FF00]/20 transition-all duration-700 min-h-[340px] md:min-h-[400px]"
             >
-              <img
-                src={`${data.bentoMainImage}?v=1`}
-                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-[2s]"
-                alt=""
-                loading="lazy"
+              <Image
+                src={data.bentoMainImage}
+                className="object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-[2s]"
+                alt="Bento main showcase image"
+                fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
               <div className="absolute inset-x-6 md:inset-x-10 bottom-6 md:bottom-10 z-10">
@@ -459,10 +466,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               >
                 {data.bentoCard1Image && (
                   <>
-                    <img 
-                      src={`${data.bentoCard1Image}?v=1`} 
-                      className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-[2s]" 
-                      alt="" 
+                    <Image 
+                      src={data.bentoCard1Image} 
+                      className="object-cover opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-[2s]" 
+                      alt="Bento Card 1 Image" 
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                   </>
@@ -485,10 +494,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               >
                 {data.bentoCard2Image && (
                   <>
-                    <img 
-                      src={`${data.bentoCard2Image}?v=1`} 
-                      className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-[2s]" 
-                      alt="" 
+                    <Image 
+                      src={data.bentoCard2Image} 
+                      className="object-cover opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-[2s]" 
+                      alt="Bento Card 2 Image" 
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
                   </>
@@ -635,10 +646,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
       {/* ── SECTION 9: REVOLUTIONARY CTA ── */}
       <section className="relative h-[70vh] md:h-[80vh] min-h-[500px] md:min-h-[600px] w-full flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src="/bgimagectaservice.png" 
-            className="w-full h-full object-cover scale-105" 
-            alt="" 
+            className="object-cover scale-105" 
+            alt="CTA Background" 
+            fill
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />
           <div className="absolute inset-x-0 md:inset-0 bg-black/30 z-10" />

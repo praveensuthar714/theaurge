@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { gsap, ScrollTrigger } from '@/lib/scrollEngine';
 import MagicRings from './MagicRings';
@@ -126,9 +127,11 @@ export const ManifestoSection: React.FC = () => {
           
           {/* Logo (Morphing Center -> Top) */}
           <div ref={logoRef} className="mb-8 relative z-20 will-change-transform" style={{ opacity: 1, filter: 'none' }}>
-            <img 
+            <Image 
               src="/favicon.png" 
-              alt="theAurge" 
+              alt="theAurge logo" 
+              width={64}
+              height={64}
               className="w-12 h-12 sm:w-16 sm:h-16 object-contain brightness-125" 
             />
           </div>

@@ -131,6 +131,8 @@ export function WorldMap({
               
               const isHighlighted = getIsHighlighted();
               
+              if (geo.properties.name === "Antarctica") return null;
+
               return (
                 <Geography
                   key={geo.rsmKey}

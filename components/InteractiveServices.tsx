@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { gsap, ScrollTrigger, MotionPathPlugin } from '@/lib/scrollEngine';
 import { Palette, Globe, Film, Cpu, Target, LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -160,10 +161,12 @@ export const InteractiveServices: React.FC = () => {
     >
       {/* ── ATMOSPHERIC SCENE ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
-        <img 
+        <Image 
           src="/services_bg.png" 
-          alt="" 
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          alt="Atmospheric services background" 
+          fill
+          sizes="100vw"
+          className="object-cover object-top"
           aria-hidden="true"
         />
         <div className="absolute inset-x-0 top-0 h-[40vh] bg-gradient-to-b from-black via-black/40 to-transparent" />
@@ -344,13 +347,12 @@ export const InteractiveServices: React.FC = () => {
                 {/* Modern Glassmorphic Chip with lime glow borders & reflection */}
                 <div
                   ref={(el) => { if (el) serviceIconsRef.current[i] = el as unknown as SVGSVGElement; }}
-                  className="inline-flex items-center gap-4 px-5 py-3 md:px-6 md:py-3 rounded-full bg-[#0a0a0c]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-xl cursor-pointer hover:scale-[1.03] hover:border-[#D9FF00]/40 hover:shadow-[0_0_30px_rgba(217,255,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all duration-300 ease-out z-40"
-                  style={{ minWidth: 190 }}
+                  className="inline-flex items-center gap-2 sm:gap-3 md:gap-4 px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 rounded-full bg-[#0a0a0c]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-xl cursor-pointer hover:scale-[1.03] hover:border-[#D9FF00]/40 hover:shadow-[0_0_30px_rgba(217,255,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all duration-300 ease-out z-40 min-w-[130px] sm:min-w-[150px] md:min-w-[190px]"
                 >
-                  <div className="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/[0.03] border border-white/5 transition-all duration-300 group-hover:bg-[#D9FF00]/10 group-hover:border-[#D9FF00]/30">
-                    <service.icon className="w-4 h-4 md:w-5 md:h-5 text-white/60 transition-colors duration-300 group-hover:text-[#D9FF00]" />
+                  <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-white/[0.03] border border-white/5 transition-all duration-300 group-hover:bg-[#D9FF00]/10 group-hover:border-[#D9FF00]/30">
+                    <service.icon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white/60 transition-colors duration-300 group-hover:text-[#D9FF00]" />
                   </div>
-                  <span className="text-[13px] md:text-[15px] font-semibold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white whitespace-nowrap">
+                  <span className="text-[10px] sm:text-[11px] md:text-[15px] font-semibold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white whitespace-nowrap">
                     {service.name}
                   </span>
                 </div>
@@ -367,9 +369,11 @@ export const InteractiveServices: React.FC = () => {
         >
           <div className="relative p-2.5 rounded-none glass-panel shadow-[0_40px_120px_rgba(0,0,0,0.9)] transition-all duration-400 hover:border-white/20">
              <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-none bg-[#080808] border border-white/5 relative overflow-hidden">
-                <img 
+                <Image 
                   src="/favicon.png" 
-                  alt="" 
+                  alt="Branding hub favicon logo" 
+                  width={88}
+                  height={88}
                   className="w-14 h-14 md:w-22 md:h-22 object-contain z-10 transition-transform duration-400 group-hover:scale-110" 
                 />
              </div>
