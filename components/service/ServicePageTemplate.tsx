@@ -241,7 +241,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                    <div className="w-20 h-16 md:w-24 md:h-20 bg-neutral-100 relative">
                       {mod.image ? (
                         <Image 
-                          src={`${mod.image}?v=1`} 
+                          src={mod.image} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-100" 
                           alt={mod.title}
                           fill
