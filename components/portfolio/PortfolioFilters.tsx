@@ -115,56 +115,102 @@ export function CategoryBar({
   activeTab,
   countsByTab,
   onTabChange,
-}: Pick<PortfolioFiltersProps, 'activeTab' | 'countsByTab' | 'onTabChange'>) {
+  subcategories = [],
+  activeSub,
+  onSubChange,
+}: {
+  activeTab: PortfolioDriveTabId;
+  countsByTab: Record<string, number>;
+  onTabChange: (tabId: PortfolioDriveTabId) => void;
+  subcategories?: string[];
+  activeSub?: string;
+  onSubChange?: (sub: string) => void;
+}) {
   return (
-    <nav aria-label="Portfolio categories" className="relative w-full py-3 md:py-4">
-      <div className="no-scrollbar relative flex items-end gap-6 overflow-x-auto sm:gap-9 md:justify-center md:gap-11">
-        {PORTFOLIO_DRIVE_TABS.map((tab) => {
-          const count = countsByTab[tab.id] ?? 0;
-          const active = activeTab === tab.id;
-          const disabled = count === 0;
+    <div className="w-full">
+      <nav aria-label="Portfolio categories" className="relative w-full py-1">
+        <div className="no-scrollbar relative flex items-end gap-6 overflow-x-auto sm:gap-9 md:justify-center md:gap-11">
+          {PORTFOLIO_DRIVE_TABS.map((tab) => {
+            const count = countsByTab[tab.id] ?? 0;
+            const active = activeTab === tab.id;
+            const disabled = count === 0;
 
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              disabled={disabled}
-              onClick={() => onTabChange(tab.id)}
-              className={`group relative shrink-0 pb-3 text-left transition-colors duration-300 ${
-                disabled ? 'cursor-not-allowed opacity-25' : ''
-              }`}
-            >
-              <span
-                className={`flex items-baseline gap-1.5 whitespace-nowrap transition-colors ${
-                  active ? 'text-white' : 'text-white/36 group-hover:text-white/58'
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                disabled={disabled}
+                onClick={() => onTabChange(tab.id)}
+                className={`group relative shrink-0 pb-3 text-left transition-colors duration-300 ${
+                  disabled ? 'cursor-not-allowed opacity-25' : ''
                 }`}
               >
-                <span className="text-[13px] font-medium tracking-[-0.01em] sm:text-[15px]">
-                  {tab.label}
+                <span
+                  className={`flex items-baseline gap-1.5 whitespace-nowrap transition-colors ${
+                    active ? 'text-accent font-semibold' : 'text-white/55 group-hover:text-white/85'
+                  }`}
+                >
+                  <span className="text-[13px] font-bold tracking-[0.1em] sm:text-[14px] uppercase">
+                    {tab.label}
+                  </span>
+                  {count > 0 && (
+                    <span
+                      className={`text-[10px] tabular-nums sm:text-[11px] ${
+                        active ? 'text-accent/80' : 'text-white/30'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  )}
                 </span>
-                {count > 0 && (
+
+                {active && (
+                  <motion.span
+                    layoutId="portfolio-category-indicator"
+                    className="absolute -bottom-px left-0 right-0 h-[2px] bg-accent"
+                    transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </nav>
+
+      {subcategories && subcategories.length > 0 && (
+        <>
+          <div className="h-[1px] w-full bg-white/10 my-2" />
+          <div className="no-scrollbar flex items-center justify-center gap-8 overflow-x-auto py-2">
+            {subcategories.map((sub) => {
+              const active = activeSub === sub;
+              return (
+                <button
+                  key={sub}
+                  type="button"
+                  onClick={() => onSubChange?.(sub)}
+                  className="group relative pb-1 shrink-0 transition-colors duration-200"
+                >
                   <span
-                    className={`text-[10px] tabular-nums sm:text-[11px] ${
-                      active ? 'text-accent/80' : 'text-white/22'
+                    className={`text-xs tracking-[0.05em] transition-colors font-medium ${
+                      active ? 'text-accent font-semibold' : 'text-white/60 hover:text-white/90'
                     }`}
                   >
-                    {count}
+                    {sub}
                   </span>
-                )}
-              </span>
-
-              {active && (
-                <motion.span
-                  layoutId="portfolio-category-indicator"
-                  className="absolute -bottom-px left-0 right-0 h-[2px] bg-accent"
-                  transition={{ type: 'spring', stiffness: 400, damping: 34 }}
-                />
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </nav>
+                  {active && (
+                    <motion.span
+                      layoutId="portfolio-subcategory-indicator"
+                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#E6FF00]"
+                      transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -399,6 +445,9 @@ export function PortfolioFilters({ variant, ...props }: PortfolioFiltersProps) {
         activeTab={props.activeTab}
         countsByTab={props.countsByTab}
         onTabChange={props.onTabChange}
+        subcategories={props.subcategories}
+        activeSub={props.activeSub}
+        onSubChange={props.onSubChange}
       />
     );
   }

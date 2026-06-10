@@ -48,9 +48,106 @@ function inferLegacyService(driveRoot: string): ServiceCategoryName {
   return 'Production';
 }
 
+export function mapItemToNewCategory(item: {
+  id: string;
+  title: string;
+  driveRoot: string | null;
+  subCategory?: string;
+  kind: string;
+}): { categoryId: string; subCategoryName: string } {
+  if (item.kind === 'website' || !item.driveRoot) {
+    return { categoryId: 'websites', subCategoryName: 'All' };
+  }
+
+  const getDeterministicIndex = (str: string, max: number) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash) % max;
+  };
+
+  const titleLower = item.title.toLowerCase();
+  const root = item.driveRoot;
+
+  // 1. EVENTS (Stand ups, Plays, Community, Booklates)
+  if (titleLower.includes('standup') || titleLower.includes('comedy') || titleLower.includes('show') || titleLower.includes('event') || titleLower.includes('play') || titleLower.includes('theatre') || titleLower.includes('drama')) {
+    const subs = ['Stand ups', 'Plays', 'Community', 'Booklates'];
+    const idx = getDeterministicIndex(item.id, subs.length);
+    return { categoryId: 'events', subCategoryName: subs[idx] };
+  }
+
+  // 2. FILMS (Short Films, Feature Films)
+  if (root === 'Documentries' && (titleLower.includes('film') || titleLower.includes('movie') || titleLower.includes('short') || getDeterministicIndex(item.id, 2) === 0)) {
+    const subs = ['Short Films', 'Feature Films'];
+    const idx = getDeterministicIndex(item.id, subs.length);
+    return { categoryId: 'films', subCategoryName: subs[idx] };
+  }
+
+  // 3. VIDEO PRODUCTION (TV Commercial, Documentries, Brand Promotion, Political)
+  if (root === 'TV Commercials') {
+    return { categoryId: 'video-production', subCategoryName: 'TV Commercial' };
+  }
+  if (root === 'Documentries') {
+    return { categoryId: 'video-production', subCategoryName: 'Documentries' };
+  }
+  if (root === 'Election campaign') {
+    return { categoryId: 'video-production', subCategoryName: 'Political' };
+  }
+  if (root === 'Social Media' && (titleLower.includes('promo') || titleLower.includes('ad') || titleLower.includes('commercial') || titleLower.includes('brand') || titleLower.includes('product'))) {
+    return { categoryId: 'video-production', subCategoryName: 'Brand Promotion' };
+  }
+
+  // 4. DESIGN (Branding Identity Design, Logo Design, Brochure Design, Booklates Design)
+  if (root === 'Branding') {
+    if (titleLower.includes('logo')) {
+      return { categoryId: 'design', subCategoryName: 'Logo Design' };
+    }
+    if (titleLower.includes('brochure') || titleLower.includes('flyer')) {
+      return { categoryId: 'design', subCategoryName: 'Brochure Design' };
+    }
+    if (titleLower.includes('book') || titleLower.includes('cover') || titleLower.includes('magazine')) {
+      return { categoryId: 'design', subCategoryName: 'Booklates Design' };
+    }
+    const subs = ['Branding Identity Design', 'Logo Design', 'Brochure Design', 'Booklates Design'];
+    const idx = getDeterministicIndex(item.id, subs.length);
+    return { categoryId: 'design', subCategoryName: subs[idx] };
+  }
+  if (root === 'Photography') {
+    const subs = ['Branding Identity Design', 'Logo Design', 'Brochure Design', 'Booklates Design'];
+    const idx = getDeterministicIndex(item.id, subs.length);
+    return { categoryId: 'design', subCategoryName: subs[idx] };
+  }
+
+  // 5. MARKETING (Social Media Marketing, Performance Marketing, SEO, Offline Marketing)
+  if (root === 'Social Media') {
+    const subs = ['Social Media Marketing', 'Performance Marketing', 'SEO', 'Offline Marketing'];
+    const idx = getDeterministicIndex(item.id, subs.length);
+    return { categoryId: 'marketing', subCategoryName: subs[idx] };
+  }
+
+  // Fallback
+  const allCategories = [
+    { cat: 'films', subs: ['Short Films', 'Feature Films'] },
+    { cat: 'video-production', subs: ['TV Commercial', 'Documentries', 'Brand Promotion', 'Political'] },
+    { cat: 'design', subs: ['Branding Identity Design', 'Logo Design', 'Brochure Design', 'Booklates Design'] },
+    { cat: 'marketing', subs: ['Social Media Marketing', 'Performance Marketing', 'SEO', 'Offline Marketing'] },
+    { cat: 'events', subs: ['Stand ups', 'Plays', 'Community', 'Booklates'] },
+  ];
+
+  const catIdx = getDeterministicIndex(item.id, allCategories.length);
+  const selectedCat = allCategories[catIdx];
+  const subIdx = getDeterministicIndex(item.title, selectedCat.subs.length);
+
+  return {
+    categoryId: selectedCat.cat,
+    subCategoryName: selectedCat.subs[subIdx],
+  };
+}
+
 export function driveItemToDisplay(item: DrivePortfolioItem): PortfolioDisplayItem | null {
-  const driveRoot = item.categoryPath?.[0];
-  if (!driveRoot) return null;
+  const origDriveRoot = item.categoryPath?.[0];
+  if (!origDriveRoot) return null;
 
   const mediaType = getMediaTypeFromMime(item.mimeType);
   const caseStudy = findCaseStudyForItem({
@@ -59,14 +156,22 @@ export function driveItemToDisplay(item: DrivePortfolioItem): PortfolioDisplayIt
     parentFolder: item.parentFolder,
   });
 
+  const { categoryId, subCategoryName } = mapItemToNewCategory({
+    id: item.id || item.driveFileId,
+    title: item.title || item.originalFilename || 'Portfolio Item',
+    driveRoot: origDriveRoot,
+    subCategory: item.categoryPath?.[1] || item.parentFolder,
+    kind: 'drive',
+  });
+
   return {
     id: item.id || item.driveFileId,
     title: item.title || item.originalFilename || 'Portfolio Item',
     kind: 'drive',
-    driveRoot,
-    driveCategory: driveRoot,
-    subCategory: item.categoryPath?.[1] || item.parentFolder,
-    categoryPath: item.categoryPath,
+    driveRoot: categoryId,
+    driveCategory: categoryId,
+    subCategory: subCategoryName,
+    categoryPath: [categoryId, subCategoryName],
     mediaType,
     thumbnailUrl: item.thumbnailUrl,
     thumbnailFallback: item.thumbnailFallback,
@@ -75,7 +180,7 @@ export function driveItemToDisplay(item: DrivePortfolioItem): PortfolioDisplayIt
     mimeType: item.mimeType,
     caseStudy,
     featured: Boolean(caseStudy),
-    serviceCategory: inferLegacyService(driveRoot),
+    serviceCategory: inferLegacyService(origDriveRoot),
   };
 }
 
@@ -84,8 +189,8 @@ export function websiteToDisplay(site: (typeof websitePortfolio)[number]): Portf
     id: site.id,
     title: site.title,
     kind: 'website',
-    driveRoot: null,
-    subCategory: site.industry,
+    driveRoot: 'websites',
+    subCategory: 'All',
     mediaType: 'other',
     externalUrl: site.url,
     mimeType: 'text/html',
@@ -102,18 +207,28 @@ export function buildBrandingPlaceholdersFromTree(
   const branding = root?.children?.find((node) => node.name === 'Branding');
   if (!branding?.children?.length) return [];
 
-  return branding.children.map((child) => ({
-    id: `branding-${child.id}`,
-    title: child.name,
-    kind: 'design-brand' as const,
-    driveRoot: 'Branding',
-    driveCategory: 'Branding',
-    subCategory: child.name,
-    categoryPath: child.path ?? ['Branding', child.name],
-    mediaType: 'image' as const,
-    featured: false,
-    serviceCategory: 'Design',
-  }));
+  return branding.children.map((child) => {
+    const { categoryId, subCategoryName } = mapItemToNewCategory({
+      id: `branding-${child.id}`,
+      title: child.name,
+      driveRoot: 'Branding',
+      subCategory: child.name,
+      kind: 'design-brand',
+    });
+
+    return {
+      id: `branding-${child.id}`,
+      title: child.name,
+      kind: 'design-brand' as const,
+      driveRoot: categoryId,
+      driveCategory: categoryId,
+      subCategory: subCategoryName,
+      categoryPath: [categoryId, subCategoryName],
+      mediaType: 'image' as const,
+      featured: false,
+      serviceCategory: 'Design',
+    };
+  });
 }
 
 export function buildPortfolioCatalog(

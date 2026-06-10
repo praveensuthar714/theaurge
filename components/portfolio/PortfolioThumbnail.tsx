@@ -70,14 +70,18 @@ export function PortfolioThumbnail({
 
   return (
     <div className={`relative h-full w-full overflow-hidden bg-[#0A0A0A] ${className}`}>
-      {/* Loading skeleton */}
+      {/* Loading skeleton / preloader */}
       <div
-        className={`absolute inset-0 z-[1] bg-gradient-to-br from-white/[0.04] via-[#111] to-black transition-opacity duration-500 ${
+        className={`absolute inset-0 z-[1] overflow-hidden bg-[#0A0A0A] transition-opacity duration-500 ${
           loaded ? 'pointer-events-none opacity-0' : 'opacity-100'
         }`}
         aria-hidden
       >
-        <div className="absolute inset-0 animate-pulse bg-white/[0.04]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#141414] via-[#0a0a0a] to-black" />
+        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.6s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-7 w-7 rounded-full border-2 border-white/10 border-t-accent/80 animate-spin" />
+        </div>
       </div>
 
       <img
