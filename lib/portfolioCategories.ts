@@ -2,60 +2,53 @@
 
 export const PORTFOLIO_DRIVE_TABS = [
   {
-    id: 'all',
-    label: 'ALL',
-    shortLabel: 'ALL',
-    driveRoot: 'All',
-    description: 'All work',
-    subcategories: [] as string[],
+    id: 'social-media',
+    label: 'Social Media',
+    shortLabel: 'Social',
+    driveRoot: 'Social Media',
+    description: 'Reels, campaigns & channel content',
   },
   {
-    id: 'films',
-    label: 'FILMS',
-    shortLabel: 'FILMS',
-    driveRoot: 'Films',
-    description: 'Short Films & Feature Films',
-    subcategories: ['Short Films', 'Feature Films'] as string[],
+    id: 'photography',
+    label: 'Photography',
+    shortLabel: 'Photo',
+    driveRoot: 'Photography',
+    description: 'Editorial, interior & product shoots',
   },
   {
-    id: 'video-production',
-    label: 'VIDEO PRODUCTION',
-    shortLabel: 'Video',
-    driveRoot: 'Video Production',
-    description: 'TV Commercials, documentaries & promotions',
-    subcategories: ['TV Commercial', 'Documentries', 'Brand Promotion', 'Political'] as string[],
+    id: 'branding',
+    label: 'Branding',
+    shortLabel: 'Brand',
+    driveRoot: 'Branding',
+    description: 'Identity systems, decks & print',
   },
   {
-    id: 'design',
-    label: 'DESIGN',
-    shortLabel: 'DESIGN',
-    driveRoot: 'Design',
-    description: 'Branding, logos, brochures & booklates',
-    subcategories: ['Branding Identity Design', 'Logo Design', 'Brochure Design', 'Booklates Design'] as string[],
+    id: 'documentaries',
+    label: 'Documentaries',
+    shortLabel: 'Docs',
+    driveRoot: 'Documentries',
+    description: 'Long-form films & brand stories',
   },
   {
-    id: 'marketing',
-    label: 'MARKETING',
-    shortLabel: 'MARKETING',
-    driveRoot: 'Marketing',
-    description: 'Social media, performance, SEO & offline',
-    subcategories: ['Social Media Marketing', 'Performance Marketing', 'SEO', 'Offline Marketing'] as string[],
+    id: 'tv-commercials',
+    label: 'TV Commercials',
+    shortLabel: 'TVCs',
+    driveRoot: 'TV Commercials',
+    description: 'Broadcast spots & ad films',
+  },
+  {
+    id: 'election',
+    label: 'Election Campaign',
+    shortLabel: 'Election',
+    driveRoot: 'Election campaign',
+    description: 'Political films & rally content',
   },
   {
     id: 'websites',
-    label: 'WEBSITES',
-    shortLabel: 'WEBSITES',
+    label: 'Websites',
+    shortLabel: 'Web',
     driveRoot: null,
-    description: 'Live websites & digital builds',
-    subcategories: [] as string[],
-  },
-  {
-    id: 'events',
-    label: 'EVENTS',
-    shortLabel: 'EVENTS',
-    driveRoot: 'Events',
-    description: 'Stand ups, plays, community & booklates',
-    subcategories: ['Stand ups', 'Plays', 'Community', 'Booklates'] as string[],
+    description: 'Live sites & digital products',
   },
 ] as const;
 
@@ -72,7 +65,7 @@ export type MediaFilterId = (typeof MEDIA_FILTERS)[number]['id'];
 export type PortfolioMediaType = 'video' | 'image' | 'document' | 'other';
 
 export function getTabByDriveRoot(driveRoot: string) {
-  return PORTFOLIO_DRIVE_TABS.find((t) => t.driveRoot === driveRoot || t.id === driveRoot);
+  return PORTFOLIO_DRIVE_TABS.find((t) => t.driveRoot === driveRoot);
 }
 
 /** Human-readable category line for cards & lightbox (maps Drive typos to proper labels). */

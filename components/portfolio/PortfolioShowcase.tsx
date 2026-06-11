@@ -191,7 +191,7 @@ export function PortfolioShowcase({
   const isFeatured = mode === 'featured';
   const itemsPerPage = isFeatured ? 6 : 12;
 
-  const [activeTab, setActiveTab] = useState<PortfolioDriveTabId>('all');
+  const [activeTab, setActiveTab] = useState<PortfolioDriveTabId>('social-media');
   const [activeMedia, setActiveMedia] = useState<MediaFilterId>('all');
   const [activeSub, setActiveSub] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
@@ -207,31 +207,54 @@ export function PortfolioShowcase({
   const activeTabConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === activeTab)!;
   const activeDriveRoot = activeTabConfig.driveRoot;
   const isWebsiteTab = activeTab === 'websites';
-  const effectiveMedia = activeMedia;
+  const effectiveMedia = activeDriveRoot
+    ? coerceMediaFilter(activeDriveRoot, activeMedia)
+    : activeMedia;
+
+  useEffect(() => {
+    if (!activeDriveRoot) return;
+    setActiveMedia((prev) => {
+      const next = coerceMediaFilter(activeDriveRoot, prev);
+      return next === prev ? prev : next;
+    });
+  }, [activeDriveRoot]);
+
+  useEffect(() => {
+    if (!isFeatured) return;
+    const first = PORTFOLIO_DRIVE_TABS.find((tab) => {
+      if (tab.driveRoot === null) return catalog.some((i) => i.kind === 'website');
+      return catalog.some((i) => i.driveRoot === tab.driveRoot);
+    });
+    if (first) setActiveTab(first.id);
+  }, [isFeatured, catalog]);
 
   const filtered = useMemo(() => {
-    let pool: PortfolioDisplayItem[] = catalog;
+    let pool: PortfolioDisplayItem[];
 
-    if (activeTab !== 'all') {
-      if (activeTab === 'websites') {
-        pool = catalog.filter((i) => i.driveRoot === 'websites');
-      } else {
-        const tabConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === activeTab);
-        pool = catalog.filter((i) => i.driveRoot === tabConfig?.id);
-      }
+    if (isWebsiteTab) {
+      pool = catalog.filter((i) => i.kind === 'website');
+    } else if (activeDriveRoot) {
+      pool = catalog.filter(
+        (i) =>
+          i.kind === 'drive' &&
+          i.driveRoot === activeDriveRoot &&
+          matchesMediaFilter(i.mediaType, effectiveMedia)
+      );
+    } else {
+      pool = [];
     }
 
-    if (activeTab !== 'all' && activeTab !== 'websites' && activeSub !== 'All') {
+    if (!isWebsiteTab && activeSub !== 'All') {
       pool = pool.filter((i) => i.subCategory === activeSub);
     }
 
     return pool;
-  }, [catalog, activeTab, activeSub]);
+  }, [catalog, activeTab, activeDriveRoot, effectiveMedia, activeSub, isWebsiteTab]);
 
   const subcategories = useMemo(() => {
-    const tabConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === activeTab);
-    return tabConfig ? (tabConfig.subcategories as unknown as string[]) : [];
-  }, [activeTab]);
+    if (isWebsiteTab || !activeDriveRoot) return ['All'];
+    return getSubcategoriesForDriveRoot(catalog, activeDriveRoot);
+  }, [catalog, activeDriveRoot, isWebsiteTab]);
 
   const orderedPool = useMemo(() => {
     if (!shouldInterleavePortfolioItems(activeSub)) {
@@ -279,12 +302,10 @@ export function PortfolioShowcase({
   const countsByTab = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const tab of PORTFOLIO_DRIVE_TABS) {
-      if (tab.id === 'all') {
-        counts[tab.id] = catalog.length;
-      } else if (tab.id === 'websites') {
-        counts[tab.id] = catalog.filter((i) => i.driveRoot === 'websites').length;
+      if (tab.driveRoot === null) {
+        counts[tab.id] = catalog.filter((i) => i.kind === 'website').length;
       } else {
-        counts[tab.id] = catalog.filter((i) => i.driveRoot === tab.id).length;
+        counts[tab.id] = catalog.filter((i) => i.driveRoot === tab.driveRoot).length;
       }
     }
     return counts;
@@ -293,13 +314,15 @@ export function PortfolioShowcase({
   const handleTabChange = (tabId: PortfolioDriveTabId) => {
     const tab = PORTFOLIO_DRIVE_TABS.find((t) => t.id === tabId)!;
     setActiveTab(tabId);
-    setActiveSub(tab.subcategories.length > 0 ? tab.subcategories[0] : 'All');
+    setActiveSub('All');
+    setActiveMedia(tab.driveRoot ? getDefaultMediaFilter(tab.driveRoot) : 'all');
     setCurrentPage(1);
   };
 
   const handleClearRefinements = () => {
-    const tab = PORTFOLIO_DRIVE_TABS.find((t) => t.id === activeTab)!;
-    setActiveSub(tab.subcategories.length > 0 ? tab.subcategories[0] : 'All');
+    setActiveSub('All');
+    if (activeDriveRoot) setActiveMedia(getDefaultMediaFilter(activeDriveRoot));
+    else setActiveMedia('all');
     setCurrentPage(1);
   };
 
@@ -366,10 +389,69 @@ export function PortfolioShowcase({
               onSubChange={setActiveSub}
               onClearRefinements={handleClearRefinements}
             />
+
+            <div className="border-t border-white/[0.06] pt-3">
+              <MobileFiltersDrawer
+                open={mobileFiltersOpen}
+                onToggle={() => setMobileFiltersOpen((o) => !o)}
+                activeMedia={effectiveMedia}
+                activeSub={activeSub}
+                resultCount={displayItems.length}
+                isWebsiteTab={isWebsiteTab}
+                subcategories={subcategories}
+                driveRoot={activeDriveRoot}
+              >
+                <PortfolioFilters
+                  variant="sidebar"
+                  activeTab={activeTab}
+                  activeMedia={effectiveMedia}
+                  activeSub={activeSub}
+                  countsByTab={countsByTab}
+                  subcategories={subcategories}
+                  resultCount={displayItems.length}
+                  isWebsiteTab={isWebsiteTab}
+                  isFeatured={isFeatured}
+                  showMediaFilters={Boolean(activeDriveRoot)}
+                  driveRoot={activeDriveRoot}
+                  onTabChange={handleTabChange}
+                  onMediaChange={handleMediaChange}
+                  onSubChange={(sub) => {
+                    setActiveSub(sub);
+                    setCurrentPage(1);
+                  }}
+                  onClearRefinements={() => {
+                    handleClearRefinements();
+                    setMobileFiltersOpen(false);
+                  }}
+                />
+              </MobileFiltersDrawer>
+            </div>
           </div>
         </div>
 
-        <div className="mt-6 lg:mt-10">
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:gap-6 lg:mt-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[300px_minmax(0,1fr)] xl:gap-10">
+          <div className="relative hidden min-h-0 lg:block">
+            <div className="sticky top-[152px] z-20 max-h-[calc(100dvh-152px)] overflow-y-auto overscroll-contain [scrollbar-width:thin]">
+              <PortfolioFilters
+                variant="sidebar"
+                activeTab={activeTab}
+                activeMedia={effectiveMedia}
+                activeSub={activeSub}
+                countsByTab={countsByTab}
+                subcategories={subcategories}
+                resultCount={displayItems.length}
+                isWebsiteTab={isWebsiteTab}
+                isFeatured={isFeatured}
+                showMediaFilters={Boolean(activeDriveRoot)}
+                driveRoot={activeDriveRoot}
+                onTabChange={handleTabChange}
+                onMediaChange={handleMediaChange}
+                onSubChange={setActiveSub}
+                onClearRefinements={handleClearRefinements}
+              />
+            </div>
+          </div>
+
           <div ref={gridScrollRef} className="min-w-0 scroll-mt-[152px]">
             <PortfolioGrid
               pageItems={pageItems}

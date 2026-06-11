@@ -55,7 +55,7 @@ export function PortfolioCardMedia({ item }: PortfolioCardMediaProps) {
           variant="default"
           lazy
           showPlayIcon={item.kind === 'drive' && isVideoMime(item.mimeType)}
-          imageClassName="scale-105 group-hover:scale-110 transition-all duration-[1.2s]"
+          imageClassName="scale-105 opacity-90 group-hover:scale-110 group-hover:opacity-100 transition-all duration-[1.2s]"
         />
       ) : (
         <MediaLoadingShimmer />
