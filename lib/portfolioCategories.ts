@@ -1,82 +1,46 @@
-/** Portfolio navigation aligned with Google Drive folder structure. */
+/** Portfolio navigation categories and subcategories. */
 
 export const PORTFOLIO_DRIVE_TABS = [
   {
-    id: 'social-media',
-    label: 'Social Media',
-    shortLabel: 'Social',
-    driveRoot: 'Social Media',
-    description: 'Reels, campaigns & channel content',
+    id: 'all',
+    label: 'ALL',
+    subcategories: [] as string[],
   },
   {
-    id: 'photography',
-    label: 'Photography',
-    shortLabel: 'Photo',
-    driveRoot: 'Photography',
-    description: 'Editorial, interior & product shoots',
+    id: 'films',
+    label: 'FILMS',
+    subcategories: ['Short Films', 'Feature Films'] as string[],
   },
   {
-    id: 'branding',
-    label: 'Branding',
-    shortLabel: 'Brand',
-    driveRoot: 'Branding',
-    description: 'Identity systems, decks & print',
+    id: 'video-production',
+    label: 'VIDEO PRODUCTION',
+    subcategories: ['TV Commercial', 'Documentries', 'Brand Promotion', 'Political'] as string[],
   },
   {
-    id: 'documentaries',
-    label: 'Documentaries',
-    shortLabel: 'Docs',
-    driveRoot: 'Documentries',
-    description: 'Long-form films & brand stories',
+    id: 'design',
+    label: 'DESIGN',
+    subcategories: ['Branding Identity Design', 'Logo Design', 'Brochure Design', 'Booklates Design'] as string[],
   },
   {
-    id: 'tv-commercials',
-    label: 'TV Commercials',
-    shortLabel: 'TVCs',
-    driveRoot: 'TV Commercials',
-    description: 'Broadcast spots & ad films',
+    id: 'marketing',
+    label: 'MARKETING',
+    subcategories: ['Social Media Marketing', 'Performance Marketing', 'SEO', 'Offline Marketing'] as string[],
   },
   {
-    id: 'election',
-    label: 'Election Campaign',
-    shortLabel: 'Election',
-    driveRoot: 'Election campaign',
-    description: 'Political films & rally content',
+    id: 'website',
+    label: 'WEBSITE',
+    subcategories: [] as string[],
   },
   {
-    id: 'websites',
-    label: 'Websites',
-    shortLabel: 'Web',
-    driveRoot: null,
-    description: 'Live sites & digital products',
+    id: 'events',
+    label: 'EVENTS',
+    subcategories: ['Stand ups', 'Plays', 'Community', 'Booklates'] as string[],
   },
 ] as const;
 
 export type PortfolioDriveTabId = (typeof PORTFOLIO_DRIVE_TABS)[number]['id'];
 
-export const MEDIA_FILTERS = [
-  { id: 'all', label: 'All media' },
-  { id: 'video', label: 'Videos' },
-  { id: 'visual', label: 'Photos & graphics' },
-] as const;
-
-export type MediaFilterId = (typeof MEDIA_FILTERS)[number]['id'];
-
 export type PortfolioMediaType = 'video' | 'image' | 'document' | 'other';
-
-export function getTabByDriveRoot(driveRoot: string) {
-  return PORTFOLIO_DRIVE_TABS.find((t) => t.driveRoot === driveRoot);
-}
-
-/** Human-readable category line for cards & lightbox (maps Drive typos to proper labels). */
-export function formatPortfolioCategoryLine(
-  driveRoot: string | null | undefined,
-  subCategory?: string | null
-): string {
-  const rootLabel = driveRoot ? getTabByDriveRoot(driveRoot)?.label ?? driveRoot : '';
-  const parts = [rootLabel, subCategory].filter(Boolean);
-  return parts.join(' · ');
-}
 
 export function getMediaTypeFromMime(mimeType?: string): PortfolioMediaType {
   if (!mimeType) return 'other';
@@ -86,78 +50,112 @@ export function getMediaTypeFromMime(mimeType?: string): PortfolioMediaType {
   return 'other';
 }
 
-export function matchesMediaFilter(mediaType: PortfolioMediaType, filter: MediaFilterId): boolean {
-  if (filter === 'all') return true;
-  if (filter === 'video') return mediaType === 'video';
-  if (filter === 'visual') return mediaType === 'image' || mediaType === 'document';
-  return true;
+export interface CategoryMapping {
+  categoryId: PortfolioDriveTabId;
+  subcategory: string;
 }
 
-export type MediaFilterAvailability = {
-  all: boolean;
-  video: boolean;
-  visual: boolean;
-};
-
-/** Which format filters apply per Drive category (common-sense defaults). */
-export function getMediaFilterAvailability(driveRoot: string | null): MediaFilterAvailability | null {
-  if (!driveRoot) return null;
-
-  switch (driveRoot) {
-    case 'Documentries':
-    case 'TV Commercials':
-      return { all: true, video: true, visual: false };
-    case 'Branding':
-    case 'Photography':
-      return { all: true, video: false, visual: true };
-    case 'Social Media':
-    case 'Election campaign':
-      return { all: true, video: true, visual: true };
-    default:
-      return { all: true, video: true, visual: true };
+/** Matches each item to the new horizontal category and subcategory structure */
+export function mapItemToCategory(item: {
+  kind: string;
+  driveRoot: string | null;
+  categoryPath?: string[] | null;
+  title: string;
+}): CategoryMapping {
+  if (item.kind === 'website') {
+    return { categoryId: 'website', subcategory: '' };
   }
+
+  const root = item.driveRoot || (item.categoryPath && item.categoryPath[0]);
+  const subFolder = (item.categoryPath && item.categoryPath[1]) || '';
+  const titleLower = item.title.toLowerCase();
+
+  // 1. FILMS & RELATED BOOKLATES
+  if (root === 'Documentries' && subFolder === 'KKLS') {
+    if (titleLower.includes('book') || titleLower.includes('script') || titleLower.includes('draft')) {
+      return { categoryId: 'design', subcategory: 'Booklates Design' };
+    }
+    if (titleLower.includes('jath')) {
+      return { categoryId: 'video-production', subcategory: 'Documentries' };
+    }
+    return { categoryId: 'films', subcategory: 'Short Films' };
+  }
+
+  // 2. VIDEO PRODUCTION & BRAND PROMOTION
+  if (root === 'TV Commercials') {
+    const isPromo = titleLower.includes('ad') || 
+                    titleLower.includes('short') || 
+                    titleLower.includes('promo') || 
+                    titleLower.includes('trailer') || 
+                    titleLower.includes('run') || 
+                    titleLower.includes('yoga') || 
+                    titleLower.includes('work') || 
+                    titleLower.includes('social') ||
+                    titleLower.includes('mobster');
+    if (isPromo) {
+      return { categoryId: 'video-production', subcategory: 'Brand Promotion' };
+    }
+    return { categoryId: 'video-production', subcategory: 'TV Commercial' };
+  }
+  
+  if (root === 'Documentries') {
+    return { categoryId: 'video-production', subcategory: 'Documentries' };
+  }
+  
+  if (root === 'Election campaign') {
+    return { categoryId: 'video-production', subcategory: 'Political' };
+  }
+
+  // 3. DESIGN
+  if (root === 'Branding') {
+    if (titleLower.includes('logo')) {
+      return { categoryId: 'design', subcategory: 'Logo Design' };
+    }
+    if (titleLower.includes('brochure')) {
+      return { categoryId: 'design', subcategory: 'Brochure Design' };
+    }
+    if (titleLower.includes('book') || titleLower.includes('booklate') || titleLower.includes('booklet')) {
+      return { categoryId: 'design', subcategory: 'Booklates Design' };
+    }
+    return { categoryId: 'design', subcategory: 'Branding Identity Design' };
+  }
+
+  // 4. MARKETING
+  if (root === 'Social Media') {
+    if (titleLower.includes('seo')) {
+      return { categoryId: 'marketing', subcategory: 'SEO' };
+    }
+    if (titleLower.includes('performance')) {
+      return { categoryId: 'marketing', subcategory: 'Performance Marketing' };
+    }
+    if (titleLower.includes('offline')) {
+      return { categoryId: 'marketing', subcategory: 'Offline Marketing' };
+    }
+    return { categoryId: 'marketing', subcategory: 'Social Media Marketing' };
+  }
+
+  // 5. PHOTOGRAPHY mapping
+  if (root === 'Photography') {
+    if (subFolder === 'Interior') {
+      return { categoryId: 'design', subcategory: 'Branding Identity Design' };
+    }
+    return { categoryId: 'marketing', subcategory: 'Social Media Marketing' };
+  }
+
+  // Fallback
+  return { categoryId: 'marketing', subcategory: 'Social Media Marketing' };
 }
 
-export function isMediaFilterAllowed(driveRoot: string | null, filter: MediaFilterId): boolean {
-  const availability = getMediaFilterAvailability(driveRoot);
-  if (!availability) return true;
-  return availability[filter];
+/** Human-readable category line for cards & lightbox. */
+export function formatPortfolioCategoryLine(
+  driveRoot: string | null | undefined,
+  subCategory?: string | null
+): string {
+  const parts = [driveRoot, subCategory].filter(Boolean);
+  return parts.join(' · ');
 }
 
-/** Snap to a valid filter when switching to a single-media-type category. */
-export function coerceMediaFilter(driveRoot: string | null, filter: MediaFilterId): MediaFilterId {
-  if (!driveRoot) return filter;
-  if (isMediaFilterAllowed(driveRoot, filter)) return filter;
-  return getDefaultMediaFilter(driveRoot);
-}
-
-/** Only mixed categories treat format as a real refinement (not project default). */
-export function isMediaFilterMeaningfulRefinement(
-  driveRoot: string | null,
-  filter: MediaFilterId
-): boolean {
-  const availability = getMediaFilterAvailability(driveRoot);
-  if (!availability?.video || !availability?.visual) return false;
-  return filter !== 'all';
-}
-
-export function getMediaFilterHint(driveRoot: string | null): string | null {
-  const availability = getMediaFilterAvailability(driveRoot);
-  if (!availability) return null;
-  if (availability.video && !availability.visual) return 'This category is video only.';
-  if (availability.visual && !availability.video) return 'Images and PDFs only in this category.';
-  return null;
-}
-
-/** Sensible default when switching Drive tabs. */
-export function getDefaultMediaFilter(driveRoot: string | null): MediaFilterId {
-  if (!driveRoot) return 'all';
-  if (driveRoot === 'Branding' || driveRoot === 'Photography') return 'visual';
-  if (driveRoot === 'Documentries' || driveRoot === 'TV Commercials') return 'video';
-  return 'all';
-}
-
-/** @deprecated kept for types used elsewhere */
+// Deprecated fields kept for type checks in build
 export const SERVICE_CATEGORIES = [
   { id: 'production', name: 'Production' },
   { id: 'design', name: 'Design' },
@@ -165,5 +163,4 @@ export const SERVICE_CATEGORIES = [
   { id: 'marketing', name: 'Marketing' },
   { id: 'events', name: 'Events' },
 ] as const;
-
 export type ServiceCategoryName = (typeof SERVICE_CATEGORIES)[number]['name'];

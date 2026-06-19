@@ -5,17 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { DrivePortfolioItem } from '@/lib/drivePortfolio';
 import {
-  formatPortfolioCategoryLine,
-  coerceMediaFilter,
-  getDefaultMediaFilter,
-  matchesMediaFilter,
   PORTFOLIO_DRIVE_TABS,
-  type MediaFilterId,
+  mapItemToCategory,
   type PortfolioDriveTabId,
 } from '@/lib/portfolioCategories';
 import {
   buildPortfolioCatalog,
-  getSubcategoriesForDriveRoot,
   pickFeaturedItems,
   type DriveFolderNode,
   type PortfolioDisplayItem,
@@ -30,7 +25,7 @@ import {
   type PortfolioLightboxGalleryEntry,
 } from '@/components/portfolio/PortfolioLightbox';
 import { PremiumButton } from '@/components/ui/PremiumButton';
-import { MobileFiltersDrawer, PortfolioFilters } from '@/components/portfolio/PortfolioFilters';
+import { PortfolioFilters } from '@/components/portfolio/PortfolioFilters';
 
 export interface PortfolioShowcaseProps {
   driveItems?: DrivePortfolioItem[];
@@ -71,38 +66,47 @@ function PortfolioGrid({
               No projects match these filters
             </motion.p>
           ) : (
-            pageItems.map((item) => (
-              <motion.article
-                layout
-                key={item.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="group"
-              >
-                <button
-                  type="button"
-                  onClick={() => setLightbox(item)}
-                  className="relative block w-full overflow-hidden rounded-2xl bg-black text-left ring-1 ring-white/10 transition-all duration-500 hover:ring-accent/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                >
-                  <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/11]">
-                    <PortfolioCardMedia item={item} />
+            pageItems.map((item) => {
+              const mapping = mapItemToCategory(item);
+              const catConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === mapping.categoryId);
+              const categoryLine = catConfig
+                ? `${catConfig.label} · ${mapping.subcategory}`.replace(/ · $/, '')
+                : '';
 
-                    <div className="absolute inset-x-0 bottom-0 z-10 p-5">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
-                        {formatPortfolioCategoryLine(item.driveRoot, item.subCategory) ||
-                          item.serviceCategory}
-                      </p>
-                      <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-white">{item.title}</h3>
+              return (
+                <motion.article
+                  layout
+                  key={item.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="group"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(item)}
+                    className="relative block w-full overflow-hidden rounded-2xl bg-black text-left ring-1 ring-white/10 transition-all duration-500 hover:ring-accent/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                  >
+                    <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/11]">
+                      <PortfolioCardMedia item={item} />
+
+                      <div className="absolute inset-x-0 bottom-0 z-10 p-5">
+                        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
+                          {categoryLine}
+                        </p>
+                        <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-white">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <div className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+                        <ArrowUpRight className="h-4 w-4 text-accent" />
+                      </div>
                     </div>
-                    <div className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
-                      <ArrowUpRight className="h-4 w-4 text-accent" />
-                    </div>
-                  </div>
-                </button>
-              </motion.article>
-            ))
+                  </button>
+                </motion.article>
+              );
+            })
           )}
         </AnimatePresence>
       </motion.div>
@@ -191,12 +195,10 @@ export function PortfolioShowcase({
   const isFeatured = mode === 'featured';
   const itemsPerPage = isFeatured ? 6 : 12;
 
-  const [activeTab, setActiveTab] = useState<PortfolioDriveTabId>('social-media');
-  const [activeMedia, setActiveMedia] = useState<MediaFilterId>('all');
-  const [activeSub, setActiveSub] = useState('All');
+  const [activeTab, setActiveTab] = useState<PortfolioDriveTabId>('all');
+  const [activeSub, setActiveSub] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [lightbox, setLightbox] = useState<PortfolioDisplayItem | null>(null);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const gridScrollRef = useRef<HTMLDivElement>(null);
 
   const handlePageChange = useCallback((page: number) => {
@@ -204,65 +206,36 @@ export function PortfolioShowcase({
     requestAnimationFrame(() => scrollToPortfolioGrid(gridScrollRef.current));
   }, []);
 
-  const activeTabConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === activeTab)!;
-  const activeDriveRoot = activeTabConfig.driveRoot;
-  const isWebsiteTab = activeTab === 'websites';
-  const effectiveMedia = activeDriveRoot
-    ? coerceMediaFilter(activeDriveRoot, activeMedia)
-    : activeMedia;
-
-  useEffect(() => {
-    if (!activeDriveRoot) return;
-    setActiveMedia((prev) => {
-      const next = coerceMediaFilter(activeDriveRoot, prev);
-      return next === prev ? prev : next;
-    });
-  }, [activeDriveRoot]);
-
-  useEffect(() => {
-    if (!isFeatured) return;
-    const first = PORTFOLIO_DRIVE_TABS.find((tab) => {
-      if (tab.driveRoot === null) return catalog.some((i) => i.kind === 'website');
-      return catalog.some((i) => i.driveRoot === tab.driveRoot);
-    });
-    if (first) setActiveTab(first.id);
-  }, [isFeatured, catalog]);
-
   const filtered = useMemo(() => {
-    let pool: PortfolioDisplayItem[];
+    let pool = catalog.map((item) => {
+      const mapping = mapItemToCategory(item);
+      return {
+        ...item,
+        newCategoryId: mapping.categoryId,
+        newSubcategory: mapping.subcategory,
+      };
+    });
 
-    if (isWebsiteTab) {
-      pool = catalog.filter((i) => i.kind === 'website');
-    } else if (activeDriveRoot) {
-      pool = catalog.filter(
-        (i) =>
-          i.kind === 'drive' &&
-          i.driveRoot === activeDriveRoot &&
-          matchesMediaFilter(i.mediaType, effectiveMedia)
-      );
-    } else {
-      pool = [];
+    // 1. Filter by category
+    if (activeTab !== 'all') {
+      pool = pool.filter((i) => i.newCategoryId === activeTab);
     }
 
-    if (!isWebsiteTab && activeSub !== 'All') {
-      pool = pool.filter((i) => i.subCategory === activeSub);
+    // 2. Filter by subcategory (if activeSub is set)
+    if (activeSub) {
+      pool = pool.filter((i) => i.newSubcategory.toLowerCase() === activeSub.toLowerCase());
     }
 
     return pool;
-  }, [catalog, activeTab, activeDriveRoot, effectiveMedia, activeSub, isWebsiteTab]);
-
-  const subcategories = useMemo(() => {
-    if (isWebsiteTab || !activeDriveRoot) return ['All'];
-    return getSubcategoriesForDriveRoot(catalog, activeDriveRoot);
-  }, [catalog, activeDriveRoot, isWebsiteTab]);
+  }, [catalog, activeTab, activeSub]);
 
   const orderedPool = useMemo(() => {
     if (!shouldInterleavePortfolioItems(activeSub)) {
       return filtered;
     }
-    const seed = `${activeTab}-${effectiveMedia}-${activeDriveRoot ?? 'websites'}-${isFeatured ? 'featured' : 'full'}`;
+    const seed = `${activeTab}-${activeSub}-${isFeatured ? 'featured' : 'full'}`;
     return interleavePortfolioItems(filtered, seed);
-  }, [filtered, activeSub, activeTab, effectiveMedia, activeDriveRoot, isFeatured]);
+  }, [filtered, activeTab, activeSub, isFeatured]);
 
   const displayItems = useMemo(() => {
     if (isFeatured) {
@@ -276,21 +249,24 @@ export function PortfolioShowcase({
 
   const lightboxEntries = useMemo<PortfolioLightboxGalleryEntry[]>(
     () =>
-      displayItems.map((entry) => ({
-        item: {
-          title: entry.title,
-          previewUrl: entry.previewUrl,
-          thumbnailUrl: entry.thumbnailUrl,
-          thumbnailFallback: entry.thumbnailFallback,
-          driveFileId: entry.driveFileId,
-          mimeType: entry.mimeType,
-          categoryPath: entry.categoryPath,
-          externalUrl: entry.externalUrl,
-          kind: entry.kind,
-        },
-        caseStudy: entry.caseStudy,
-        subtitle: formatPortfolioCategoryLine(entry.driveRoot, entry.subCategory),
-      })),
+      displayItems.map((entry) => {
+        const mapping = mapItemToCategory(entry);
+        return {
+          item: {
+            title: entry.title,
+            previewUrl: entry.previewUrl,
+            thumbnailUrl: entry.thumbnailUrl,
+            thumbnailFallback: entry.thumbnailFallback,
+            driveFileId: entry.driveFileId,
+            mimeType: entry.mimeType,
+            categoryPath: entry.categoryPath,
+            externalUrl: entry.externalUrl,
+            kind: entry.kind,
+          },
+          caseStudy: entry.caseStudy,
+          subtitle: `${entry.driveRoot || ''} · ${mapping.subcategory}`.replace(/^ · | · $/g, ''),
+        };
+      }),
     [displayItems]
   );
 
@@ -299,54 +275,20 @@ export function PortfolioShowcase({
     return displayItems.findIndex((entry) => entry.id === lightbox.id);
   }, [lightbox, displayItems]);
 
-  const countsByTab = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const tab of PORTFOLIO_DRIVE_TABS) {
-      if (tab.driveRoot === null) {
-        counts[tab.id] = catalog.filter((i) => i.kind === 'website').length;
-      } else {
-        counts[tab.id] = catalog.filter((i) => i.driveRoot === tab.driveRoot).length;
-      }
-    }
-    return counts;
-  }, [catalog]);
-
   const handleTabChange = (tabId: PortfolioDriveTabId) => {
-    const tab = PORTFOLIO_DRIVE_TABS.find((t) => t.id === tabId)!;
     setActiveTab(tabId);
-    setActiveSub('All');
-    setActiveMedia(tab.driveRoot ? getDefaultMediaFilter(tab.driveRoot) : 'all');
+    const tabConfig = PORTFOLIO_DRIVE_TABS.find((t) => t.id === tabId);
+    if (tabConfig && tabConfig.subcategories.length > 0) {
+      setActiveSub(tabConfig.subcategories[0]);
+    } else {
+      setActiveSub('');
+    }
     setCurrentPage(1);
   };
 
-  const handleClearRefinements = () => {
-    setActiveSub('All');
-    if (activeDriveRoot) setActiveMedia(getDefaultMediaFilter(activeDriveRoot));
-    else setActiveMedia('all');
-    setCurrentPage(1);
-  };
-
-  const handleMediaChange = useCallback(
-    (media: MediaFilterId) => {
-      setActiveMedia(activeDriveRoot ? coerceMediaFilter(activeDriveRoot, media) : media);
-      setCurrentPage(1);
-    },
-    [activeDriveRoot]
-  );
-
   useEffect(() => {
     setCurrentPage(1);
-    setActiveSub('All');
-    setMobileFiltersOpen(false);
-  }, [activeTab, activeMedia]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeSub]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
+  }, [activeTab, activeSub]);
 
   const sectionTop =
     layout === 'work' ? 'pt-36 pb-20 md:pt-44 md:pb-28' : 'pt-24 pb-16 md:pt-32 md:pb-24';
@@ -370,98 +312,28 @@ export function PortfolioShowcase({
           </p>
         </header>
 
-        <div className="sticky top-[56px] md:top-[67px] lg:top-[74px] z-40 -mx-4 border-b border-white/[0.06] bg-black/95 backdrop-blur-lg md:-mx-10">
-          <div className="space-y-0 px-4 pb-3 pt-0 md:px-10 md:pb-4">
+        {/* Horizontal Category and Subcategory Sticky Filters */}
+        <div className="sticky top-[56px] z-40 -mx-4 border-b border-white/[0.06] bg-black/95 backdrop-blur-lg md:top-[67px] md:-mx-10 lg:top-[74px]">
+          <div className="px-4 py-1 md:px-10">
             <PortfolioFilters
-              variant="category-bar"
               activeTab={activeTab}
-              activeMedia={effectiveMedia}
               activeSub={activeSub}
-              countsByTab={countsByTab}
-              subcategories={subcategories}
-              resultCount={displayItems.length}
-              isWebsiteTab={isWebsiteTab}
-              isFeatured={isFeatured}
-              showMediaFilters={Boolean(activeDriveRoot)}
-              driveRoot={activeDriveRoot}
               onTabChange={handleTabChange}
-              onMediaChange={handleMediaChange}
               onSubChange={setActiveSub}
-              onClearRefinements={handleClearRefinements}
             />
-
-            <div className="border-t border-white/[0.06] pt-3">
-              <MobileFiltersDrawer
-                open={mobileFiltersOpen}
-                onToggle={() => setMobileFiltersOpen((o) => !o)}
-                activeMedia={effectiveMedia}
-                activeSub={activeSub}
-                resultCount={displayItems.length}
-                isWebsiteTab={isWebsiteTab}
-                subcategories={subcategories}
-                driveRoot={activeDriveRoot}
-              >
-                <PortfolioFilters
-                  variant="sidebar"
-                  activeTab={activeTab}
-                  activeMedia={effectiveMedia}
-                  activeSub={activeSub}
-                  countsByTab={countsByTab}
-                  subcategories={subcategories}
-                  resultCount={displayItems.length}
-                  isWebsiteTab={isWebsiteTab}
-                  isFeatured={isFeatured}
-                  showMediaFilters={Boolean(activeDriveRoot)}
-                  driveRoot={activeDriveRoot}
-                  onTabChange={handleTabChange}
-                  onMediaChange={handleMediaChange}
-                  onSubChange={(sub) => {
-                    setActiveSub(sub);
-                    setCurrentPage(1);
-                  }}
-                  onClearRefinements={() => {
-                    handleClearRefinements();
-                    setMobileFiltersOpen(false);
-                  }}
-                />
-              </MobileFiltersDrawer>
-            </div>
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:gap-6 lg:mt-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[300px_minmax(0,1fr)] xl:gap-10">
-          <div className="relative hidden min-h-0 lg:block">
-            <div className="sticky top-[152px] z-20 max-h-[calc(100dvh-152px)] overflow-y-auto overscroll-contain [scrollbar-width:thin]">
-              <PortfolioFilters
-                variant="sidebar"
-                activeTab={activeTab}
-                activeMedia={effectiveMedia}
-                activeSub={activeSub}
-                countsByTab={countsByTab}
-                subcategories={subcategories}
-                resultCount={displayItems.length}
-                isWebsiteTab={isWebsiteTab}
-                isFeatured={isFeatured}
-                showMediaFilters={Boolean(activeDriveRoot)}
-                driveRoot={activeDriveRoot}
-                onTabChange={handleTabChange}
-                onMediaChange={handleMediaChange}
-                onSubChange={setActiveSub}
-                onClearRefinements={handleClearRefinements}
-              />
-            </div>
-          </div>
-
-          <div ref={gridScrollRef} className="min-w-0 scroll-mt-[152px]">
-            <PortfolioGrid
-              pageItems={pageItems}
-              setLightbox={setLightbox}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              filteredLength={displayItems.length}
-              onPage={handlePageChange}
-            />
-          </div>
+        {/* Portfolio Grid Layout without Sidebar */}
+        <div ref={gridScrollRef} className="mt-8 w-full scroll-mt-[152px] lg:mt-12">
+          <PortfolioGrid
+            pageItems={pageItems}
+            setLightbox={setLightbox}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            filteredLength={displayItems.length}
+            onPage={handlePageChange}
+          />
         </div>
 
         {(showViewAllLink || isFeatured) && (
